@@ -1,17 +1,17 @@
 ﻿namespace CHEJ_GetServicesVzLa
 {
-	using System;
-    using CHEJ_GetServicesVzLa.Views;
-    using Xamarin.Forms;
+	using CHEJ_GetServicesVzLa.Views;
+	using Xamarin.Forms;
 
-    public partial class App : Application
+	public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
 
 			//  MainPage = new MainPage();
-			MainPage = new LoginPage();
+			//  MainPage = new LoginPage();
+			this.MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

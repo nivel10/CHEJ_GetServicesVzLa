@@ -7,10 +7,16 @@
         
         <ScrollView BindingContext="{Binding Login}">
             
-            <StackLayout Padding="20,20,10,20">
+            <StackLayout Padding="20,10,20,20">
 
                 <Image Source="ServiciosLogo"
-                       HeightRequest="100"/>
+                       HeightRequest="100"
+                       VerticalOptions="CenterAndExpand"/>
+                
+                <Label FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       Text="Basic Consultation of Services - VzLa"
+                       VerticalOptions="Center"/>
 
                 <Grid Margin="10,0" VerticalOptions="CenterAndExpand">
                     
@@ -25,6 +31,8 @@
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
+                           Keyboard="Email"
+                           IsEnabled="{Binding IsEnabled}"
                            Placeholder="Enter your email...!!!"
                            Text="{Binding Email, Mode=TwoWay}"
                            VerticalOptions="Center"/>
@@ -35,8 +43,10 @@
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="1"
+                           IsPassword="true"
+                           IsEnabled="{Binding IsEnabled}"
                            Placeholder="Enter your password...!!!"
-                           Text="{Binding Email, Mode=TwoWay}"
+                           Text="{Binding Password, Mode=TwoWay}"
                            VerticalOptions="Center"/>
                     
                 </Grid>
