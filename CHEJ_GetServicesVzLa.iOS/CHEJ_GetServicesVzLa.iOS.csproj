@@ -160,5 +160,7 @@
     <BundleResource Include="Resources\InstagramLogo.png" />
     <BundleResource Include="Resources\TwitterLogo.png" />
     <BundleResource Include="Resources\ServiciosLogo.png" />
+    <BundleResource Include="Resources\ic_exit_to_app.png" />
+    <BundleResource Include="Resources\ic_settings.png" />
   </ItemGroup>
 </Project>

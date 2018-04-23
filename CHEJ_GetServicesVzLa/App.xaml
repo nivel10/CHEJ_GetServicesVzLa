@@ -18,6 +18,10 @@
             <x:String x:Key="UrlCne">https://api.willicab.com.ve/infove/cne/elector/</x:String>
             <x:String x:Key="UrlIvss">https://api.willicab.com.ve/infove/ivss/cuenta/</x:String>
             <x:String x:Key="UrlZoom">https://api.willicab.com.ve/infove/zoom/seguimiento/</x:String>
+
+            <!-- Colors -->
+            <Color x:Key="BackGround">#485058</Color>
+            <Color x:Key="MainColor">#A6A5A1</Color>
             
         </ResourceDictionary>
         

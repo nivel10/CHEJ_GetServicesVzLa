@@ -88,6 +88,16 @@
     <AndroidResource Include="Resources\drawable\InstagramLogo.png" />
     <AndroidResource Include="Resources\drawable\TwitterLogo.png" />
     <AndroidResource Include="Resources\drawable\ServiciosLogo.png" />
+    <AndroidResource Include="Resources\drawable\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_exit_to_app.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

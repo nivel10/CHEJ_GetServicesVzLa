@@ -1,7 +1,8 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System.Collections.ObjectModel;
 	using CHEJ_GetServicesVzLa.Models;
-       
+
 	public class MainViewModel
     {
 		#region Attrbutes
@@ -30,6 +31,30 @@
 			set;
 		}
 
+        public ObservableCollection<Menu> MyMenu
+		{
+			get;
+			set;
+		}
+
+        public NewUserViewModel NewUser
+		{
+			get;
+			set;
+		}
+
+		public AboutViewModel About 
+		{ 
+			get;
+			set; 
+		}
+
+        public RecoveryViewModel Recovery 
+		{ 
+			get; 
+			set; 
+		}
+        
 		#endregion Properties
 
 		#region Constructor
@@ -38,12 +63,15 @@
 		{
 			//  Get instance of MainViewModel
 			instance = this;
-
+            
 			//  Se instancia la clase del LoginViewModel
 			Login = new LoginViewModel();
-		}
 
-        #endregion Constructor
+			//  Load elements of menu
+			LoadMenu();
+		}      
+
+		#endregion Constructor
 
 		#region Methods
 
@@ -56,6 +84,25 @@
 			}
 			return instance;
 		}
+
+		private void LoadMenu()
+        {
+			MyMenu = new ObservableCollection<Menu>();
+
+			MyMenu.Add(new Menu
+			{
+				Icon = "ic_settings.png",
+				PageName = "MyProfilePage",
+                Title = "My Profile",
+			});
+
+			MyMenu.Add(new Menu
+			{
+				Icon = "ic_exit_to_app.png",
+				PageName = "Loginage",
+				Title = "Close Sesion",
+			});         
+        }
 
 		#endregion Methods
     }

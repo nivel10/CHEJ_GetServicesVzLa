@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:pages="clr-namespace:CHEJ_GetServicesVzLa.Views"
+                  x:Class="CHEJ_GetServicesVzLa.Views.MasterPage">
+
+    <!-- Section Master -->
+    <MasterDetailPage.Master>
+        <pages:MenuPage/>
+    </MasterDetailPage.Master>
+
+    <!-- Section Details -->
+    <MasterDetailPage.Detail>
+        <NavigationPage x:Name="Navigator">
+            <x:Arguments>
+                <pages:TabMasterPage/>
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+    
+</MasterDetailPage>

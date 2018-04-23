@@ -1,7 +1,9 @@
 ﻿namespace CHEJ_GetServicesVzLa.Helpers
 {
-	using System.Text.RegularExpressions;
-    using Xamarin.Forms;
+	using System;
+    using System.Text.RegularExpressions;
+	using CHEJ_GetServicesVzLa.Models;
+	using Xamarin.Forms;
 
     public class MethodsHelper
     {
@@ -29,7 +31,67 @@
         {
             return Application.Current.Resources["UrlAPI"].ToString().Trim();
         }
+        
+        public static Response IsValidField(
+			string _typeField, 
+			int _longInitial, 
+			int _longFinal,
+            string _nameField,
+			string _valueFiled,
+		    bool _validLong,
+			bool _isPasswordConfirm,
+		    string _password)
+        {
+    		//  The field is string value
+    		if(_typeField == "S")
+    		{
+    			if(string.IsNullOrEmpty(_valueFiled))
+    			{
+    				return new Response
+    				{
+    					IsSuccess = false,
+    					Message = string.Format(
+    						"You must enter a {0}...!!!",
+    						_nameField),
+    				};
+    			}
 
+				if(_validLong)
+				{
+					if (_valueFiled.Length < _longInitial ||
+                   _valueFiled.Length > _longFinal)
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "The {0} only can contains between {1} and {2} characters...!!!",
+                                _nameField, _longInitial, _longFinal),
+                        };
+                    }
+				}
+
+				if(_isPasswordConfirm)
+				{
+					if(!_valueFiled.Equals(_password))
+					{
+						return new Response
+						{
+							IsSuccess = false,
+							Message = 
+								"The password and confirm are not the same...!!!",
+						};
+					}
+				}
+			}
+
+			return new Response
+            {
+                IsSuccess = true,
+                Message = "The field is Ok....!!!",
+            };
+        }
+        
         #endregion Methods
     }
 

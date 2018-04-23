@@ -68,8 +68,35 @@
 
 		}
 
+		public ICommand RegisterCommand
+		{
+			get
+			{
+				return new RelayCommand(Register);
+			}
+
+		}
+
+		public ICommand AboutCommand
+		{
+			get
+			{
+				return new RelayCommand(About);
+			}
+		}
+
+		public ICommand ForgotPasswordCommand
+		{
+			get
+			{
+				return new RelayCommand(ForgotPassword);
+			}
+
+		}
+
+      
 		#endregion Commands
-              
+
 		#endregion Properties
 
 		#region Constructor
@@ -180,7 +207,34 @@
             SetStatusControl(true, true, false);
 
 			//  Navigate to the page
-			await navigationService.Navigate("MenuPage");
+			await navigationService.NavigateOnMaster("MenuPage");
+        }
+        
+		private async void Register()
+        {
+            // Instance the class NewUserView Model
+			MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+
+            //  Navigate to the page register
+			await navigationService.NavigateOnLogin("NewUserPage");
+        }
+
+		private async void About()
+        {
+			//  Instance the class AboutViewModel
+			MainViewModel.GetInstance().About = new AboutViewModel();
+
+			//  Navigate to the page AboutPage
+			await navigationService.NavigateOnLogin("AboutPage");
+        }
+
+		private async void ForgotPassword()
+        {
+			//  Instance the class RecoveryViewModel
+			MainViewModel.GetInstance().Recovery = new RecoveryViewModel();
+
+			//  Navigate to the page RecoveryPage
+			await navigationService.NavigateOnLogin("RecoveryPage");
         }
 
 		private void SetInitialize()

@@ -2,7 +2,7 @@
 {
 	using Newtonsoft.Json;
 
-	public class CantvResponse
+	public class Cantv
 	{
 		[JsonProperty(PropertyName = "error")]
 		public bool Error { get; set; }
