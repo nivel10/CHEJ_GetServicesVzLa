@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
 	using CHEJ_GetServicesVzLa.Services;
@@ -265,7 +264,7 @@
 			//  Set status controls
             SetStatusControl(true, true, false, string.Empty);
 
-            //  Use the user registration API
+            //  Use the user registration API - Stay here
 		}
 
 		private async void Back()

@@ -114,7 +114,8 @@
                 </StackLayout>
 
                 <Label HorizontalOptions="CenterAndExpand" 
-                       TextColor="Red" 
+                       TextColor="Red"
+                       HorizontalTextAlignment="Center"
                        Text="{Binding Message}"
                        IsVisible="{Binding IsVisible, Mode=TwoWay}"
                        VerticalOptions="CenterAndExpand"/>
