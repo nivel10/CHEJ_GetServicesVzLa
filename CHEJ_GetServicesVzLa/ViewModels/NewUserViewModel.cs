@@ -1,12 +1,14 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
+	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
 	public class NewUserViewModel : BaseViewModel
-    {      
+	{
 		#region Attributes
 
 		private bool isEnabled;
@@ -40,19 +42,19 @@
 		public string FirtsName
 		{
 			get { return this.firtsName; }
-            set { SetValue(ref this.firtsName, value); }
+			set { SetValue(ref this.firtsName, value); }
 		}
-              
+
 		public string LastName
 		{
 			get { return this.lastName; }
-            set { SetValue(ref this.lastName, value); }
+			set { SetValue(ref this.lastName, value); }
 		}
 
 		public string Email
 		{
 			get { return this.email; }
-            set { SetValue(ref this.email, value); }
+			set { SetValue(ref this.email, value); }
 		}
 
 		public string Password
@@ -60,7 +62,7 @@
 			get { return this.password; }
 			set { SetValue(ref this.password, value); }
 		}
-        
+
 		public string Confirm
 		{
 			get { return this.confirm; }
@@ -76,7 +78,7 @@
 		public bool IsVisible
 		{
 			get { return this.isVisible; }
-            set { SetValue(ref this.isVisible, value); }
+			set { SetValue(ref this.isVisible, value); }
 		}
 
 		public string Message
@@ -106,7 +108,7 @@
 		#endregion Commands
 
 		#endregion Properties
-              
+
 		#region Constructor
 
 		public NewUserViewModel()
@@ -115,12 +117,7 @@
 			SetInitializaFields();
 
 			//  Set status controls
-			SetStatusControl(
-				true, 
-				true, 
-				false,
-				"Remember to enter a valid email, as you must " +
-				"confirm the email in your account...!!!");
+			SetStatusControl(true, true, false, 0);
 
 			//  Generate a instance of the services class
 			apiService = new ApiService();
@@ -141,119 +138,147 @@
 			this.Confirm = "";
 			this.Message = "";
 		}
-        
+
 		private async void Register()
 		{
 			//  Validate the field of form
 			var response = MethodsHelper.IsValidField(
-				"S", 
-				3, 
+				"S",
+				3,
 				20,
-				"firts name", 
+				"firts name",
 				this.FirtsName,
 				true,
 				false,
 				string.Empty);
-			if(!response.IsSuccess)
+			if (!response.IsSuccess)
 			{
 				await dialogService.ShowMessage(
-					"Error", 
-					response.Message, 
+					"Error",
+					response.Message,
 					"Accept");
 				return;
 			}
-            
-            response = MethodsHelper.IsValidField(
-				"S",
-                3,
-                20,
-                "last name",
-                this.LastName,
-				true,
-                false,
-                string.Empty);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
 
 			response = MethodsHelper.IsValidField(
-                "S",
-                0,
-                0,
-                "email",
-                this.Email,
+				"S",
+				3,
+				20,
+				"last name",
+				this.LastName,
+				true,
 				false,
-                false,
-                string.Empty);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
+				string.Empty);
+			if (!response.IsSuccess)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message,
+					"Accept");
+				return;
+			}
+
+			response = MethodsHelper.IsValidField(
+				"S",
+				0,
+				0,
+				"email",
+				this.Email,
+				false,
+				false,
+				string.Empty);
+			if (!response.IsSuccess)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message,
+					"Accept");
+				return;
+			}
 
 			var isValidEmail = MethodsHelper.IsValidEmail(this.Email);
-			if(!isValidEmail)
+			if (!isValidEmail)
 			{
 				await dialogService.ShowMessage(
-					"Error", 
-					"You must enter an valid email", 
+					"Error",
+					"You must enter an valid email",
 					"Accept");
 				return;
 			}
 
 			response = MethodsHelper.IsValidField(
-                "S",
-                6,
-                10,
-                "password",
-                this.Password,
+				"S",
+				6,
+				10,
+				"password",
+				this.Password,
 				true,
-                false,
-                string.Empty);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
+				false,
+				string.Empty);
+			if (!response.IsSuccess)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message,
+					"Accept");
+				return;
+			}
 
 			response = MethodsHelper.IsValidField(
-                "S",
-                6,
-                10,
-                "password confirm",
-                this.Confirm,
+				"S",
+				6,
+				10,
+				"password confirm",
+				this.Confirm,
 				true,
-                true,
-                this.Password);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
+				true,
+				this.Password);
+			if (!response.IsSuccess)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message,
+					"Accept");
+				return;
+			}
 
 			//  Set status controls
-			SetStatusControl(false, true, true, string.Empty);
-
+			SetStatusControl(false, true, true, 1);
+			
 			response = await apiService.CheckConnection();
+			if (!response.IsSuccess)
+			{
+				//  Set status controls
+                SetStatusControl(true, true, false, 0);
+
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message,
+					"Accept");
+				return;
+			}
+
+			//  Use the user registration API         
+			var user = new User
+			{
+				AppName = MethodsHelper.GetAppName(),
+				Email = this.Email,
+				FirstName = this.FirtsName,
+				LastName = this.LastName,
+				Password = this.Password,
+				UserType = Convert.ToInt32("5"),
+			};
+
+			response = await apiService.Post(
+				MethodsHelper.GetUrlAPI(),
+			    "/api",
+			    "Users",
+			    user);
 			if(!response.IsSuccess)
 			{
 				//  Set status controls
-				SetStatusControl(true, true, false, string.Empty);
-
+                SetStatusControl(true, true, false, 0);
+				            
 				await dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
@@ -262,9 +287,12 @@
 			}
 
 			//  Set status controls
-            SetStatusControl(true, true, false, string.Empty);
+            SetStatusControl(true, true, false, 0);
 
-            //  Use the user registration API - Stay here
+			//  Set Initialize the fields
+			SetInitializaFields();
+
+            //  
 		}
 
 		private async void Back()
@@ -272,7 +300,7 @@
 			//  Initialize the fields
 			SetInitializaFields();
 
-            //  Navigate to back page
+			//  Navigate to back page
 			await navigationService.GoBackOnLogin();
 		}
 
@@ -280,17 +308,30 @@
 			bool _isEnabled,
 			bool _isVisible,
 			bool _isRunning,
-			string _message)
+			int _message)
 		{
 			this.IsEnabled = _isEnabled;
 			this.IsVisible = _isVisible;
 			this.IsRunning = _isRunning;
-			if(this.isVisible && !string.IsNullOrEmpty(_message))
+			if (this.isVisible)
 			{
-				this.Message = _message;
+				switch(_message)
+				{
+					case 0:
+						this.Message = string.Format(
+							"{0}{1}",
+							"Remember to enter a valid email, as you must ",
+							"confirm the email in your account...!!!");
+						break;
+					case 1:
+                        this.Message = string.Format(
+                            "{0}",
+							"Wait a moment, we are processing your request...!!! ");
+                        break;
+				}
 			}
 		}
 
 		#endregion Methods
-    }
+	}
 }

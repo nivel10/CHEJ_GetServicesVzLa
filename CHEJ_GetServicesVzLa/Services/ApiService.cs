@@ -86,5 +86,65 @@
 				};
 			}
 		}
-	}
+
+        public async Task<Response> Post<T>(
+			string _urlPI, 
+			string _urlPrefix, 
+			string _urlController, 
+			T model)
+        {
+			try
+			{
+				var request = JsonConvert.SerializeObject(model);
+
+				var content =
+					new StringContent(request, Encoding.UTF8, "application/json");
+
+				var client = new HttpClient();
+				client.BaseAddress = new Uri(_urlPI);
+
+				var urlAPI = string.Format("{0}{1}", _urlPrefix, _urlController);
+
+				var response = await client.PostAsync(urlAPI, content);
+
+				var result = await response.Content.ReadAsStringAsync();
+
+				if (!response.IsSuccessStatusCode)
+				{
+					if(result.Contains("No se encuentra el recurso"))
+					{
+						return new Response 
+						{
+							IsSuccess = false,
+							Message = string.Format(
+								"{0}{1}",
+								"Sorry, the system is currently ",
+								"down. Try later...!!!"),
+						};
+					}
+
+					var error = JsonConvert.DeserializeObject<Response>(result);
+					error.IsSuccess = false;
+					return error;
+				}
+
+				var newRecord = JsonConvert.DeserializeObject<T>(result);
+
+				return new Response
+				{
+					IsSuccess = true,
+					Message = "New record add is ok...!!!",
+					Result = newRecord,
+				};
+			}
+			catch(Exception ex)
+			{
+				return new Response
+				{
+					IsSuccess = false,
+					Message = ex.Message,
+				};
+			}
+        }
+   	}
 }

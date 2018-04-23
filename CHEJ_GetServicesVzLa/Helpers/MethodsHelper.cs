@@ -92,6 +92,11 @@
             };
         }
         
+        public static string GetAppName()
+        {
+			return Application.Current.Resources["AppName"].ToString().Trim();
+        }
+
         #endregion Methods
     }
 
