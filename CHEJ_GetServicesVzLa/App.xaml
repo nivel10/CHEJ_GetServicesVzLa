@@ -22,7 +22,8 @@
             
             <!-- Colors -->
             <Color x:Key="BackGround">#485058</Color>
-            <Color x:Key="MainColor">#A6A5A1</Color>
+            <Color x:Key="MenuColor">#333A42</Color>
+            <Color x:Key="FontMenuColor">#FFFFFF</Color>
             
         </ResourceDictionary>
         

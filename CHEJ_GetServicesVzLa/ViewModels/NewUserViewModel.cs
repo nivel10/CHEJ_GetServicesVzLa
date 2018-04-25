@@ -266,13 +266,13 @@
 				FirstName = this.FirtsName,
 				LastName = this.LastName,
 				Password = this.Password,
-				UserType = Convert.ToInt32("5"),
+				UserTypeId = Convert.ToInt32("5"),
 			};
 
 			response = await apiService.Post(
 				MethodsHelper.GetUrlAPI(),
 			    "/api",
-			    "Users",
+			    "/Users",
 			    user);
 			if(!response.IsSuccess)
 			{
@@ -292,7 +292,16 @@
 			//  Set Initialize the fields
 			SetInitializaFields();
 
-            //  
+			//  Go back login
+			await dialogService.ShowMessage(
+				"Information", 
+				string.Format(
+					"{0}{1}", 
+					"User registered successfully, you can now log in to the ",
+					"application whit this username and password...!!!"),
+				"Accept");
+
+			await navigationService.GoBackOnLogin();
 		}
 
 		private async void Back()
@@ -318,10 +327,11 @@
 				switch(_message)
 				{
 					case 0:
-						this.Message = string.Format(
-							"{0}{1}",
-							"Remember to enter a valid email, as you must ",
-							"confirm the email in your account...!!!");
+						//this.Message = string.Format(
+							//"{0}{1}",
+							//"Remember to enter a valid email, as you must ",
+							//"confirm the email in your account...!!!");
+						this.Message = string.Empty;
 						break;
 					case 1:
                         this.Message = string.Format(

@@ -31,7 +31,8 @@
 			set;
 		}
 
-        public ObservableCollection<Menu> MyMenu
+        //  public ObservableCollection<Menu> MyMenu
+		public ObservableCollection<MenuItemViewModel> MyMenu
 		{
 			get;
 			set;
@@ -55,6 +56,42 @@
 			set; 
 		}
         
+        public TabMasterViewModel TabMaster
+		{
+			get;
+			set;
+		}
+
+		public MyProfileViewModel MyProfile
+		{
+			get;
+			set;
+		}
+        
+        public CantvViewModel Cantv
+		{
+			get;
+			set;
+		}
+
+        public CneViewModel Cne
+		{
+			get;
+			set;
+		}
+
+        public IvssViewModel Ivss
+		{
+			get;
+			set;
+		}
+
+        public ZoomViewModel Zoom
+		{
+			get;
+			set;
+		}
+
 		#endregion Properties
 
 		#region Constructor
@@ -87,21 +124,36 @@
 
 		private void LoadMenu()
         {
-			MyMenu = new ObservableCollection<Menu>();
+			//  MyMenu = new ObservableCollection<Menu>();
+			MyMenu = new ObservableCollection<MenuItemViewModel>();
 
-			MyMenu.Add(new Menu
-			{
-				Icon = "ic_settings.png",
-				PageName = "MyProfilePage",
+			//MyMenu.Add(new Menu
+			//{
+			//	Icon = "ic_settings.png",
+			//	PageName = "MyProfilePage",
+            //  Title = "My Profile",
+			//});
+
+			//MyMenu.Add(new Menu
+			//{
+			//	Icon = "ic_exit_to_app.png",
+			//	PageName = "LoginPage",
+			//	Title = "Close Sesion",
+			//});  
+                     
+			MyMenu.Add(new MenuItemViewModel
+            {
+                Icon = "ic_settings.png",
+                PageName = "MyProfilePage",
                 Title = "My Profile",
-			});
+            });
 
-			MyMenu.Add(new Menu
-			{
-				Icon = "ic_exit_to_app.png",
-				PageName = "Loginage",
-				Title = "Close Sesion",
-			});         
+			MyMenu.Add(new MenuItemViewModel
+            {
+                Icon = "ic_exit_to_app.png",
+                PageName = "LoginPage",
+                Title = "Close Sesion",
+            });
         }
 
 		#endregion Methods

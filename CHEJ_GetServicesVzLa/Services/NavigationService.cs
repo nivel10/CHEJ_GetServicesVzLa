@@ -18,6 +18,10 @@
 						//new MenuPage());
 					await App.Navigator.PushAsync(new MenuPage());
 					break;
+
+				case "MyProfilePage":
+					await App.Navigator.PushAsync(new MyProfilePage());
+					break;
 			}
 		}
 
@@ -52,8 +56,7 @@
 					break;
 
 				case "MasterPage":
-					Application.Current.MainPage = 
-						new NavigationPage(new MasterPage());
+					Application.Current.MainPage = new MasterPage();
 					break;
 			}
 		}

@@ -33,7 +33,7 @@
 			set;
 		}
 
-        public int UserType
+        public int UserTypeId
 		{
 			get;
 			set;

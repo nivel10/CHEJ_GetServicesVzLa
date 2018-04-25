@@ -119,33 +119,52 @@
 
 		private async void Login()
         {
-            //  Valida los campos del formulario
-            if (string.IsNullOrEmpty(Email))
+			//  Validate the fields of form
+			var response = MethodsHelper.IsValidField(
+                "S",
+                0,
+                0,
+                "email",
+                this.Email,
+                false,
+                false,
+                string.Empty);
+            if (!response.IsSuccess)
             {
-				await dialogService.ShowMessage(
-					"Error", 
-					"You must enter an email...!!!", 
-					"Accept");
-				return;
-			}
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
 
-			if(!MethodsHelper.IsValidEmail(Email))
-			{
-				await dialogService.ShowMessage(
-					"Error", 
-					"You must enter a valid email...!!!", 
-					"Accept");
-				return;
-			}
+            var isValidEmail = MethodsHelper.IsValidEmail(this.Email);
+            if (!isValidEmail)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "You must enter an valid email",
+                    "Accept");
+                return;
+            }
 
-			if(string.IsNullOrEmpty(this.Password))
-			{
-				await dialogService.ShowMessage(
-					"Error", 
-					"You must enter a password...!!!", 
-					"");
-				return;
-			}
+			response = MethodsHelper.IsValidField(
+                "S",
+                0,
+                0,
+                "password",
+                this.Password,
+                false,
+                false,
+                string.Empty);
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
 
 			//  Establece el estatus de los controles
 			SetStatusControl(false, true, true);
@@ -207,20 +226,31 @@
             SetStatusControl(true, true, false);
 
 			//  Navigate to the page
-			await navigationService.NavigateOnMaster("MenuPage");
+			//  await navigationService.NavigateOnMaster("MenuPage");
+
+			//  Define the MainPage
+			navigationService.SetMainPage("MasterPage");
         }
         
 		private async void Register()
         {
+			//  EStablishes the status of controls
+            SetInitialize();
+            SetStatusControl(true, true, false);
+
             // Instance the class NewUserView Model
 			MainViewModel.GetInstance().NewUser = new NewUserViewModel();
-
+            
             //  Navigate to the page register
 			await navigationService.NavigateOnLogin("NewUserPage");
         }
 
 		private async void About()
         {
+			//  EStablishes the status of controls
+            SetInitialize();
+            SetStatusControl(true, true, false);
+
 			//  Instance the class AboutViewModel
 			MainViewModel.GetInstance().About = new AboutViewModel();
 
@@ -230,6 +260,10 @@
 
 		private async void ForgotPassword()
         {
+			//  EStablishes the status of controls
+            SetInitialize();
+            SetStatusControl(true, true, false);
+
 			//  Instance the class RecoveryViewModel
 			MainViewModel.GetInstance().Recovery = new RecoveryViewModel();
 

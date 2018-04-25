@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="{StaticResource MainColor}"
+             BackgroundColor="{StaticResource MenuColor}"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Menu"
              x:Class="CHEJ_GetServicesVzLa.Views.MenuPage">
     
     <ContentPage.Content>
 
-        <StackLayout Padding="10,40">
+        <StackLayout Padding="10,20">
 
             <Label FontAttributes="Bold" 
                    FontSize="Large"
                    Text="Prueba"
-                   TextColor="White"/>
+                   TextColor="{StaticResource FontMenuColor}"/>
             
-            <ListView BackgroundColor="{StaticResource MainColor}" 
+            <ListView BackgroundColor="{StaticResource MenuColor}" 
                       HasUnevenRows="true" 
                       ItemsSource="{Binding MyMenu}"
                       SeparatorVisibility="None">
@@ -27,6 +27,10 @@
                         <ViewCell>
                             
                             <Grid>
+
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                                </Grid.GestureRecognizers>
                                 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -41,7 +45,7 @@
                                 <Label Grid.Column="1"
                                        Grid.Row="0"
                                        Text="{Binding Title}"
-                                       TextColor="White"
+                                       TextColor="{StaticResource FontMenuColor}"
                                        VerticalOptions="Center"/>
                             </Grid>
                             

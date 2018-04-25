@@ -1,6 +1,8 @@
-﻿namespace CHEJ_GetServicesVzLa.Models
+﻿using CHEJ_GetServicesVzLa.ViewModels;
+
+namespace CHEJ_GetServicesVzLa.Models
 {
-    public class Menu
+	public class Menu
     {
 		public string Title
 		{

@@ -122,8 +122,19 @@
 								"down. Try later...!!!"),
 						};
 					}
-
-					var error = JsonConvert.DeserializeObject<Response>(result);
+					else if(result.Contains("The email you are using"))
+					{                  
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+								"The email you are using is already ",
+								"registered...!!!"),
+                        };
+					}
+                                   
+					var error = JsonConvert.DeserializeObject<Response>(result);               
 					error.IsSuccess = false;
 					return error;
 				}

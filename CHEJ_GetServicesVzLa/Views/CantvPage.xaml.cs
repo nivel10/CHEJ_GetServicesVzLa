@@ -2,9 +2,9 @@
 {
 	using Xamarin.Forms;
 
-	public partial class TabMasterPage : TabbedPage
+	public partial class CantvPage : ContentPage
     {
-        public TabMasterPage()
+        public CantvPage()
         {
             InitializeComponent();
         }

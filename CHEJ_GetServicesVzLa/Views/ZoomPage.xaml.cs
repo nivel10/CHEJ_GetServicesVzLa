@@ -1,10 +1,10 @@
 ﻿namespace CHEJ_GetServicesVzLa.Views
 {
 	using Xamarin.Forms;
-
-	public partial class TabMasterPage : TabbedPage
+       
+	public partial class ZoomPage : ContentPage
     {
-        public TabMasterPage()
+        public ZoomPage()
         {
             InitializeComponent();
         }
