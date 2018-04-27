@@ -4,8 +4,78 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="CANTV"
              x:Class="CHEJ_GetServicesVzLa.Views.CantvPage">
+
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem Command="{Binding NewPhoneCommand}"
+                     Icon="ic_action_playlist_add"/>
+        
+    </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
+
+        <StackLayout BindingContext="{Binding Cantv}"
+                     Padding="5">
+            
+            <ListView HasUnevenRows="true"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      ItemsSource="{Binding CantvDatas}"
+                      RefreshCommand="{Binding RefreshCommand}">
+                
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        
+                         <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                
+                                <MenuItem Command="{Binding EditCommand}"
+                                          Text="Edit"/>
+
+                                <MenuItem Command="{Binding DeleteCommand}"
+                                          IsDestructive="true"
+                                          Text="Delete"/>
+                                
+                            </ViewCell.ContextActions>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0"
+                                       Grid.Row="0"
+                                       HorizontalOptions="FillAndExpand"
+                                       Text="{Binding GetFullCantvData}"
+                                       VerticalOptions="Center"/>
+
+                                <Image Grid.Column="1" 
+                                       Grid.Row="0" 
+                                       Source="ic_chevron_right.png"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End">
+                                    
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GetCantvCommand}"/>
+                                    </Image.GestureRecognizers>
+                                    
+                                </Image>
+                            </Grid>
+
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            
+        </StackLayout>
+        
     </ContentPage.Content>
     
 </ContentPage>

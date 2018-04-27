@@ -1,13 +1,18 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System;
 	using System.Collections.ObjectModel;
+	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Models;
+	using CHEJ_GetServicesVzLa.Services;
+	using GalaSoft.MvvmLight.Command;
 
 	public class MainViewModel
     {
 		#region Attrbutes
 
 		private static MainViewModel instance;
+		private static NavigationService navigationSerive;
 
 		#endregion Attributes
 
@@ -92,6 +97,29 @@
 			set;
 		}
 
+		public UserDataResponse UserData
+		{
+			get;
+			set;
+		}
+
+		public QueryCantvViewModel QueryCantv
+		{
+			get;
+			set;
+		}
+
+		public NewPhoneViewModel NewPhone
+		{
+			get;
+			set;
+		}
+
+		public ICommand NewPhoneCommand
+		{
+			get { return new RelayCommand(GoNewPhone); }
+		}
+        
 		#endregion Properties
 
 		#region Constructor
@@ -100,7 +128,10 @@
 		{
 			//  Get instance of MainViewModel
 			instance = this;
-            
+
+			//  Gets an instance og the services class
+			navigationSerive = new NavigationService();
+
 			//  Se instancia la clase del LoginViewModel
 			Login = new LoginViewModel();
 
@@ -154,6 +185,15 @@
                 PageName = "LoginPage",
                 Title = "Close Sesion",
             });
+        }
+              
+		private async void GoNewPhone()
+        {
+			//  Gets an instance of the NewPhoneViewModel
+			NewPhone = new NewPhoneViewModel(UserData.UserId);
+
+			//  Navigate to teh pag NewPhonePage
+			await navigationSerive.NavigateOnMaster("NewPhonePage");
         }
 
 		#endregion Methods

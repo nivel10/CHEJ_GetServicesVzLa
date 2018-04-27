@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="New Phone"
+             x:Class="CHEJ_GetServicesVzLa.Views.NewPhonePage">
+    
+    <ContentPage.Content>
+        
+        <ScrollView BindingContext="{Binding NewPhone}"
+                    Padding="20">
+            
+            <StackLayout>
+
+                <Image Source="PhoneLogo"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="100"/>
+                
+                <Label FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Center"
+                       Text="Data"
+                       VerticalOptions="CenterAndExpand"/>
+                
+                <Grid RowSpacing="5">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Code Phone:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="0"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Text="{Binding CodePhone, Mode=TwoWay}"
+                           Placeholder="Enter code phone"
+                           VerticalOptions="Center"/>
+                    
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Number Phone:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="1"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Text="{Binding NuberPhone, Mode=TwoWay}"
+                           Placeholder="Enter number phone"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                                   VerticalOptions="CenterAndExpand"/>
+                
+                <Label FontSize="Small"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding MessageLabel}"
+                       TextColor="Green"
+                       VerticalOptions="CenterAndExpand"/>
+                
+                <StackLayout HorizontalOptions="Center" 
+                             Orientation="Horizontal"
+                             VerticalOptions="EndAndExpand">
+                    
+                    <Button BackgroundColor="Gray"
+                            Command="{Binding SaveCommand}"
+                            Text="Save"
+                            TextColor="White"
+                            WidthRequest="90"/>
+
+                     <Button BackgroundColor="Gray"
+                            Command="{Binding GoBackCommand}"
+                            Text="Back"
+                            TextColor="White"
+                            WidthRequest="90"/>
+                    
+                </StackLayout>
+                
+            </StackLayout>
+            
+        </ScrollView>
+       
+        
+    </ContentPage.Content>
+    
+</ContentPage>

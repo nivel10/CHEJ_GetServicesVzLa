@@ -22,6 +22,14 @@
 				case "MyProfilePage":
 					await App.Navigator.PushAsync(new MyProfilePage());
 					break;
+
+				case "QueryCantvPage":
+					await App.Navigator.PushAsync(new QueryCantvPage());
+					break;
+
+				case "NewPhonePage":
+					await App.Navigator.PushAsync(new NewPhonePage());
+					break;
 			}
 		}
 

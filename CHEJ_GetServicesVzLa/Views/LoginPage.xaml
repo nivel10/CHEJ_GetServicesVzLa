@@ -53,7 +53,13 @@
 
                 <ActivityIndicator IsRunning="{Binding IsRunning}" 
                                    VerticalOptions="CenterAndExpand"/>
-
+                
+                <Label FontSize="Small"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding MessageLabel}"
+                       TextColor="Green"
+                       VerticalOptions="CenterAndExpand"/>
+                
                 <StackLayout Margin="10,0" 
                              Orientation="Horizontal"
                              VerticalOptions="CenterAndExpand">

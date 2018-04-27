@@ -2,9 +2,9 @@
 {
 	using Xamarin.Forms;
 
-	public partial class CantvPage : ContentPage
+	public partial class NewPhonePage : ContentPage
     {
-        public CantvPage()
+        public NewPhonePage()
         {
             InitializeComponent();
         }

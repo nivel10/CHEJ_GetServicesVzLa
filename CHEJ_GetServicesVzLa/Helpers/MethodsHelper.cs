@@ -31,7 +31,12 @@
         {
             return Application.Current.Resources["UrlAPI"].ToString().Trim();
         }
-        
+
+        public static string GetUrlCantv()
+        {
+			return Application.Current.Resources["UrlCantv"].ToString().Trim();
+        }
+
         public static Response IsValidField(
 			string _typeField, 
 			int _longInitial, 

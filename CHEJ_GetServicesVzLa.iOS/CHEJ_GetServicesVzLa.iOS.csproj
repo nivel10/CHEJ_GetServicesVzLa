@@ -162,5 +162,8 @@
     <BundleResource Include="Resources\ServiciosLogo.png" />
     <BundleResource Include="Resources\ic_exit_to_app.png" />
     <BundleResource Include="Resources\ic_settings.png" />
+    <BundleResource Include="Resources\ic_chevron_right.png" />
+    <BundleResource Include="Resources\PhoneLogo.png" />
+    <BundleResource Include="Resources\ic_action_playlist_add.png" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,11 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
+	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
@@ -14,6 +18,7 @@
 		private bool isEnabled;
 		private bool isRunning;
 		private bool isRemembered;
+		private string messageLabel;
 
 		#region Services
 
@@ -57,6 +62,12 @@
 			set { SetValue(ref this.isRemembered, value); }
 		}
 
+		public string MessageLabel
+		{
+			get { return this.messageLabel; }
+			set { SetValue(ref this.messageLabel, value); }
+		}
+
 		#region Commands
 
 		public ICommand LoginCommand
@@ -93,8 +104,7 @@
 			}
 
 		}
-
-      
+        
 		#endregion Commands
 
 		#endregion Properties
@@ -105,12 +115,15 @@
 		{
 			//  Establece el estatus de los controles
 			SetInitialize();
-			SetStatusControl(true, true, false);
+			SetStatusControl(true, true, false, 0);
 
 			//  Instancia las clase de servicios
 			dialogService = new DialogService();
 			apiService = new ApiService();
 			navigationService = new NavigationService();
+
+			this.Email = "nikole.a.herrera.v@gmail.com";
+			this.Password = "123456";
 		}
         
 		#endregion Constructor
@@ -167,18 +180,18 @@
             }
 
 			//  Establece el estatus de los controles
-			SetStatusControl(false, true, true);
+			SetStatusControl(false, true, true, 1);
 
 			//  Validate if there is an internet connection
-			var resposne = await apiService.CheckConnection();
-			if(!resposne.IsSuccess)
+			response = await apiService.CheckConnection();
+			if(!response.IsSuccess)
 			{
 				//  Establece el estatus de los controles
-                SetStatusControl(true, true, false);
+                SetStatusControl(true, true, false, 0);
 
 				await dialogService.ShowMessage(
 					"Error", 
-					resposne.Message, 
+					response.Message, 
 					"Accept");
 				return;
 			}
@@ -194,7 +207,7 @@
 				if(!string.IsNullOrEmpty(token.ErrorDescription))
 				{
 					//  EStablishes the status of controls
-                    SetStatusControl(true, true, false);
+                    SetStatusControl(true, true, false, 0);
 
 					await dialogService.ShowMessage(
 						"Error", 
@@ -205,8 +218,8 @@
 			}
 			else            
 			{
-				//  EStablishes the status of controls
-                SetStatusControl(true, true, false);
+				//  Establishes the status of controls
+                SetStatusControl(true, true, false, 0);
 
 				await dialogService.ShowMessage(
 					"Error", 
@@ -217,30 +230,35 @@
 
 			//  Get new instance of ViewModel (Token)
 			MainViewModel.GetInstance().Token = token;
-
+            
 			//  Get new instance of MenuViewModel
 			MainViewModel.GetInstance().Menu = new MenuViewModel();
 
-			//  EStablishes the status of controls
+			//  Establishes the status of controls
 			SetInitialize();
-            SetStatusControl(true, true, false);
+			SetStatusControl(true, true, false, 0);
 
 			//  Navigate to the page
 			//  await navigationService.NavigateOnMaster("MenuPage");
 
+			MainViewModel.GetInstance().Cantv = new CantvViewModel();         
+
 			//  Define the MainPage
 			navigationService.SetMainPage("MasterPage");
         }
-        
+
 		private async void Register()
         {
 			//  EStablishes the status of controls
             SetInitialize();
-            SetStatusControl(true, true, false);
+            SetStatusControl(true, true, false, 0);
 
             // Instance the class NewUserView Model
-			MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+			//  MainViewModel.GetInstance().NewUser = new NewUserViewModel();
             
+			// Instance the class NewUserView Model
+            MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+
             //  Navigate to the page register
 			await navigationService.NavigateOnLogin("NewUserPage");
         }
@@ -249,20 +267,20 @@
         {
 			//  EStablishes the status of controls
             SetInitialize();
-            SetStatusControl(true, true, false);
-
-			//  Instance the class AboutViewModel
-			MainViewModel.GetInstance().About = new AboutViewModel();
+            SetStatusControl(true, true, false, 0);
 
 			//  Navigate to the page AboutPage
 			await navigationService.NavigateOnLogin("AboutPage");
+
+			//  Instance the class AboutViewModel
+            MainViewModel.GetInstance().About = new AboutViewModel();
         }
 
 		private async void ForgotPassword()
         {
 			//  EStablishes the status of controls
             SetInitialize();
-            SetStatusControl(true, true, false);
+            SetStatusControl(true, true, false, 0);
 
 			//  Instance the class RecoveryViewModel
 			MainViewModel.GetInstance().Recovery = new RecoveryViewModel();
@@ -280,11 +298,28 @@
 		private void SetStatusControl(
 			bool _isEnabled,
 			bool _isRemembered,
-			bool _isRunning)
+			bool _isRunning,
+			int _messageLabe)
 		{
 			this.IsEnabled = _isEnabled;
 			this.IsRemembered = _isRemembered;
 			this.IsRunning = _isRunning;
+			switch(_messageLabe)
+			{
+				case 0:
+					this.MessageLabel = string.Empty;
+					break;
+				case 1:
+					this.MessageLabel = string.Format(
+						"{0}",
+						"Wait a moment, we are processing your request...!!! ");
+					break;
+				case 2:
+                    this.MessageLabel = string.Format(
+                        "{0}",
+                        "Wait a moment, we are getting your data...!!! ");
+                    break;
+			}
 		}
 
 		#endregion Methods
