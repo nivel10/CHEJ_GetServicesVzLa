@@ -8,9 +8,9 @@
     <ContentPage.Content>
         
         <ScrollView BindingContext="{Binding QueryCantv}"
-                    Padding="20">
+                    Padding="20,10">
             
-            <StackLayout VerticalOptions="CenterAndExpand">
+            <StackLayout>
 
                 <Image Source="PhoneLogo"
                        VerticalOptions="CenterAndExpand"
