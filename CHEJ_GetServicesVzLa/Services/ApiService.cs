@@ -1,14 +1,14 @@
 ﻿namespace CHEJ_GetServicesVzLa.Services
 {
 	using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Text;
-    using System.Threading.Tasks;
-    using CHEJ_GetServicesVzLa.Models;
-    using Newtonsoft.Json;
-    using Plugin.Connectivity;
+	using System.Collections.Generic;
+	using System.Net.Http;
+	using System.Net.Http.Headers;
+	using System.Text;
+	using System.Threading.Tasks;
+	using CHEJ_GetServicesVzLa.Models;
+	using Newtonsoft.Json;
+	using Plugin.Connectivity;
 
 	public class ApiService
     {
@@ -91,7 +91,7 @@
             }
         }
         
-		public async Task<Response> GetData<T>(
+		public async Task<Response> Get<T>(
 			string _urlApi, 
 			string _urlPrefix, 
 			string _urlController,
@@ -138,6 +138,106 @@
 					Result = null,
 				};
 			}
+        }
+
+		public async Task<Response> Get<T>(
+            string _urlBase,
+            string _servicePrefix,
+            string _controller,
+            string _parameter,
+            string _tokenType,
+            string _accessToken)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(_tokenType, _accessToken);
+                client.BaseAddress = new Uri(_urlBase);
+
+                var url = string.Format(
+                    "{0}{1}{2}",
+                    _servicePrefix,
+                    _controller,
+                    _parameter);
+                var response = await client.GetAsync(url);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                var get = JsonConvert.DeserializeObject<T>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Result = get,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+		public async Task<Response> GetList<T>(
+            string _urlBase,
+            string _servicePrefix,
+            string _controller,
+            string _parameter,
+            string _tokenType,
+            string _accessToken)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(_tokenType, _accessToken);
+                client.BaseAddress = new Uri(_urlBase);
+
+                var url = string.Format(
+                    "{0}{1}{2}",
+                    _servicePrefix,
+                    _controller,
+                    _parameter);
+                var response = await client.GetAsync(url);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                var list = JsonConvert.DeserializeObject<List<T>>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Result = list,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
         }
 
         public async Task<Response> Post<T>(
@@ -211,44 +311,223 @@
             }
         }
 
-        public async Task<Response> GetList<T>(
-            string _urlBase,
-            string _servicePrefix,
-            string _controller,
-            string _parameter,
+        public async Task<Response> Post<T>(
+			string _urlPI,
+            string _urlPrefix,
+            string _urlController,
             string _tokenType,
-            string _accessToken)
+            string _accessToken,
+            T model)
         {
             try
             {
                 var client = new HttpClient();
+                client.BaseAddress = new Uri(_urlPI);
                 client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(_tokenType, _accessToken);
-                client.BaseAddress = new Uri(_urlBase);
+                          new AuthenticationHeaderValue(
+						      _tokenType, 
+						      _accessToken);
+                var urlAPI = 
+					string.Format("{0}{1}", _urlPrefix, _urlController);
 
-                var url = string.Format(
-                    "{0}{1}{2}",
-                    _servicePrefix,
-                    _controller,
-                    _parameter);
-                var response = await client.GetAsync(url);
+                var request = JsonConvert.SerializeObject(model);
+
+                var content = new StringContent(
+					request, 
+					Encoding.UTF8, 
+					"application/json");
+
+                var response = await client.PostAsync(urlAPI, content);
+
                 var result = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    if (result.Contains("No se encuentra el recurso"))
                     {
-                        IsSuccess = false,
-                        Message = result,
-                    };
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "Sorry, the system is currently ",
+                                "down. Try later...!!!"),
+                        };
+                    }
+                    else if (result.Contains("The email you are using"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "The email you are using is already ",
+                                "registered...!!!"),
+                        };
+                    }
+                    else if(result.Contains("There is already a record with the same name...!!!"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "here is already a record with the ",
+                                "same name...!!!"),
+                        };
+                    }
+
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
                 }
 
-                var list = JsonConvert.DeserializeObject<List<T>>(result);
+                var newRecord = JsonConvert.DeserializeObject<T>(result);
+
                 return new Response
                 {
                     IsSuccess = true,
-                    Message = "Ok",
-                    Result = list,
+                    Message = "New record add is ok...!!!",
+                    Result = newRecord,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+		public async Task<Response> Put<T>(
+			string _urlPI,
+            string _urlPrefix,
+            string _urlController,
+            string _tokenType,
+            string _accessToken,
+            T model)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(_urlPI);
+                client.DefaultRequestHeaders.Authorization =
+                          new AuthenticationHeaderValue(
+						      _tokenType, 
+						      _accessToken);
+				
+                var urlAPI = string.Format(
+					"{0}{1}/{2}", 
+					_urlPrefix, 
+					_urlController,
+					model.GetHashCode());
+
+                var request = JsonConvert.SerializeObject(model);
+
+                var content = new StringContent(
+					request, 
+					Encoding.UTF8, 
+					"application/json");
+
+                var response = await client.PutAsync(urlAPI, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    if (result.Contains("No se encuentra el recurso"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "Sorry, the system is currently ",
+                                "down. Try later...!!!"),
+                        };
+                    }
+                    else if (result.Contains("The email you are using"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "The email you are using is already ",
+                                "registered...!!!"),
+                        };
+                    }
+                    else if (result.Contains("There is already a record with the same name...!!!"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "here is already a record with the ",
+                                "same name...!!!"),
+                        };
+                    }
+
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
+                }
+
+                var editRecord = JsonConvert.DeserializeObject<T>(result);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Edit record add is ok...!!!",
+					Result = editRecord,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+    
+        public async Task<Response> Delete<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string tokenType,
+            string accessToken,
+            T model)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(tokenType, accessToken);
+                var url = string.Format(
+                    "{0}{1}/{2}",
+                    servicePrefix,
+                    controller,
+                    model.GetHashCode());
+                var response = await client.DeleteAsync(url);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Record removed successfully...!!!",
                 };
             }
             catch (Exception ex)

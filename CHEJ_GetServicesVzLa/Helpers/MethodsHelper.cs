@@ -48,34 +48,34 @@
 		    string _password)
         {
     		//  The field is string value
+			if (string.IsNullOrEmpty(_valueFiled))
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = string.Format(
+                        "You must enter a {0}...!!!",
+                        _nameField),
+                };
+            }
+
+            if (_validLong)
+            {
+                if (_valueFiled.Length < _longInitial ||
+               _valueFiled.Length > _longFinal)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = string.Format(
+                            "The {0} only can contains between {1} and {2} characters...!!!",
+                            _nameField, _longInitial, _longFinal),
+                    };
+                }
+            }
+
     		if(_typeField == "S")
     		{
-    			if(string.IsNullOrEmpty(_valueFiled))
-    			{
-    				return new Response
-    				{
-    					IsSuccess = false,
-    					Message = string.Format(
-    						"You must enter a {0}...!!!",
-    						_nameField),
-    				};
-    			}
-
-				if(_validLong)
-				{
-					if (_valueFiled.Length < _longInitial ||
-                   _valueFiled.Length > _longFinal)
-                    {
-                        return new Response
-                        {
-                            IsSuccess = false,
-                            Message = string.Format(
-                                "The {0} only can contains between {1} and {2} characters...!!!",
-                                _nameField, _longInitial, _longFinal),
-                        };
-                    }
-				}
-
 				if(_isPasswordConfirm)
 				{
 					if(!_valueFiled.Equals(_password))
@@ -87,6 +87,20 @@
 								"The password and confirm are not the same...!!!",
 						};
 					}
+				}
+			}
+			else if(_typeField == "I")
+			{
+				var regex = Regex.IsMatch(_valueFiled, "^[0-9]+$");
+				if(!regex)
+				{
+					return new Response 
+					{
+						IsSuccess = false,
+						Message = string.Format(
+							"The field {0} only can contains numeric values...!!!",
+							_nameField),
+					};
 				}
 			}
 

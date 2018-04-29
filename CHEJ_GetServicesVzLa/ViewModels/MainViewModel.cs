@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Collections.ObjectModel;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Models;
@@ -12,7 +11,7 @@
 		#region Attrbutes
 
 		private static MainViewModel instance;
-		private static NavigationService navigationSerive;
+		private NavigationService navigationSerive;
 
 		#endregion Attributes
 
@@ -37,7 +36,8 @@
 		}
 
         //  public ObservableCollection<Menu> MyMenu
-		public ObservableCollection<MenuItemViewModel> MyMenu
+		//  public ObservableCollection<MenuItemViewModel> MyMenu
+        public ObservableCollection<MenuViewModel> MyMenu
 		{
 			get;
 			set;
@@ -109,15 +109,21 @@
 			set;
 		}
 
-		public NewPhoneViewModel NewPhone
+		public NewCantvViewModel NewCantv
 		{
 			get;
 			set;
 		}
 
-		public ICommand NewPhoneCommand
+		public EditCantvViewModel EditCantv
 		{
-			get { return new RelayCommand(GoNewPhone); }
+			get;
+			set;
+		}
+
+		public ICommand GoNewCantvCommand
+		{
+			get { return new RelayCommand(GoNewCantv); }
 		}
         
 		#endregion Properties
@@ -148,7 +154,7 @@
 		{
 			if (instance == null)
 			{
-				instance = new MainViewModel();
+				return new MainViewModel();
 			}
 			return instance;
 		}
@@ -156,7 +162,8 @@
 		private void LoadMenu()
         {
 			//  MyMenu = new ObservableCollection<Menu>();
-			MyMenu = new ObservableCollection<MenuItemViewModel>();
+			//  MyMenu = new ObservableCollection<MenuItemViewModel>();
+            MyMenu = new ObservableCollection<MenuViewModel>();
 
 			//MyMenu.Add(new Menu
 			//{
@@ -172,14 +179,28 @@
 			//	Title = "Close Sesion",
 			//});  
                      
-			MyMenu.Add(new MenuItemViewModel
+			//MyMenu.Add(new MenuItemViewModel
+   //         {
+   //             Icon = "ic_settings.png",
+   //             PageName = "MyProfilePage",
+   //             Title = "My Profile",
+   //         });
+
+			//MyMenu.Add(new MenuItemViewModel
+            //{
+            //    Icon = "ic_exit_to_app.png",
+            //    PageName = "LoginPage",
+            //    Title = "Close Sesion",
+            //});
+
+            MyMenu.Add(new MenuViewModel
             {
                 Icon = "ic_settings.png",
                 PageName = "MyProfilePage",
                 Title = "My Profile",
             });
 
-			MyMenu.Add(new MenuItemViewModel
+            MyMenu.Add(new MenuViewModel
             {
                 Icon = "ic_exit_to_app.png",
                 PageName = "LoginPage",
@@ -187,15 +208,15 @@
             });
         }
               
-		private async void GoNewPhone()
+		private async void GoNewCantv()
         {
 			//  Gets an instance of the NewPhoneViewModel
-			NewPhone = new NewPhoneViewModel(UserData.UserId);
+			NewCantv = new NewCantvViewModel();
 
 			//  Navigate to teh pag NewPhonePage
-			await navigationSerive.NavigateOnMaster("NewPhonePage");
+			await navigationSerive.NavigateOnMaster("NewCantvPage");
         }
 
 		#endregion Methods
-    }
+	}
 }

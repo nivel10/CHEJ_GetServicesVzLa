@@ -1,60 +1,60 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System.Windows.Input;
+	//using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Models;
-	using CHEJ_GetServicesVzLa.Services;
-	using GalaSoft.MvvmLight.Command;
+	//using CHEJ_GetServicesVzLa.Services;
+	//using GalaSoft.MvvmLight.Command;
 
 	public class MenuItemViewModel : Menu
     {
-        #region Attrbutes
+  //      #region Attrbutes
 
-        private NavigationService navigationService;
+  //      private NavigationService navigationService;
 
-        #endregion Attributes
+  //      #endregion Attributes
 
-        #region Properties
+  //      #region Properties
 
-        #region Commands
+  //      #region Commands
 
-        public ICommand NavigateCommand
-        {
-            get { return new RelayCommand(Navigate); }
-        }
+  //      public ICommand NavigateCommand
+  //      {
+  //          get { return new RelayCommand(Navigate); }
+  //      }
 
-        #endregion Commands
+  //      #endregion Commands
 
-        #endregion Properties
+  //      #endregion Properties
 
-        #region Constructor
+  //      #region Constructor
 
-		public MenuItemViewModel()
-        {
-            //  Intance the class of services
-            navigationService = new NavigationService();
-        }
+		//public MenuItemViewModel()
+    //    {
+    //        //  Intance the class of services
+    //        navigationService = new NavigationService();
+    //    }
 
-        #endregion Constructor
+    //    #endregion Constructor
 
-        #region Methods
+    //    #region Methods
 
-        private async void Navigate()
-        {
-            switch (PageName)
-            {
-                case "LoginPage":
-                    MainViewModel.GetInstance().Login = new LoginViewModel();
-					navigationService.SetMainPage(PageName);
-                    break;
+    //    private async void Navigate()
+    //    {
+    //        switch (PageName)
+    //        {
+    //            case "LoginPage":
+    //                MainViewModel.GetInstance().Login = new LoginViewModel();
+				//	navigationService.SetMainPage(PageName);
+    //                break;
 
-				case "MyProfilePage":
-					MainViewModel.GetInstance().MyProfile = 
-						new MyProfileViewModel();
-					await navigationService.NavigateOnMaster(PageName);
-					break;
-            }
-        }
+				//case "MyProfilePage":
+					//MainViewModel.GetInstance().MyProfile = 
+					//	new MyProfileViewModel();
+					//await navigationService.NavigateOnMaster(PageName);
+					//break;
+        //    }
+        //}
 
-        #endregion Methods
+        //#endregion Methods
     }
 }

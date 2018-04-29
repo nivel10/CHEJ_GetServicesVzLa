@@ -12,15 +12,19 @@
             
             <StackLayout>
 
-                <Image Source="PhoneLogo"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="100"/>
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    
+                    <Image Source="PhoneLogo"
+                           VerticalOptions="Center"
+                           WidthRequest="100"/>
                 
-                <Label FontAttributes="Bold"
-                       FontSize="Large"
-                       HorizontalOptions="Center"
-                       Text="Data"
-                       VerticalOptions="CenterAndExpand"/>
+                    <Label FontAttributes="Bold"
+                           FontSize="Large"
+                           HorizontalOptions="Center"
+                           Text="Data"
+                           VerticalOptions="Center"/>
+                    
+                </StackLayout>
                 
                 <Grid RowSpacing="5">
                     

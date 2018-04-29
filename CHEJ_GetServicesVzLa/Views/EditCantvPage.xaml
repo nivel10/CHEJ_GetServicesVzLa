@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New Phone"
-             x:Class="CHEJ_GetServicesVzLa.Views.NewPhonePage">
+             Title="Edit Cantv"
+             x:Class="CHEJ_GetServicesVzLa.Views.EditCantvPage">
     
     <ContentPage.Content>
         
-        <ScrollView BindingContext="{Binding NewPhone}"
+        <ScrollView BindingContext="{Binding EditCantv}"
                     Padding="20">
             
             <StackLayout>
 
-                <Image Source="PhoneLogo"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="100"/>
+                <StackLayout VerticalOptions="CenterAndExpand">
+
+                    <Image Source="PhoneLogo"
+                           VerticalOptions="Center"
+                           WidthRequest="100"/>
                 
                 <Label FontAttributes="Bold"
                        FontSize="Large"
                        HorizontalOptions="Center"
                        Text="Data"
-                       VerticalOptions="CenterAndExpand"/>
+                       VerticalOptions="Center"/>
+                    
+                </StackLayout>
                 
                 <Grid RowSpacing="5">
                     
@@ -36,6 +40,7 @@
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Keyboard="Numeric"
                            Text="{Binding CodePhone, Mode=TwoWay}"
                            Placeholder="Enter code phone"
                            VerticalOptions="Center"/>
@@ -47,6 +52,7 @@
                     <Entry Grid.Column="1"
                            Grid.Row="1"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Keyboard="Numeric"
                            Text="{Binding NuberPhone, Mode=TwoWay}"
                            Placeholder="Enter number phone"
                            VerticalOptions="Center"/>

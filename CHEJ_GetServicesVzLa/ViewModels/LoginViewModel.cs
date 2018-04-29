@@ -1,11 +1,7 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
-	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
@@ -19,6 +15,7 @@
 		private bool isRunning;
 		private bool isRemembered;
 		private string messageLabel;
+		private MainViewModel mainViewModel;
 
 		#region Services
 
@@ -122,8 +119,12 @@
 			apiService = new ApiService();
 			navigationService = new NavigationService();
 
+            //  Delete this
 			this.Email = "nikole.a.herrera.v@gmail.com";
 			this.Password = "123456";
+
+            //  Gets an instance of MainViewModel
+			mainViewModel = MainViewModel.GetInstance();
 		}
         
 		#endregion Constructor
@@ -228,11 +229,11 @@
 				return;
 			}
 
-			//  Get new instance of ViewModel (Token)
-			MainViewModel.GetInstance().Token = token;
+			//  Get new instance of ViewModel (Token)         
+			mainViewModel.Token = token;
             
 			//  Get new instance of MenuViewModel
-			MainViewModel.GetInstance().Menu = new MenuViewModel();
+			//  MainViewModel.GetInstance().Menu = new MenuViewModel();
 
 			//  Establishes the status of controls
 			SetInitialize();
@@ -241,7 +242,8 @@
 			//  Navigate to the page
 			//  await navigationService.NavigateOnMaster("MenuPage");
 
-			MainViewModel.GetInstance().Cantv = new CantvViewModel();         
+			//  MainViewModel.GetInstance().Cantv = new CantvViewModel();   
+			mainViewModel.Cantv = new CantvViewModel();         
 
 			//  Define the MainPage
 			navigationService.SetMainPage("MasterPage");
@@ -257,7 +259,8 @@
 			//  MainViewModel.GetInstance().NewUser = new NewUserViewModel();
             
 			// Instance the class NewUserView Model
-            MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+            //  MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+			mainViewModel.NewUser = new NewUserViewModel();
 
             //  Navigate to the page register
 			await navigationService.NavigateOnLogin("NewUserPage");
@@ -273,7 +276,7 @@
 			await navigationService.NavigateOnLogin("AboutPage");
 
 			//  Instance the class AboutViewModel
-            MainViewModel.GetInstance().About = new AboutViewModel();
+			mainViewModel.About = new AboutViewModel();
         }
 
 		private async void ForgotPassword()
@@ -282,8 +285,8 @@
             SetInitialize();
             SetStatusControl(true, true, false, 0);
 
-			//  Instance the class RecoveryViewModel
-			MainViewModel.GetInstance().Recovery = new RecoveryViewModel();
+			//  Instance the class RecoveryViewModel         
+			mainViewModel.Recovery = new RecoveryViewModel();
 
 			//  Navigate to the page RecoveryPage
 			await navigationService.NavigateOnLogin("RecoveryPage");

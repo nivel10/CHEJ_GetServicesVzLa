@@ -27,8 +27,12 @@
 					await App.Navigator.PushAsync(new QueryCantvPage());
 					break;
 
-				case "NewPhonePage":
-					await App.Navigator.PushAsync(new NewPhonePage());
+				case "NewCantvPage":
+					await App.Navigator.PushAsync(new NewCantvPage());
+					break;
+
+				case "EditCantvPage":
+					await App.Navigator.PushAsync(new EditCantvPage());
 					break;
 			}
 		}

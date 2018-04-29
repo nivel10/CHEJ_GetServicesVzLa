@@ -7,7 +7,7 @@
 
     <ContentPage.ToolbarItems>
         
-        <ToolbarItem Command="{Binding NewPhoneCommand}"
+        <ToolbarItem Command="{Binding GoNewCantvCommand}"
                      Icon="ic_action_playlist_add"/>
         
     </ContentPage.ToolbarItems>
@@ -19,8 +19,8 @@
             
             <ListView HasUnevenRows="true"
                       IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsRefreshing}"
-                      ItemsSource="{Binding CantvDatas}"
+                      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                      ItemsSource="{Binding Cantvs}"
                       RefreshCommand="{Binding RefreshCommand}">
                 
                 <ListView.ItemTemplate>
@@ -47,7 +47,8 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0"
+                                <Label FontSize="Large" 
+                                       Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalOptions="FillAndExpand"
                                        Text="{Binding GetFullCantvData}"

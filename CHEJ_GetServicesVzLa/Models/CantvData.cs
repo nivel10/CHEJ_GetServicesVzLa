@@ -4,11 +4,23 @@
 	{      
 		#region Properties
 
-		public int CantvDataId { get; set; }
+		public int CantvDataId 
+        {
+            get;
+            set;
+        }
 
-		public string CodePhone { get; set; }
+		public string CodePhone 
+        {
+            get;
+            set;
+        }
 
-		public string NumberPhone { get; set; }
+		public string NumberPhone 
+        {
+            get;
+            set;
+        }
 
 		#endregion Properties
 
@@ -24,6 +36,11 @@
 					CodePhone,
 					NumberPhone);
 			}
+		}
+
+		public override int GetHashCode()
+		{
+            return CantvDataId;
 		}
 
 		#endregion Methods

@@ -152,7 +152,7 @@
 			}
 
 			//  Gets the data of Cantv
-			response = await apiService.GetData<Cantv>(
+			response = await apiService.Get<Cantv>(
 				MethodsHelper.GetUrlCantv(),
 				"/infove/cantv",
 				"/deuda",
