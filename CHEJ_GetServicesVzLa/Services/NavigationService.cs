@@ -34,6 +34,10 @@
 				case "EditCantvPage":
 					await App.Navigator.PushAsync(new EditCantvPage());
 					break;
+
+				case "NewCnePage":
+					await App.Navigator.PushAsync(new NewCnePage());
+					break;
 			}
 		}
 

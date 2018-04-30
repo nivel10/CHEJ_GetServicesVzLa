@@ -8,7 +8,7 @@
     <ContentPage.Content>
         
         <ScrollView BindingContext="{Binding QueryCantv}"
-                    Padding="20,10">
+                    Padding="20">
             
             <StackLayout>
 
@@ -113,7 +113,7 @@
 
                 <ActivityIndicator IsRunning="{Binding IsRunning}" 
                                    VerticalOptions="CenterAndExpand"/>
-                
+
                 <Label FontSize="Small"
                        HorizontalTextAlignment="Center"
                        Text="{Binding MessageLabel}"
@@ -131,7 +131,7 @@
                             WidthRequest="90"/>
                     
                 </StackLayout>
-                
+                                
             </StackLayout>
             
         </ScrollView>

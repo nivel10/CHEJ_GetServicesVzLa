@@ -77,14 +77,8 @@
 		{
 			get;
 			set;
-		}
-
-        public CneViewModel Cne
-		{
-			get;
-			set;
-		}
-
+		}      
+       
         public IvssViewModel Ivss
 		{
 			get;
@@ -121,11 +115,26 @@
 			set;
 		}
 
+        public NewCneViewModel NewCne
+		{
+			get;
+			set;
+		}
+
+		#region Commands
+
 		public ICommand GoNewCantvCommand
 		{
 			get { return new RelayCommand(GoNewCantv); }
 		}
-        
+
+		public ICommand GoNewCneCommand
+		{
+			get { return new RelayCommand(GoNewCne); }
+		}
+
+		#endregion Commands
+
 		#endregion Properties
 
 		#region Constructor
@@ -136,13 +145,13 @@
 			instance = this;
 
 			//  Gets an instance og the services class
-			navigationSerive = new NavigationService();
+			this.navigationSerive = new NavigationService();
 
 			//  Se instancia la clase del LoginViewModel
-			Login = new LoginViewModel();
+			this.Login = new LoginViewModel();
 
 			//  Load elements of menu
-			LoadMenu();
+			this.LoadMenu();
 		}      
 
 		#endregion Constructor
@@ -163,7 +172,7 @@
         {
 			//  MyMenu = new ObservableCollection<Menu>();
 			//  MyMenu = new ObservableCollection<MenuItemViewModel>();
-            MyMenu = new ObservableCollection<MenuViewModel>();
+			this.MyMenu = new ObservableCollection<MenuViewModel>();
 
 			//MyMenu.Add(new Menu
 			//{
@@ -211,10 +220,19 @@
 		private async void GoNewCantv()
         {
 			//  Gets an instance of the NewPhoneViewModel
-			NewCantv = new NewCantvViewModel();
+			this.NewCantv = new NewCantvViewModel();
 
 			//  Navigate to teh pag NewPhonePage
 			await navigationSerive.NavigateOnMaster("NewCantvPage");
+        }
+
+		private async void GoNewCne()
+        {
+			//  Get an instance of the NewCneViewModel
+			this.NewCne = new NewCneViewModel();
+
+			//  Navigate to page NewCnePage
+			await this.navigationSerive.NavigateOnMaster("NewCnePage");
         }
 
 		#endregion Methods

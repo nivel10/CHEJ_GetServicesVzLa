@@ -87,13 +87,13 @@
 		public NewCantvViewModel()
 		{
 			//  Define control format
-			SetInitialize();
-			SetStatusControl(true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, false, 0);
 
 			//  Gets an instances of the services class
-			apiservices = new ApiService();
-			dialogService = new DialogService();
-			navigationService = new NavigationService();
+			this.apiservices = new ApiService();
+			this.dialogService = new DialogService();
+			this.navigationService = new NavigationService();
 
 			//  Gets an instance of the MainViewModel
 			mainViewModel = MainViewModel.GetInstance();
@@ -108,7 +108,7 @@
         
 		private async void GoBack()
 		{
-			await navigationService.GoBackOnMaster();
+			await this.navigationService.GoBackOnMaster();
 		}
 
 		private async void Save()
@@ -124,7 +124,7 @@
 				string.Empty);
 			if(!response.IsSuccess)
 			{
-				await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
 					"Accept");
@@ -142,7 +142,7 @@
                 string.Empty);
             if(!response.IsSuccess)
             {
-                await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
                     "Error",
                     response.Message,
                     "Accept");
@@ -150,15 +150,15 @@
             }
 
             //  Define control format
-            SetStatusControl(false, true, 1);
+			this.SetStatusControl(false, true, 1);
 
             response = await apiservices.CheckConnection();
             if(!response.IsSuccess)
             {
                 //  Define control format
-                SetStatusControl(true, false, 0);
+				this.SetStatusControl(true, false, 0);
 
-                await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
                     "Error", 
                     response.Message, 
                     "Accept");
@@ -169,13 +169,12 @@
             {   
                 CodePhone = this.CodePhone,
                 NumberPhone = this.NuberPhone,
-                //  UserId = MainViewModel.GetInstance().UserData.UserId,
 				UserId = mainViewModel.UserData.UserId,
             };
 
             //  Save the data CatvData         
 			response = await apiservices.Post<CantvDataItem>(
-                MethodsHelper.GetUrlAPI(),
+				MethodsHelper.GetUrlAPI(),
                 "/api",
                 "/CantvDatas",
 				mainViewModel.Token.TokenType,
@@ -195,24 +194,27 @@
 
             //  Add new record         
             cantvData.CantvDataId = ((CantvData)response.Result).CantvDataId;
-			cantvViewModel.UpdateCantvData(1, this.ToCantvData(cantvData));
+			cantvViewModel.UpdateCantvData(
+				1, 
+				this.ToCantvDataItemViewModel(cantvData));
 
             //  Define control format
-            SetStatusControl(true, false, 0);
+			this.SetStatusControl(true, false, 0);
 
             //  Navigate to back
-            await navigationService.GoBackOnMaster();
+			await this.navigationService.GoBackOnMaster();
 		}
 
-		private CantvData ToCantvData(CantvDataItem _cantvData)
-		{
-			return new CantvData
-			{
-				CantvDataId = _cantvData.CantvDataId,
-				CodePhone = _cantvData.CodePhone,
-				NumberPhone = _cantvData.NumberPhone,
-			};
-		}
+		private CantvDataItemViewModel ToCantvDataItemViewModel(
+			CantvDataItem _cantvDataItem)
+        {
+            return new CantvDataItemViewModel
+            {
+                CantvDataId = _cantvDataItem.CantvDataId,
+                CodePhone = _cantvDataItem.CodePhone,
+                NumberPhone = _cantvDataItem.NumberPhone,
+            };
+        }
 
 		private void SetInitialize()
         {

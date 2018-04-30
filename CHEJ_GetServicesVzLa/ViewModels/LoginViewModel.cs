@@ -111,20 +111,20 @@
 		public LoginViewModel()
 		{
 			//  Establece el estatus de los controles
-			SetInitialize();
-			SetStatusControl(true, true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, true, false, 0);
 
 			//  Instancia las clase de servicios
-			dialogService = new DialogService();
-			apiService = new ApiService();
-			navigationService = new NavigationService();
+			this.dialogService = new DialogService();
+			this.apiService = new ApiService();
+			this.navigationService = new NavigationService();
 
             //  Delete this
 			this.Email = "nikole.a.herrera.v@gmail.com";
 			this.Password = "123456";
 
             //  Gets an instance of MainViewModel
-			mainViewModel = MainViewModel.GetInstance();
+			this.mainViewModel = MainViewModel.GetInstance();
 		}
         
 		#endregion Constructor
@@ -145,7 +145,7 @@
                 string.Empty);
             if (!response.IsSuccess)
             {
-                await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
                     "Error",
                     response.Message,
                     "Accept");
@@ -155,7 +155,7 @@
             var isValidEmail = MethodsHelper.IsValidEmail(this.Email);
             if (!isValidEmail)
             {
-                await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
                     "Error",
                     "You must enter an valid email",
                     "Accept");
@@ -173,7 +173,7 @@
                 string.Empty);
             if (!response.IsSuccess)
             {
-                await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
                     "Error",
                     response.Message,
                     "Accept");
@@ -181,14 +181,14 @@
             }
 
 			//  Establece el estatus de los controles
-			SetStatusControl(false, true, true, 1);
+			this.SetStatusControl(false, true, true, 1);
 
 			//  Validate if there is an internet connection
 			response = await apiService.CheckConnection();
 			if(!response.IsSuccess)
 			{
 				//  Establece el estatus de los controles
-                SetStatusControl(true, true, false, 0);
+				this.SetStatusControl(true, true, false, 0);
 
 				await dialogService.ShowMessage(
 					"Error", 
@@ -198,7 +198,7 @@
 			}
 
 			//  Get user Token
-			var token = await apiService.GetToken(
+			var token = await this.apiService.GetToken(
 				Email, 
 				Password, 
 				MethodsHelper.GetUrlAPI());
@@ -208,9 +208,9 @@
 				if(!string.IsNullOrEmpty(token.ErrorDescription))
 				{
 					//  EStablishes the status of controls
-                    SetStatusControl(true, true, false, 0);
+					this.SetStatusControl(true, true, false, 0);
 
-					await dialogService.ShowMessage(
+					await this.dialogService.ShowMessage(
 						"Error", 
 						token.ErrorDescription, 
 						"Accept");
@@ -220,9 +220,9 @@
 			else            
 			{
 				//  Establishes the status of controls
-                SetStatusControl(true, true, false, 0);
+				this.SetStatusControl(true, true, false, 0);
 
-				await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
 					"Error", 
 					"An error has occurred, try later...!!!", 
 					"Accept");
@@ -230,66 +230,66 @@
 			}
 
 			//  Get new instance of ViewModel (Token)         
-			mainViewModel.Token = token;
+			this.mainViewModel.Token = token;
             
 			//  Get new instance of MenuViewModel
 			//  MainViewModel.GetInstance().Menu = new MenuViewModel();
 
 			//  Establishes the status of controls
-			SetInitialize();
-			SetStatusControl(true, true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, true, false, 0);
 
 			//  Navigate to the page
 			//  await navigationService.NavigateOnMaster("MenuPage");
 
 			//  MainViewModel.GetInstance().Cantv = new CantvViewModel();   
-			mainViewModel.Cantv = new CantvViewModel();         
+			this.mainViewModel.Cantv = new CantvViewModel();
 
 			//  Define the MainPage
-			navigationService.SetMainPage("MasterPage");
+			this.navigationService.SetMainPage("MasterPage");
         }
 
 		private async void Register()
         {
 			//  EStablishes the status of controls
-            SetInitialize();
-            SetStatusControl(true, true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, true, false, 0);
 
             // Instance the class NewUserView Model
 			//  MainViewModel.GetInstance().NewUser = new NewUserViewModel();
             
 			// Instance the class NewUserView Model
             //  MainViewModel.GetInstance().NewUser = new NewUserViewModel();
-			mainViewModel.NewUser = new NewUserViewModel();
+			this.mainViewModel.NewUser = new NewUserViewModel();
 
             //  Navigate to the page register
-			await navigationService.NavigateOnLogin("NewUserPage");
+			await this.navigationService.NavigateOnLogin("NewUserPage");
         }
 
 		private async void About()
         {
 			//  EStablishes the status of controls
-            SetInitialize();
-            SetStatusControl(true, true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, true, false, 0);
 
 			//  Navigate to the page AboutPage
-			await navigationService.NavigateOnLogin("AboutPage");
+			await this.navigationService.NavigateOnLogin("AboutPage");
 
 			//  Instance the class AboutViewModel
-			mainViewModel.About = new AboutViewModel();
+			this.mainViewModel.About = new AboutViewModel();
         }
 
 		private async void ForgotPassword()
         {
 			//  EStablishes the status of controls
-            SetInitialize();
-            SetStatusControl(true, true, false, 0);
+			this.SetInitialize();
+			this.SetStatusControl(true, true, false, 0);
 
 			//  Instance the class RecoveryViewModel         
-			mainViewModel.Recovery = new RecoveryViewModel();
+			this.mainViewModel.Recovery = new RecoveryViewModel();
 
 			//  Navigate to the page RecoveryPage
-			await navigationService.NavigateOnLogin("RecoveryPage");
+			await this.navigationService.NavigateOnLogin("RecoveryPage");
         }
 
 		private void SetInitialize()

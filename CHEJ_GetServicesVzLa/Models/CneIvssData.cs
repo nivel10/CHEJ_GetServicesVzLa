@@ -1,6 +1,7 @@
 ﻿namespace CHEJ_GetServicesVzLa.Models
 {
 	using System;
+	using System.Collections.Generic;
 
 	public class CneIvssData
     {
@@ -15,5 +16,25 @@
         public bool IsCne { get; set; }
 
         public bool IsIvss { get; set; }
+
+		public List<NationalityData> NationalityDatas { get; set; }
+        
+        public object GetCneIvssFull
+		{
+			get
+			{
+				if (NationalityDatas.Count > 0)
+				{
+					return string.Format(
+						"{0} - {1}", 
+						NationalityDatas[0].Abbreviation, 
+						IdentificationCard);
+				}
+				else
+				{
+					return "";
+				}            
+			}
+		}
     }
 }

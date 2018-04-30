@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New Phone"
-             x:Class="CHEJ_GetServicesVzLa.Views.NewCantvPage">
+             Title="New CNE"
+             x:Class="CHEJ_GetServicesVzLa.Views.NewCnePage">
     
     <ContentPage.Content>
         
-        <ScrollView BindingContext="{Binding NewCantv}"
+        <ScrollView BindingContext="{Binding NewCne}"
                     Padding="20">
             
             <StackLayout>
@@ -35,28 +35,35 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="0"
-                           Text="Code Phone:"
+                           Text="Nationality:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Numeric"
-                           Text="{Binding CodePhone, Mode=TwoWay}"
-                           Placeholder="Enter code phone"
+                           Text="{Binding Nationality, Mode=TwoWay}"
+                           Placeholder="Enter nationality"
                            VerticalOptions="Center"/>
                     
                     <Label Grid.Column="0"
                            Grid.Row="1"
-                           Text="Number Phone:"
+                           Text="Identification Card:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="1"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                            Keyboard="Numeric"
-                           Text="{Binding NuberPhone, Mode=TwoWay}"
-                           Placeholder="Enter number phone"
+                           Text="{Binding IdentificationCard, Mode=TwoWay}"
+                           Placeholder="Enter identification card"
                            VerticalOptions="Center"/>
 
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Birtday:"
+                           VerticalOptions="Center"/>
+                    <DatePicker Grid.Column="1"
+                                Grid.Row="2"
+                                Format="dd/MM/yyyy"
+                                Date="{Binding BirthDate}"/>
                 </Grid>
 
                 <ActivityIndicator IsRunning="{Binding IsRunning}" 
@@ -92,5 +99,4 @@
        
         
     </ContentPage.Content>
-    
 </ContentPage>

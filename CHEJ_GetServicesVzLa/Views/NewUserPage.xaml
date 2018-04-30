@@ -7,9 +7,10 @@
     
     <ContentPage.Content>
 
-        <ScrollView BindingContext="{Binding NewUser}">
+        <ScrollView BindingContext="{Binding NewUser}"
+                    Padding="20">
 
-            <StackLayout Padding="20,10,20,20">
+            <StackLayout>
 
                 <Image HeightRequest="50"
                        Source="ServiciosLogo.png"
@@ -90,10 +91,17 @@
                 <ActivityIndicator IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                                    IsRunning="{Binding IsRunning, Mode=TwoWay}" 
                                    VerticalOptions="CenterAndExpand"/>
-                
+
+                <Label HorizontalOptions="CenterAndExpand" 
+                       TextColor="Red"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding Message}"
+                       IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                       VerticalOptions="CenterAndExpand"/>
+
                 <StackLayout HorizontalOptions="CenterAndExpand" 
                              Orientation="Horizontal"
-                             VerticalOptions="CenterAndExpand">
+                             VerticalOptions="EndAndExpand">
 
                     <Button BackgroundColor="Gray" 
                             Command="{Binding RegisterCommand}" 
@@ -112,14 +120,7 @@
                             WidthRequest="90"/>
                     
                 </StackLayout>
-
-                <Label HorizontalOptions="CenterAndExpand" 
-                       TextColor="Red"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding Message}"
-                       IsVisible="{Binding IsVisible, Mode=TwoWay}"
-                       VerticalOptions="CenterAndExpand"/>
-                
+                                
             </StackLayout>
            
         </ScrollView>

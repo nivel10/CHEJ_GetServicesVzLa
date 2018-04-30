@@ -194,23 +194,13 @@
 			}
                      
 			//  Update record         
-			cantvViewModel.UpdateCantvData(0, this.ToCantvData(this.editCantv));
+			cantvViewModel.UpdateCantvData(0, this.editCantv);
 
 			//  Define control format
 			SetStatusControl(true, false, 0);
 
 			//  Navigate to back
 			await navigationService.GoBackOnMaster();
-		}
-
-		private CantvData ToCantvData(CantvDataItemViewModel _editCantv)
-		{
-			return new CantvData 
-			{ 
-				CantvDataId = _editCantv.CantvDataId,
-				CodePhone = _editCantv.CodePhone,
-				NumberPhone = _editCantv.NumberPhone,
-			};
 		}
 
 		private CantvDataItem ToCantvDataItem(CantvDataItemViewModel _editCantv)

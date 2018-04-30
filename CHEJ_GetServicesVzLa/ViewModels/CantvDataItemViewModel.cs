@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
 	using CHEJ_GetServicesVzLa.Models;
@@ -105,7 +104,9 @@
 
 			//  Invokate the method that removes a CantvDatas
 			cantvData.UserId = 0;         
-			this.cantvViewModel.UpdateCantvData(-1, this.ToCantvData(cantvData));
+			this.cantvViewModel.UpdateCantvData(
+				-1, 
+				this.ToCantvDataItemViewModel(cantvData));
 
 			await this.dialogService.ShowMessage(
 				"Information",
@@ -125,14 +126,15 @@
 			await this.navigationService.NavigateOnMaster("EditCantvPage");
 		}
 
-		private CantvData ToCantvData(CantvDataItem _cantvData)
-        {
-            return new CantvData
-            {
-                CantvDataId = _cantvData.CantvDataId,
+		private CantvDataItemViewModel ToCantvDataItemViewModel(
+			CantvData _cantvData)
+		{
+			return new CantvDataItemViewModel
+			{
+				CantvDataId = _cantvData.CantvDataId,
                 CodePhone = _cantvData.CodePhone,
                 NumberPhone = _cantvData.NumberPhone,
-            };
+			};
         }
 
 		#endregion Methods
