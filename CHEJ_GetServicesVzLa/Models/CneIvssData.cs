@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using Newtonsoft.Json;
 
 	public class CneIvssData
     {
@@ -19,6 +20,7 @@
 
 		public List<NationalityData> NationalityDatas { get; set; }
         
+        [JsonIgnore]
         public object GetCneIvssFull
 		{
 			get

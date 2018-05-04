@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:CHEJ_GetServicesVzLa.Controls"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="New CNE"
              x:Class="CHEJ_GetServicesVzLa.Views.NewCnePage">
@@ -37,12 +38,15 @@
                            Grid.Row="0"
                            Text="Nationality:"
                            VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="0"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding Nationality, Mode=TwoWay}"
-                           Placeholder="Enter nationality"
-                           VerticalOptions="Center"/>
+                   <control:BindablePicker DisplayMemberPath="Name"
+                                            Grid.Column="1" 
+                                            Grid.Row="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Title="Select a nationality"
+                                            SelectedValuePath="NationalityId"
+                                            ItemsSource="{Binding Nationalities}"
+                                            SelectedValue="{Binding Path=NationalityId, Mode=TwoWay}"
+                                            VerticalOptions="Center"/>
                     
                     <Label Grid.Column="0"
                            Grid.Row="1"
