@@ -11,7 +11,13 @@
 		#region Attributes
 
 		private MainViewModel mainViewModel;
+
+		#region Services
+
 		private NavigationService navigationService;
+		private ApiService apiService;
+
+		#endregion
 
 		#endregion Attributes
 
@@ -32,6 +38,11 @@
 			get { return new RelayCommand(Delete); }
 		}
 
+		public ICommand GetCneCommand
+		{
+			get { return new RelayCommand(GetCne); }
+		}
+
 		#endregion Properties
 
 		#region Constructor
@@ -42,6 +53,7 @@
 			this.mainViewModel = MainViewModel.GetInstance();
 
 			//  Gets an instance of the service class
+			apiService = new ApiService();
 			navigationService = new NavigationService();
 		}
 
@@ -67,6 +79,15 @@
 		{
 			throw new NotImplementedException();
 		}
+        
+		private async void GetCne()
+		{
+			//  Gets an instance of the GetCnePage
+			this.mainViewModel.GetCne = new GetCneViewModel(this);
+
+			//  Navigate to page GetCnePage
+			await navigationService.NavigateOnMaster("GetCnePage");         
+        }
 
 		#endregion Methods
     }

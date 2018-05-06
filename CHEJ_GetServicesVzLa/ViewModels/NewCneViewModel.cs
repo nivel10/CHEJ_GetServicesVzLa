@@ -15,15 +15,15 @@
 		#region Attributes
               
         private MainViewModel mainViewModel;
+		private CantvViewModel cantvViewModel;
 		private ApiService apiService;
 		private DialogService dialogService;
         private NavigationService navigationService;      
-		private string identificationCard;
-		private DateTime birthDay;
+		private string identificationCard;      
 		private string messageLabel;
 		private bool isEnabled;
 		private bool isRunning;
-		private ObservableCollection<NationalityData> nationalities;
+		private ObservableCollection<NationalityData> nationalities;      
 		private int nationalityId;
 
         #endregion Attributes
@@ -35,12 +35,6 @@
 			get { return this.identificationCard; }
 			set { SetValue(ref this.identificationCard, value); }
         }
-
-		public DateTime BirthDate
-		{
-			get { return this.birthDay; }
-			set { SetValue(ref this.birthDay, value); }
-		}
 
 		public ObservableCollection<NationalityData> Nationalities
 		{
@@ -92,11 +86,14 @@
 
 		public NewCneViewModel()
         {
-			//  Gets an instance of the service class
-			this.mainViewModel = MainViewModel.GetInstance();
+			//  Gets an instance of the service class         
 			this.apiService = new ApiService();
 			this.dialogService = new DialogService();
             this.navigationService = new NavigationService();         
+
+            //  Gets an instances of the ViewModels
+			this.mainViewModel = MainViewModel.GetInstance();
+			this.cantvViewModel = CantvViewModel.GetInstance();
 
 			//  Load the value in the form
 			this.LoadValues();
@@ -106,7 +103,7 @@
 		{
 			//  this.Nationality = "";
 			this.IdentificationCard = "";
-			this.BirthDate = DateTime.Now.Date;
+			//  this.BirthDate = DateTime.Now.Date;
 
 			//  Define the status of the controls
 			this.SetStatusControl(false, true, 1);
@@ -123,9 +120,9 @@
 					"Accept");
 				return;
 			}
-
+                     
             //  Get an List<> of the Nationalities
-			response = await apiService.GetList<NationalityData>(
+			response = await this.apiService.GetList<NationalityData>(
 				MethodsHelper.GetUrlAPI(),
 				"/api", 
 				"/Nationalities", 
@@ -136,20 +133,23 @@
 			if(!response.IsSuccess)
 			{
 				//  Define the status of the controls
-                SetStatusControl(true, false, 0);
+                this.SetStatusControl(true, false, 0);
 
-				await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
 					"Accept");
 				return;
 			}
-                     
-            //  Method that load values
-			LoadNationalities((List<NationalityData>)response.Result);
+
+			//  Method that load values
+			this.mainViewModel.ListNationalityDatas = 
+				new List<NationalityData>((List<NationalityData>)response.Result);
+			//  Method that load values
+			this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
 
 			//  Define the status of the controls
-            SetStatusControl(true, false, 0);
+            this.SetStatusControl(true, false, 0);
 		}
 
 		private void LoadNationalities(List<NationalityData> _nationalites)
@@ -176,7 +176,10 @@
 			//  Validate the fields of the form
 			if(this.NationalityId == 0)
 			{
-				await dialogService.ShowMessage("Error", "You must select an nationality...!!!", "Accept");
+				await this.dialogService.ShowMessage(
+					"Error", 
+					"You must select an nationality...!!!", 
+					"Accept");
 				return;
 			}
 
@@ -191,7 +194,7 @@
 				string.Empty);
 			if(!response.IsSuccess)
 			{
-				await dialogService.ShowMessage(
+				await this.dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
 					"Accept");
@@ -199,15 +202,15 @@
 			}
 
 			//  Define the status of the controls
-			SetStatusControl(false, true, 1);
+			this.SetStatusControl(false, true, 1);
 
 			//  Check the connection internet
-			response = await apiService.CheckConnection();
+			response = await this.apiService.CheckConnection();
 			if(!response.IsSuccess)
 			{
 				//  Define the status of the controls
-				SetStatusControl(true, false, 0);
-				await dialogService.ShowMessage(
+				this.SetStatusControl(true, false, 0);
+				await this.dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
 					"Accept");
@@ -215,16 +218,18 @@
 			}
 
 			// Create the object 
-			var cneIvssData = new CneIvssData
+			var cneIvssData = new CneIvssDataItem
 			{ 
-				BirthDate = this.BirthDate,
+				//  BirthDate = this.BirthDate,
+				BirthDate = DateTime.Today.Date,
 				IdentificationCard = this.IdentificationCard,
 				IsCne = true,
 				IsIvss = false,
 				NationalityId = this.NationalityId,
+				UserId = this.mainViewModel.UserData.UserId,
 			};
 
-			response = await apiService.Post<CneIvssData>(
+			response = await this.apiService.Post<CneIvssDataItem>(
 				MethodsHelper.GetUrlAPI(), 
 				"/api", 
 				"/CneIvssDatas", 
@@ -234,7 +239,7 @@
 			if(!response.IsSuccess)
 			{
 				//  Define the status of the controls
-				SetStatusControl(true, false, 0);
+				this.SetStatusControl(true, false, 0);
 				await dialogService.ShowMessage(
 					"Error", 
 					response.Message, 
@@ -242,15 +247,49 @@
 				return;
 			}
 
+			//  Add record to CneData
+			this.cantvViewModel.UpdateCneData(
+				0, 
+				this.ToCneItemViewModel((CneIvssDataItem)response.Result));
+			
+			//  Navigate to back
+			await this.navigationService.GoBackOnMaster();
+            
 			//  Define the status of the controls
-			SetStatusControl(true, false, 0);
+			this.SetStatusControl(true, false, 0);
+		}
 
+		public CneIvssData ToCneItemViewModel(
+			CneIvssDataItem _cneIvssData)
+        {
+			return new CneIvssData
+            {
+				BirthDate = _cneIvssData.BirthDate,
+				CneIvssDataId = _cneIvssData.CneIvssDataId,
+				IdentificationCard = _cneIvssData.IdentificationCard,
+				IsCne = _cneIvssData.IsCne,
+				IsIvss = _cneIvssData.IsIvss,
+                NationalityDatas = this.GetNationalityDatas(
+					_cneIvssData.NationalityId),
+				NationalityId = _cneIvssData.NationalityId,
+            };
         }
+              
+		private List<NationalityData> GetNationalityDatas(int _nationalityId)
+		{
+			var listNationalitiData = new List<NationalityData>();
+			var lis = this.mainViewModel.ListNationalityDatas
+						  .Where(lnd => lnd.NationalityId == _nationalityId)
+			              .FirstOrDefault();         
+			listNationalitiData.Add(lis);
 
-        private async void GoBack()
+			return listNationalitiData;
+		}
+
+		private async void GoBack()
         {
             //  Navigate on back
-            await navigationService.GoBackOnMaster();
+            await this.navigationService.GoBackOnMaster();
         }
 
 		private void SetStatusControl(

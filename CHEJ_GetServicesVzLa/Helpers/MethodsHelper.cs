@@ -27,16 +27,6 @@
                 RegexOptions.IgnoreCase);
         }
 
-        public static string GetUrlAPI()
-        {
-            return Application.Current.Resources["UrlAPI"].ToString().Trim();
-        }
-
-        public static string GetUrlCantv()
-        {
-			return Application.Current.Resources["UrlCantv"].ToString().Trim();
-        }
-
         public static Response IsValidField(
 			string _typeField, 
 			int _longInitial, 
@@ -110,13 +100,27 @@
                 Message = "The field is Ok....!!!",
             };
         }
-        
+
+        public static string GetUrlCne()
+        {
+			return Application.Current.Resources["UrlCne"].ToString().Trim();
+        }
+
         public static string GetAppName()
         {
 			return Application.Current.Resources["AppName"].ToString().Trim();
         }
 
-        #endregion Methods
-    }
+		public static string GetUrlAPI()
+        {
+            return Application.Current.Resources["UrlAPI"].ToString().Trim();
+        }
 
+        public static string GetUrlCantv()
+        {
+            return Application.Current.Resources["UrlCantv"].ToString().Trim();
+        }
+
+        #endregion Methods
+    }   
 }

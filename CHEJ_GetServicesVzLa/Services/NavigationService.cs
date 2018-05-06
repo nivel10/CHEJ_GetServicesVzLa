@@ -23,8 +23,8 @@
 					await App.Navigator.PushAsync(new MyProfilePage());
 					break;
 
-				case "QueryCantvPage":
-					await App.Navigator.PushAsync(new QueryCantvPage());
+				case "GetCantvPage":
+					await App.Navigator.PushAsync(new GetCantvPage());
 					break;
 
 				case "NewCantvPage":
@@ -37,6 +37,10 @@
 
 				case "NewCnePage":
 					await App.Navigator.PushAsync(new NewCnePage());
+					break;
+
+				case "GetCnePage":
+					await App.Navigator.PushAsync(new GetCnePage());
 					break;
 			}
 		}

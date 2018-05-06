@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.Linq;
@@ -55,10 +54,7 @@
 
 		public ICommand RefreshCommand
 		{
-			get
-			{
-				return new RelayCommand(LoadUserData);
-			}
+			get { return new RelayCommand(LoadUserData); }
 		}
 
 		#endregion Commands
@@ -88,9 +84,9 @@
 		#region Methods
 
 		private async void LoadUserData()
-		{         
+		{
 			//  Establishes the status of controls
-			this.SetStatusControls(true);
+			this.SetStatusControls(true);         
 
 			//  Validate if there is an internet connection
 			var response = await this.apiService.CheckConnection();
@@ -137,20 +133,19 @@
 				this.listCantvData);
 
 			//  Load the values of the other pages
-            this.LoadOtherData();
+			this.LoadCneData();
 
 			//  Establishes the status of controls
 			this.SetStatusControls(false);         
 		}
 
-		private void LoadOtherData()
+		private void LoadCneData()
         {
 			//  Select only data of cne
 			this.listCnes = 
 				this.ToListCneItemViewModel(mainViewModel.UserData.CneIvssDatas)
                 .Where(cniv => cniv.IsCne == true)
-                .OrderBy(cniv => cniv.NationalityId)
-                .ThenBy(cniv => cniv.IdentificationCard)
+                .OrderBy(cniv => cniv.GetCneIvssFull)
                 .ToList();
 
             //  Load valuen in the ObservableCollection
@@ -215,7 +210,26 @@
             
 			return cantvData;
 		}
-      	
+
+		public void UpdateCneData(int _option, CneIvssData _cneIvssData)
+        {
+            //  var oldCneIvssData = 
+            switch (_option)
+            {
+                case -1:
+                    break;
+                case 0:
+                    //  listCnes.Add(_cneIvssData);
+                    this.mainViewModel.UserData.CneIvssDatas.Add(_cneIvssData);
+                    break;
+                case 1:
+                    break;
+            }
+
+            //  Invokes the method of load CneData
+            LoadCneData();
+        }
+     
 		public void UpdateCantvData(
 			int _option, 
 			CantvDataItemViewModel _cantvDataItemViewModel)

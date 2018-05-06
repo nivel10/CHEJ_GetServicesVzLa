@@ -6,7 +6,7 @@
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
-	public class QueryCantvViewModel : BaseViewModel
+	public class GetCantvViewModel : BaseViewModel
 	{
 		#region Attributes
 
@@ -110,7 +110,7 @@
 
 		#region Constructor
 
-		public QueryCantvViewModel(
+		public GetCantvViewModel(
 			CantvDataItemViewModel _cantvDataItemViewModel)
 		{
 			//  Generate an instance of the services class

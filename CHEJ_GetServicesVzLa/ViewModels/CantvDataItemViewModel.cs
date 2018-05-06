@@ -57,11 +57,11 @@
 
 		private async void GetCantv()
 		{
-			//  Generate an intsntance of the QueryCantvViewModel         
-			this.mainViewModel.QueryCantv = new QueryCantvViewModel(this);
+			//  Generate an intsntance of the GetCantvViewModel         
+			this.mainViewModel.GetCantv = new GetCantvViewModel(this);
 
 			//  Navigate to de page QueryCantvPage
-			await this.navigationService.NavigateOnMaster("QueryCantvPage");
+			await this.navigationService.NavigateOnMaster("GetCantvPage");
 		}
 
 		private async void Delete()

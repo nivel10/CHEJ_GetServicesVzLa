@@ -62,7 +62,7 @@
                                     
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                        Command="{Binding GetCneIvssCommand}"/>
+                                        Command="{Binding GetCneCommand}"/>
                                     </Image.GestureRecognizers>
                                     
                                 </Image>

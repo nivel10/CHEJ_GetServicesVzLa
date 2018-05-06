@@ -1,5 +1,6 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Models;
@@ -12,6 +13,7 @@
 
 		private static MainViewModel instance;
 		private NavigationService navigationSerive;
+		private List<NationalityData> listNationalityData;
 
 		#endregion Attributes
 
@@ -97,7 +99,7 @@
 			set;
 		}
 
-		public QueryCantvViewModel QueryCantv
+		public GetCantvViewModel GetCantv
 		{
 			get;
 			set;
@@ -121,6 +123,12 @@
 			set;
 		}
 
+		public List<NationalityData> ListNationalityDatas
+		{
+			get;
+			set;
+		}
+
 		#region Commands
 
 		public ICommand GoNewCantvCommand
@@ -133,7 +141,9 @@
 			get { return new RelayCommand(GoNewCne); }
 		}
 
-		#endregion Commands
+		public GetCneViewModel GetCne { get; internal set; }
+
+        #endregion Command#endregion Commands
 
 		#endregion Properties
 
@@ -152,6 +162,9 @@
 
 			//  Load elements of menu
 			this.LoadMenu();
+
+			//  Gets an instance of the List<NationalitiesData>
+			listNationalityData = new List<NationalityData>();
 		}      
 
 		#endregion Constructor

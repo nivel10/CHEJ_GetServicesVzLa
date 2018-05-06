@@ -60,14 +60,14 @@
                            Placeholder="Enter identification card"
                            VerticalOptions="Center"/>
 
-                    <Label Grid.Column="0"
+                   <!-- <Label Grid.Column="0"
                            Grid.Row="2"
                            Text="Birtday:"
                            VerticalOptions="Center"/>
                     <DatePicker Grid.Column="1"
                                 Grid.Row="2"
                                 Format="dd/MM/yyyy"
-                                Date="{Binding BirthDate}"/>
+                                Date="{Binding BirthDate}"/>-->
                 </Grid>
 
                 <ActivityIndicator IsRunning="{Binding IsRunning}" 

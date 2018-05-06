@@ -165,5 +165,6 @@
     <BundleResource Include="Resources\ic_chevron_right.png" />
     <BundleResource Include="Resources\PhoneLogo.png" />
     <BundleResource Include="Resources\ic_action_playlist_add.png" />
+    <BundleResource Include="Resources\CneLogo.png" />
   </ItemGroup>
 </Project>

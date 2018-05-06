@@ -2,19 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Data Cantv"
-             x:Class="CHEJ_GetServicesVzLa.Views.QueryCantvPage">
+             Title="Get CNE"
+             x:Class="CHEJ_GetServicesVzLa.Views.GetCnePage">
     
     <ContentPage.Content>
         
-        <ScrollView BindingContext="{Binding QueryCantv}"
+        <ScrollView BindingContext="{Binding GetCne}"
                     Padding="20">
             
             <StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand">
                     
-                    <Image Source="PhoneLogo"
+                    <Image Source="CneLogo"
                            VerticalOptions="Center"
                            WidthRequest="100"/>
                 
@@ -35,89 +35,89 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="0"
-                           Text="Phone Number:"
+                           Text="Identification:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding PhoneNumber, Mode=TwoWay}"
-                           Placeholder="Shows phone number"
+                           Text="{Binding IdentificationCard, Mode=TwoWay}"
+                           Placeholder="Shows identification card"
                            VerticalOptions="Center"/>
                     
                     <Label Grid.Column="0"
                            Grid.Row="1"
-                           Text="Current Balance:"
+                           Text="Full Name:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="1"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding CurrentBalance, Mode=TwoWay}"
-                           Placeholder="Shows current balance"
+                           Text="{Binding FullName, Mode=TwoWay}"
+                           Placeholder="Shows full name"
                            VerticalOptions="Center"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="2"
-                           Text="Last Billing:"
+                           Text="State:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="2"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding LastBilling, Mode=TwoWay}"
-                           Placeholder="Shows last billing"
+                           Text="{Binding State, Mode=TwoWay}"
+                           Placeholder="Shows state"
                            VerticalOptions="Center"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="3"
-                           Text="Cut Date:"
+                           Text="Municipality:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="3"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding CutDate, Mode=TwoWay}"
-                           Placeholder="Shows cut date"
+                           Text="{Binding Municipality, Mode=TwoWay}"
+                           Placeholder="Shows municipality"
                            VerticalOptions="Center"/>
                     
                      <Label Grid.Column="0"
-                           Grid.Row="4"
-                           Text="Expirate Date:"
-                           VerticalOptions="Center"/>
+                            Grid.Row="4"
+                            Text="Parish:"
+                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="4"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding ExpirateDate, Mode=TwoWay}"
-                           Placeholder="Shows expirate date"
+                           Text="{Binding Parish, Mode=TwoWay}"
+                           Placeholder="Shows parish"
                            VerticalOptions="Center"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="5"
-                           Text="Expirate Balance:"
+                           Text="Center:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="5"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding ExpirateBalance, Mode=TwoWay}"
-                           Placeholder="Shows expirate balance"
+                           Text="{Binding Center, Mode=TwoWay}"
+                           Placeholder="Shows center"
                            VerticalOptions="Center"/>
-
-                     <Label Grid.Column="0"
-                           Grid.Row="6"
-                           Text="Last Payment:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="6"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding LastPayment, Mode=TwoWay}"
-                           Placeholder="Shows last payment"
-                           VerticalOptions="Center"/>
+                    
+                   <Label Grid.Column="0"
+                          Grid.Row="6"
+                          Text="Address:"
+                          VerticalOptions="Center"/>
+                   <Entry Grid.Column="1" 
+                          Grid.Row="6"
+                          IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                          Placeholder="Shows address"
+                          Text="{Binding Address, Mode=TwoWay}"
+                          VerticalOptions="Center"/>
                 </Grid>
 
-                <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                <ActivityIndicator IsRunning="{Binding IsRunning,Mode=TwoWay}" 
                                    VerticalOptions="CenterAndExpand"/>
 
                 <Label FontSize="Small"
                        HorizontalTextAlignment="Center"
                        Text="{Binding MessageLabel}"
-                       TextColor="Green"
+                       TextColor="{Binding MessageLabelTextColor}"
                        VerticalOptions="CenterAndExpand"/>
                 
                 <StackLayout HorizontalOptions="Center" 
@@ -135,7 +135,7 @@
             </StackLayout>
             
         </ScrollView>
-
+        
     </ContentPage.Content>
     
 </ContentPage>

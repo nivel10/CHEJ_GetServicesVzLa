@@ -23,5 +23,6 @@
     <Compile Remove="Views\QueryCantvPage.cs" />
     <Compile Remove="ViewModels\Deleteme.cs" />
     <Compile Remove="ViewModels\CneViewModel.cs" />
+    <Compile Remove="Views\GetCnePage.cs" />
   </ItemGroup>
 </Project>

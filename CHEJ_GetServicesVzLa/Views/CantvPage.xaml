@@ -29,7 +29,7 @@
                         
                          <ViewCell>
 
-                            <ViewCell.ContextActions>
+                             <ViewCell.ContextActions>
                                 
                                 <MenuItem Command="{Binding EditCommand}"
                                           Text="Edit"/>
@@ -39,34 +39,39 @@
                                           Text="Delete"/>
                                 
                             </ViewCell.ContextActions>
+                            
+                            <ViewCell.View>
 
-                            <Grid>
+                                <Grid>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label FontSize="Large" 
-                                       Grid.Column="0"
-                                       Grid.Row="0"
-                                       HorizontalOptions="FillAndExpand"
-                                       Text="{Binding GetFullCantvData}"
-                                       VerticalOptions="Center"/>
+                                    <Label FontSize="Large" 
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           HorizontalOptions="FillAndExpand"
+                                           Text="{Binding GetFullCantvData}"
+                                           VerticalOptions="Center"/>
 
-                                <Image Grid.Column="1" 
-                                       Grid.Row="0" 
-                                       Source="ic_chevron_right.png"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="End">
+                                    <Image Grid.Column="1" 
+                                           Grid.Row="0" 
+                                           Source="ic_chevron_right.png"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End">
+                                        
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GetCantvCommand}"/>
+                                        </Image.GestureRecognizers>
+                                        
+                                    </Image>
                                     
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding GetCantvCommand}"/>
-                                    </Image.GestureRecognizers>
-                                    
-                                </Image>
-                            </Grid>
-
+                                </Grid>
+                                
+                            </ViewCell.View>
+                           
                         </ViewCell>
                         
                     </DataTemplate>
