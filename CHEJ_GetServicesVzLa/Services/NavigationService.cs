@@ -42,6 +42,10 @@
 				case "GetCnePage":
 					await App.Navigator.PushAsync(new GetCnePage());
 					break;
+
+				case "EditCnePage":
+					await App.Navigator.PushAsync(new EditCnePage());
+					break;
 			}
 		}
 

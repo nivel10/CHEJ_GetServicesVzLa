@@ -196,7 +196,7 @@
             cantvData.CantvDataId = ((CantvData)response.Result).CantvDataId;
 			cantvViewModel.UpdateCantvData(
 				1, 
-				this.ToCantvDataItemViewModel(cantvData));
+				this.ToCantvItemViewModel(cantvData));
 
             //  Define control format
 			this.SetStatusControl(true, false, 0);
@@ -205,10 +205,10 @@
 			await this.navigationService.GoBackOnMaster();
 		}
 
-		private CantvDataItemViewModel ToCantvDataItemViewModel(
+		private CantvItemViewModel ToCantvItemViewModel(
 			CantvDataItem _cantvDataItem)
         {
-            return new CantvDataItemViewModel
+            return new CantvItemViewModel
             {
                 CantvDataId = _cantvDataItem.CantvDataId,
                 CodePhone = _cantvDataItem.CodePhone,

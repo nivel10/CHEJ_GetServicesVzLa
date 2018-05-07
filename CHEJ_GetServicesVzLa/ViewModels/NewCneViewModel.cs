@@ -16,9 +16,16 @@
               
         private MainViewModel mainViewModel;
 		private CantvViewModel cantvViewModel;
+
+		#region Services
+
 		private ApiService apiService;
 		private DialogService dialogService;
-        private NavigationService navigationService;      
+		private NavigationService navigationService;
+
+		#endregion Services
+
+		private List<NationalityData> listNationalities;
 		private string identificationCard;      
 		private string messageLabel;
 		private bool isEnabled;
@@ -143,29 +150,43 @@
 			}
 
 			//  Method that load values
-			this.mainViewModel.ListNationalityDatas = 
-				new List<NationalityData>((List<NationalityData>)response.Result);
+			//this.mainViewModel.ListNationalityDatas = 
+				//new List<NationalityData>((List<NationalityData>)response.Result);
+
 			//  Method that load values
-			this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
+            //  this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
+
+			this.listNationalities =
+                new List<NationalityData>((List<NationalityData>)response.Result);
+			
+			//  Method that load values
+			// this.LoadNationalities(this.listNationalityDatas);
+
+			this.Nationalities =
+                new ObservableCollection<NationalityData>(
+					    listNationalities.OrderBy(n => n.NationalityId));
+			
+			//  Method that load values
+			//  this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
 
 			//  Define the status of the controls
             this.SetStatusControl(true, false, 0);
 		}
 
-		private void LoadNationalities(List<NationalityData> _nationalites)
-		{
-			//  Add an new value in the List<>
-			_nationalites.Add(new NationalityData 
-			{
-				Abbreviation = "N",
-				Name = "[Select a nationality...]",
-				NationalityId = 0,
-			});
+		//private void LoadNationalities(List<NationalityData> _nationalites)
+		//{
+		//	//  Add an new value in the List<>
+		//	_nationalites.Add(new NationalityData 
+		//	{
+		//		Abbreviation = "N",
+		//		Name = "[Select a nationality...]",
+		//		NationalityId = 0,
+		//	});
                      
-			this.Nationalities = 
-				new ObservableCollection<NationalityData>(
-					_nationalites.OrderBy(n => n.NationalityId));
-		}
+		//	this.Nationalities = 
+		//		new ObservableCollection<NationalityData>(
+		//			_nationalites.OrderBy(n => n.NationalityId));
+		//}
 
 		#endregion Constructor
 
@@ -249,7 +270,7 @@
 
 			//  Add record to CneData
 			this.cantvViewModel.UpdateCneData(
-				0, 
+				1, 
 				this.ToCneItemViewModel((CneIvssDataItem)response.Result));
 			
 			//  Navigate to back
@@ -259,29 +280,46 @@
 			this.SetStatusControl(true, false, 0);
 		}
 
-		public CneIvssData ToCneItemViewModel(
-			CneIvssDataItem _cneIvssData)
+		//public CneIvssData ToCneItemViewModel(
+			//CneIvssDataItem _cneIvssData)
+   //     {
+			//return new CneIvssData
+    //        {
+				//BirthDate = _cneIvssData.BirthDate,
+				//CneIvssDataId = _cneIvssData.CneIvssDataId,
+				//IdentificationCard = _cneIvssData.IdentificationCard,
+				//IsCne = _cneIvssData.IsCne,
+				//IsIvss = _cneIvssData.IsIvss,
+    //            NationalityDatas = this.GetNationalityDatas(
+				//	_cneIvssData.NationalityId),
+				//NationalityId = _cneIvssData.NationalityId,
+        //    };
+        //}
+              
+		public CneItemViewModel ToCneItemViewModel(
+            CneIvssDataItem _cneIvssData)
         {
-			return new CneIvssData
+			return new CneItemViewModel
             {
-				BirthDate = _cneIvssData.BirthDate,
-				CneIvssDataId = _cneIvssData.CneIvssDataId,
-				IdentificationCard = _cneIvssData.IdentificationCard,
-				IsCne = _cneIvssData.IsCne,
-				IsIvss = _cneIvssData.IsIvss,
+                BirthDate = _cneIvssData.BirthDate,
+                CneIvssDataId = _cneIvssData.CneIvssDataId,
+                IdentificationCard = _cneIvssData.IdentificationCard,
+                IsCne = _cneIvssData.IsCne,
+                IsIvss = _cneIvssData.IsIvss,
                 NationalityDatas = this.GetNationalityDatas(
-					_cneIvssData.NationalityId),
-				NationalityId = _cneIvssData.NationalityId,
+                    _cneIvssData.NationalityId),
+                NationalityId = _cneIvssData.NationalityId,
             };
         }
-              
+
 		private List<NationalityData> GetNationalityDatas(int _nationalityId)
 		{
 			var listNationalitiData = new List<NationalityData>();
-			var lis = this.mainViewModel.ListNationalityDatas
-						  .Where(lnd => lnd.NationalityId == _nationalityId)
-			              .FirstOrDefault();         
-			listNationalitiData.Add(lis);
+			var list = this.listNationalities
+                          .Where(lnd => lnd.NationalityId == _nationalityId)
+                          .FirstOrDefault();
+			
+			listNationalitiData.Add(list);
 
 			return listNationalitiData;
 		}

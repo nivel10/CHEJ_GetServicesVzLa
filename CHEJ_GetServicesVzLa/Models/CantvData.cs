@@ -40,7 +40,7 @@
 
 		public override int GetHashCode()
 		{
-            return CantvDataId;
+            return this.CantvDataId;
 		}
 
 		#endregion Methods

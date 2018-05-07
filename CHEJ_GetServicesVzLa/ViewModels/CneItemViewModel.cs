@@ -14,8 +14,9 @@
 
 		#region Services
 
-		private NavigationService navigationService;
 		private ApiService apiService;
+		private DialogService dialogService;
+		private NavigationService navigationService;
 
 		#endregion
 
@@ -54,6 +55,7 @@
 
 			//  Gets an instance of the service class
 			apiService = new ApiService();
+			dialogService = new DialogService();
 			navigationService = new NavigationService();
 		}
 
@@ -61,9 +63,16 @@
 
 		#region Methods
 
-		private void Delete()
+		private async void Delete()
 		{
-			throw new NotImplementedException();
+			if(await this.dialogService.ShowMessageConfirm(
+				"Infomation", 
+				"Are you sure delete this record...?", 
+				"Yes", 
+				"No"))
+			{
+				
+			}
 		}
 
 		private async void GoNewCne()
@@ -75,9 +84,13 @@
 			await this.navigationService.NavigateOnMaster("NewCnePage");
 		}
 
-		private void Edit()
+		private async void Edit()
 		{
-			throw new NotImplementedException();
+			//  Gets an instance of the EditCneViewModel
+			this.mainViewModel.EditCne = new EditCneViewModel(this);
+
+			//  Navigate to the page EditCneViewModel
+			await this.navigationService.NavigateOnMaster("EditCnePage");
 		}
         
 		private async void GetCne()

@@ -9,8 +9,8 @@
 	public class GetCantvViewModel : BaseViewModel
 	{
 		#region Attributes
-
-		private CantvDataItemViewModel cantvDataItemView;
+        
+		private CantvItemViewModel cantvItemView;
 		private string phoneNumber;
 		private string currentBalance;
 		private string lastBilling;
@@ -107,11 +107,11 @@
 		#endregion Commands
 
 		#endregion Properties
-
+        
 		#region Constructor
 
 		public GetCantvViewModel(
-			CantvDataItemViewModel _cantvDataItemViewModel)
+			CantvItemViewModel _cantvItemViewModel)
 		{
 			//  Generate an instance of the services class
 			apiService = new ApiService();
@@ -119,7 +119,7 @@
 			navigationService = new NavigationService();
 
 			//  Load values data of CantvDataItemViewModel
-			this.cantvDataItemView = _cantvDataItemViewModel;
+			this.cantvItemView = _cantvItemViewModel;
 
 			//  Search data Cantv
 			FindDataCantv();
@@ -158,8 +158,8 @@
 				"/deuda",
 				string.Format(
 					"/{0}/{1}", 
-					this.cantvDataItemView.CodePhone, 
-					this.cantvDataItemView.NumberPhone));
+					this.cantvItemView.CodePhone, 
+					this.cantvItemView.NumberPhone));
 			if (!response.IsSuccess)
 			{
 				//  Asing status to the controls
@@ -207,7 +207,7 @@
 			}
 			else
 			{
-				this.PhoneNumber = this.cantvDataItemView.GetFullCantvData;
+				this.PhoneNumber = this.cantvItemView.GetFullCantvData;
                 this.CurrentBalance = _cantvData.SaldoActual;
                 this.LastBilling = _cantvData.UltimaFacturacion;
 				this.CutDate = _cantvData.FechaCorte;

@@ -14,8 +14,8 @@
 		#region Attributes
         
 		private bool isRefreshing;
-		private List<CantvDataItemViewModel> listCantvData;
-		private ObservableCollection<CantvDataItemViewModel> cantvs;
+		private List<CantvItemViewModel> listCantvs;
+		private ObservableCollection<CantvItemViewModel> cantvs;
 		private List<CneItemViewModel> listCnes;
 		private ObservableCollection<CneItemViewModel> cnes;
 		private MainViewModel mainViewModel;
@@ -31,14 +31,14 @@
 		#endregion Attributes
         
 		#region Properties
-
+        
 		public bool IsRefreshing
 		{
 			get { return this.isRefreshing; }
 			set { SetValue(ref this.isRefreshing, value); }
 		}
         
-		public ObservableCollection<CantvDataItemViewModel> Cantvs
+		public ObservableCollection<CantvItemViewModel> Cantvs
 		{
 			get { return this.cantvs; }
 			set { SetValue(ref this.cantvs, value); }
@@ -125,33 +125,27 @@
             }
             
 			this.LoadOfValueUserData((UserDataResponse)response.Result);
-			this.listCantvData = 
-				this.ToListCantvDataItemViewModel(
-					mainViewModel.UserData.CantvDatas);
 
-			this.Cantvs = new ObservableCollection<CantvDataItemViewModel>(
-				this.listCantvData);
+			this.listCantvs = 
+				new List<CantvItemViewModel>(this.ToListCantvItemViewModel(
+					this.mainViewModel.UserData.CantvDatas));
+			
+			//  Load valuen in the ObservableCollection
+			this.Cantvs = new ObservableCollection<CantvItemViewModel>(
+				this.listCantvs);
 
-			//  Load the values of the other pages
-			this.LoadCneData();
+			//  Select only data of cne
+			this.listCnes = 
+				new List<CneItemViewModel>(this.ToListCneItemViewModel(
+					mainViewModel.UserData.CneIvssDatas));
 
+            //  Load valuen in the ObservableCollection
+            this.Cnes = new ObservableCollection<CneItemViewModel>(
+                this.listCnes);
+			
 			//  Establishes the status of controls
 			this.SetStatusControls(false);         
 		}
-
-		private void LoadCneData()
-        {
-			//  Select only data of cne
-			this.listCnes = 
-				this.ToListCneItemViewModel(mainViewModel.UserData.CneIvssDatas)
-                .Where(cniv => cniv.IsCne == true)
-                .OrderBy(cniv => cniv.GetCneIvssFull)
-                .ToList();
-
-            //  Load valuen in the ObservableCollection
-			this.Cnes = new ObservableCollection<CneItemViewModel>(
-				this.listCnes);
-        }
 
 		private void LoadOfValueUserData(UserDataResponse _userDataResponse)
 		{
@@ -173,12 +167,15 @@
 		}
               
 		private List<CneItemViewModel> ToListCneItemViewModel(
-			List<CneIvssData> _listCneIvssDatas)
+			List<CneIvssData> _listCnes)
 		{
-			var listCneIvssDatas = new List<CneItemViewModel>();
-			foreach (var _listCneIvssData in _listCneIvssDatas)
+			var listCneIvssItem = new List<CneItemViewModel>();
+			foreach (var _listCneIvssData in _listCnes
+			         .Where(cne => cne.IsCne = true)
+			         .OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
+			         .ThenBy(cne => cne.IdentificationCard))
 			{
-				listCneIvssDatas.Add(new CneItemViewModel
+				listCneIvssItem.Add(new CneItemViewModel
 				{ 
 					BirthDate = _listCneIvssData.BirthDate,
 					CneIvssDataId = _listCneIvssData.CneIvssDataId,
@@ -189,73 +186,92 @@
 					NationalityId = _listCneIvssData.NationalityId,
 				});
 			}
-
-			return listCneIvssDatas;
+            
+			return listCneIvssItem;
 		}
 
-		private List<CantvDataItemViewModel> ToListCantvDataItemViewModel(
+		private List<CantvItemViewModel> ToListCantvItemViewModel(
 			List<CantvData> _cantvDatas)
         {
-			var cantvData = new List<CantvDataItemViewModel>();
+			var listCantvItem = new List<CantvItemViewModel>();
 			foreach (var _cantvData in _cantvDatas
 			         .OrderBy(cd => cd.CodePhone)
 			         .ThenBy(cd => cd.NumberPhone))
 			{
-				cantvData.Add(new CantvDataItemViewModel
+				listCantvItem.Add(new CantvItemViewModel
 				{  CantvDataId = _cantvData.CantvDataId,
 					CodePhone = _cantvData.CodePhone,
 					NumberPhone = _cantvData.NumberPhone,
 				});
 			}
             
-			return cantvData;
+			return listCantvItem;
 		}
 
-		public void UpdateCneData(int _option, CneIvssData _cneIvssData)
+		public void UpdateCneData(
+			int _option, 
+			CneItemViewModel _cneItemViewModel)
         {
-            //  var oldCneIvssData = 
+			this.SetStatusControls(true);
+
+			//  Opti an list of the CneIvssData
+			var oldListCne = this.listCnes
+								 .Where(cid => cid.CneIvssDataId == _cneItemViewModel.CneIvssDataId)
+								 .FirstOrDefault();
             switch (_option)
             {
                 case -1:
+					this.listCnes.Remove(_cneItemViewModel);
                     break;
                 case 0:
-                    //  listCnes.Add(_cneIvssData);
-                    this.mainViewModel.UserData.CneIvssDatas.Add(_cneIvssData);
+					oldListCne = _cneItemViewModel;
                     break;
                 case 1:
-                    break;
+					this.listCnes.Add(_cneItemViewModel);
+                    break;               
             }
 
-            //  Invokes the method of load CneData
-            LoadCneData();
+			//this.Cnes = new ObservableCollection<CneItemViewModel>(
+			//this.listCnes
+			//.Where(cne => cne.IsCne == true)
+			//.OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
+			//.ThenBy(cne => cne.IdentificationCard)
+			//.ToList());
+
+			this.Cnes = new ObservableCollection<CneItemViewModel>(
+				this.listCnes
+				.OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
+				.ThenBy(cne => cne.IdentificationCard));
+			
+			this.SetStatusControls(false);
         }
      
 		public void UpdateCantvData(
 			int _option, 
-			CantvDataItemViewModel _cantvDataItemViewModel)
+			CantvItemViewModel _cantvItemViewModel)
         {
             this.SetStatusControls(true);         
 
-			var oldCantvData = listCantvData
+			var oldListCantv = this.listCantvs
                    .Where(
-                       cd => cd.CantvDataId == _cantvDataItemViewModel.CantvDataId)
+                       cd => cd.CantvDataId == _cantvItemViewModel.CantvDataId)
                    .FirstOrDefault();
-			
-            if (_option == -1)
-            {            
-				listCantvData.Remove(oldCantvData);            
-            }
-            else if (_option == 0)
-            {            
-				oldCantvData = _cantvDataItemViewModel;
-            }
-            else if (_option == 1)
-            {
-				listCantvData.Add(_cantvDataItemViewModel);
-            }
 
-            this.Cantvs = new ObservableCollection<CantvDataItemViewModel>(
-                listCantvData
+			switch(_option)
+			{
+				case -1:
+					this.listCantvs.Remove(oldListCantv);
+					break;
+				case 0:
+					oldListCantv = _cantvItemViewModel;
+					break;
+				case 1:
+					this.listCantvs.Add(_cantvItemViewModel);
+					break;
+			}
+            
+            this.Cantvs = new ObservableCollection<CantvItemViewModel>(
+                this.listCantvs
                 .OrderBy(lcd => lcd.CodePhone)
                 .ThenBy(lcd => lcd.NumberPhone));
 

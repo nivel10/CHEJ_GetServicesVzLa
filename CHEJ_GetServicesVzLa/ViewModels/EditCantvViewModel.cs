@@ -15,7 +15,7 @@
 		private string nuberPhone;
 		private bool isRunning;
 		private string messageLabel;
-		private CantvDataItemViewModel editCantv;
+		private CantvItemViewModel editCantv;
 		private static CantvViewModel cantvViewModel;
 		private static MainViewModel mainViewModel;
 
@@ -86,7 +86,7 @@
 		#region Constructor
 
 		public EditCantvViewModel(
-			CantvDataItemViewModel _editCantvData)
+			CantvItemViewModel _editCantvData)
 		{         
 			//  Load value object
 			this.editCantv = _editCantvData;
@@ -180,7 +180,7 @@
                 "/CantvDatas",
 				mainViewModel.Token.TokenType,
 				mainViewModel.Token.AccessToken,
-                this.ToCantvDataItem(this.editCantv));
+                this.ToCantvItem(this.editCantv));
 			if (!response.IsSuccess)
 			{
 				//  Define control format
@@ -203,7 +203,7 @@
 			await navigationService.GoBackOnMaster();
 		}
 
-		private CantvDataItem ToCantvDataItem(CantvDataItemViewModel _editCantv)
+		private CantvDataItem ToCantvItem(CantvItemViewModel _editCantv)
 		{
 			return new CantvDataItem 
 			{ 
@@ -216,7 +216,7 @@
 
 		private void SetInitialize(
 			int _option, 
-            CantvDataItemViewModel _editCantvData)
+            CantvItemViewModel _editCantvData)
         {
 			if(_option == 0)
 			{

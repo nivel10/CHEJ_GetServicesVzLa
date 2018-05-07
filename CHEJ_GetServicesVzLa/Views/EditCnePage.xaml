@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:control="clr-namespace:CHEJ_GetServicesVzLa.Controls"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New CNE"
-             x:Class="CHEJ_GetServicesVzLa.Views.NewCnePage">
+             Title="Edit CNE"
+             x:Class="CHEJ_GetServicesVzLa.Views.EditCnePage">
     
     <ContentPage.Content>
-        
-        <ScrollView BindingContext="{Binding NewCne}"
+
+        <ScrollView BindingContext="{Binding EditCne}"
                     Padding="20">
             
             <StackLayout>

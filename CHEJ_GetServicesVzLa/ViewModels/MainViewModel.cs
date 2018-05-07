@@ -12,8 +12,7 @@
 		#region Attrbutes
 
 		private static MainViewModel instance;
-		private NavigationService navigationSerive;
-		private List<NationalityData> listNationalityData;
+		private NavigationService navigationSerive;      
 
 		#endregion Attributes
 
@@ -123,11 +122,17 @@
 			set;
 		}
 
-		public List<NationalityData> ListNationalityDatas
+		public EditCneViewModel EditCne
 		{
 			get;
 			set;
 		}
+
+		//public List<NationalityData> ListNationalityDatas
+		//{
+		//	get;
+		//	set;
+		//}
 
 		#region Commands
 
@@ -162,9 +167,6 @@
 
 			//  Load elements of menu
 			this.LoadMenu();
-
-			//  Gets an instance of the List<NationalitiesData>
-			listNationalityData = new List<NationalityData>();
 		}      
 
 		#endregion Constructor
