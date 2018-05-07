@@ -5,7 +5,6 @@
              Title="IVSS"
              x:Class="CHEJ_GetServicesVzLa.Views.IvssPage">
 
-
     <ContentPage.ToolbarItems>
 
         <ToolbarItem Command="{Binding GoNewIvssCommand}"
@@ -15,7 +14,7 @@
 
     <ContentPage.Content>
 
-        <StackLayout BindingContext="{Binding Ivss}"
+        <StackLayout BindingContext="{Binding Cantv}"
                      Padding="5">
             
             <ListView HasUnevenRows="true"
@@ -79,4 +78,5 @@
         </StackLayout>
         
     </ContentPage.Content>
+    
 </ContentPage>

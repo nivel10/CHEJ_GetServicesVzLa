@@ -171,12 +171,12 @@
 		{
 			var listCneIvssItem = new List<CneItemViewModel>();
 			foreach (var _listCneIvssData in _listCnes
-			         .Where(cne => cne.IsCne = true)
+			         .Where(cne => cne.IsCne == true)
 			         .OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
 			         .ThenBy(cne => cne.IdentificationCard))
 			{
 				listCneIvssItem.Add(new CneItemViewModel
-				{ 
+				{  
 					BirthDate = _listCneIvssData.BirthDate,
 					CneIvssDataId = _listCneIvssData.CneIvssDataId,
 					IdentificationCard = _listCneIvssData.IdentificationCard,
@@ -231,18 +231,15 @@
                     break;               
             }
 
+			//this.Cnes.Clear();
+
 			//this.Cnes = new ObservableCollection<CneItemViewModel>(
 			//this.listCnes
-			//.Where(cne => cne.IsCne == true)
 			//.OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
-			//.ThenBy(cne => cne.IdentificationCard)
-			//.ToList());
+			//.ThenBy(cne => cne.IdentificationCard));
 
-			this.Cnes = new ObservableCollection<CneItemViewModel>(
-				this.listCnes
-				.OrderBy(cne => cne.NationalityDatas.First().Abbreviation)
-				.ThenBy(cne => cne.IdentificationCard));
-			
+			LoadUserData();
+
 			this.SetStatusControls(false);
         }
      

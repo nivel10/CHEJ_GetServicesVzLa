@@ -149,44 +149,16 @@
 				return;
 			}
 
-			//  Method that load values
-			//this.mainViewModel.ListNationalityDatas = 
-				//new List<NationalityData>((List<NationalityData>)response.Result);
-
-			//  Method that load values
-            //  this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
-
 			this.listNationalities =
                 new List<NationalityData>((List<NationalityData>)response.Result);
-			
-			//  Method that load values
-			// this.LoadNationalities(this.listNationalityDatas);
 
 			this.Nationalities =
                 new ObservableCollection<NationalityData>(
 					    listNationalities.OrderBy(n => n.NationalityId));
-			
-			//  Method that load values
-			//  this.LoadNationalities(this.mainViewModel.ListNationalityDatas);
 
 			//  Define the status of the controls
             this.SetStatusControl(true, false, 0);
 		}
-
-		//private void LoadNationalities(List<NationalityData> _nationalites)
-		//{
-		//	//  Add an new value in the List<>
-		//	_nationalites.Add(new NationalityData 
-		//	{
-		//		Abbreviation = "N",
-		//		Name = "[Select a nationality...]",
-		//		NationalityId = 0,
-		//	});
-                     
-		//	this.Nationalities = 
-		//		new ObservableCollection<NationalityData>(
-		//			_nationalites.OrderBy(n => n.NationalityId));
-		//}
 
 		#endregion Constructor
 
@@ -279,22 +251,6 @@
 			//  Define the status of the controls
 			this.SetStatusControl(true, false, 0);
 		}
-
-		//public CneIvssData ToCneItemViewModel(
-			//CneIvssDataItem _cneIvssData)
-   //     {
-			//return new CneIvssData
-    //        {
-				//BirthDate = _cneIvssData.BirthDate,
-				//CneIvssDataId = _cneIvssData.CneIvssDataId,
-				//IdentificationCard = _cneIvssData.IdentificationCard,
-				//IsCne = _cneIvssData.IsCne,
-				//IsIvss = _cneIvssData.IsIvss,
-    //            NationalityDatas = this.GetNationalityDatas(
-				//	_cneIvssData.NationalityId),
-				//NationalityId = _cneIvssData.NationalityId,
-        //    };
-        //}
               
 		public CneItemViewModel ToCneItemViewModel(
             CneIvssDataItem _cneIvssData)

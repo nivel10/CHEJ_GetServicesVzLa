@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.Linq;
@@ -257,22 +256,6 @@
             //  Define the status of the controls
             this.SetStatusControl(true, false, 0);
         }
-
-		//public CneIvssData ToCneItemViewModel(
-			//CneIvssDataItem _cneIvssData)
-        //{
-        //    return new CneIvssData
-        //    {
-        //        BirthDate = _cneIvssData.BirthDate,
-        //        CneIvssDataId = _cneIvssData.CneIvssDataId,
-        //        IdentificationCard = _cneIvssData.IdentificationCard,
-        //        IsCne = _cneIvssData.IsCne,
-        //        IsIvss = _cneIvssData.IsIvss,
-        //        NationalityDatas = this.GetNationalityDatas(
-        //            _cneIvssData.NationalityId),
-        //        NationalityId = _cneIvssData.NationalityId,
-        //    };
-        //}
 
 		public CneItemViewModel ToCneItemViewModel(
             CneIvssDataItem _cneIvssData)
