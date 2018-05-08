@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:CHEJ_GetServicesVzLa.Controls"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Edit IVSS"
+             x:Class="CHEJ_GetServicesVzLa.Views.EditIvssPage">
+    
+    <ContentPage.Content>
+        
+        <ScrollView BindingContext="{Binding EditIvss}"
+                    Padding="20">
+            
+            <StackLayout>
+
+                <StackLayout VerticalOptions="CenterAndExpand">
+
+                    <Image Source="CneLogo"
+                           VerticalOptions="Center"
+                           WidthRequest="100"/>
+                
+                <Label FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Center"
+                       Text="Data"
+                       VerticalOptions="Center"/>
+                    
+                </StackLayout>
+                
+                <Grid RowSpacing="5">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Nationality:"
+                           VerticalOptions="Center"/>
+                   <control:BindablePicker DisplayMemberPath="Name"
+                                            Grid.Column="1" 
+                                            Grid.Row="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Title="Select a nationality"
+                                            SelectedValuePath="NationalityId"
+                                            ItemsSource="{Binding Nationalities}"
+                                            SelectedValue="{Binding Path=NationalityId, Mode=TwoWay}"
+                                            VerticalOptions="Center"/>
+                    
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Identification Card:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="1"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Keyboard="Numeric"
+                           Text="{Binding IdentificationCard, Mode=TwoWay}"
+                           Placeholder="Enter identification card"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Birth Date:"
+                           VerticalOptions="Center"/>
+                    <DatePicker Grid.Column="1"
+                                Grid.Row="2"
+                                Format="dd/MM/yyyy"
+                                Date="{Binding BirthDate, Mode=TwoWay}"/>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                                   VerticalOptions="CenterAndExpand"/>
+                
+                <Label FontSize="Small"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding MessageLabel}"
+                       TextColor="Green"
+                       VerticalOptions="CenterAndExpand"/>
+                                
+                <StackLayout HorizontalOptions="Center" 
+                             Orientation="Horizontal"
+                             VerticalOptions="EndAndExpand">
+                    
+                    <Button BackgroundColor="Gray"
+                            Command="{Binding SaveCommand}"
+                            Text="Save"
+                            TextColor="White"
+                            WidthRequest="90"/>
+
+                     <Button BackgroundColor="Gray"
+                            Command="{Binding GoBackCommand}"
+                            Text="Back"
+                            TextColor="White"
+                            WidthRequest="90"/>
+                    
+                </StackLayout>
+
+            </StackLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+
+</ContentPage>

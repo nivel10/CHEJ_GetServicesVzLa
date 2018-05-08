@@ -51,7 +51,7 @@
                                        Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalOptions="FillAndExpand"
-                                       Text="{Binding GetFullCantvData}"
+                                       Text="{Binding GetCneIvssFull}"
                                        VerticalOptions="Center"/>
 
                                 <Image Grid.Column="1" 
@@ -61,7 +61,8 @@
                                        HorizontalOptions="End">
                                     
                                     <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding GetCantvCommand}"/>
+                                        <TapGestureRecognizer 
+                                        Command="{Binding GetIvssCommand}"/>
                                     </Image.GestureRecognizers>
                                     
                                 </Image>

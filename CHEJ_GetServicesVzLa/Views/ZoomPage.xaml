@@ -5,7 +5,80 @@
              Title="Zoom"
              x:Class="CHEJ_GetServicesVzLa.Views.ZoomPage">
     
+   
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem Command="{Binding GoNewZoomCommand}"
+                     Icon="ic_action_playlist_add"/>
+        
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
+
+        <StackLayout BindingContext="{Binding Cantv}"
+                     Padding="5">
+            
+            <ListView HasUnevenRows="true"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                      ItemsSource="{Binding Zoomes}"
+                      RefreshCommand="{Binding RefreshCommand}">
+                
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        
+                         <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                
+                                <MenuItem Command="{Binding EditCommand}"
+                                          Text="Edit"/>
+
+                                <MenuItem Command="{Binding DeleteCommand}"
+                                          IsDestructive="true"
+                                          Text="Delete"/>
+                                
+                            </ViewCell.ContextActions>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label FontSize="Large" 
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       HorizontalOptions="FillAndExpand"
+                                       Text="{Binding GetCneIvssFull}"
+                                       VerticalOptions="Center"/>
+
+                                <Image Grid.Column="1" 
+                                       Grid.Row="0" 
+                                       Source="ic_chevron_right.png"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End">
+                                    
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        Command="{Binding GetCneCommand}"/>
+                                    </Image.GestureRecognizers>
+                                    
+                                </Image>
+                            </Grid>
+
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            
+        </StackLayout>
+        
     </ContentPage.Content>
     
 </ContentPage>

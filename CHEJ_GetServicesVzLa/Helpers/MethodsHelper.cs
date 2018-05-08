@@ -1,7 +1,8 @@
 ﻿namespace CHEJ_GetServicesVzLa.Helpers
 {
 	using System;
-    using System.Text.RegularExpressions;
+	using System.Globalization;
+	using System.Text.RegularExpressions;
 	using CHEJ_GetServicesVzLa.Models;
 	using Xamarin.Forms;
 
@@ -101,6 +102,11 @@
             };
         }
 
+		public static string GetUrlIvss()
+        {
+			return Application.Current.Resources["UrlIvss"].ToString().Trim();
+        }
+
         public static string GetUrlCne()
         {
 			return Application.Current.Resources["UrlCne"].ToString().Trim();
@@ -120,6 +126,11 @@
         {
             return Application.Current.Resources["UrlCantv"].ToString().Trim();
         }
+
+		public static string TitleText(string _text)
+		{
+			return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_text);
+		}
 
         #endregion Methods
     }   

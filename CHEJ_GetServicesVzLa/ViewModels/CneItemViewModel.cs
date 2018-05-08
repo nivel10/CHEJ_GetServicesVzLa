@@ -118,6 +118,13 @@
 				this.cantvViewModel.UpdateCneData(
 					-1, 
 					ToCneItemViewModel(cneIvssDataItem));
+
+				await dialogService.ShowMessage(
+					"Infromation", 
+					string.Format(
+						"Record: {0} remove successfully...!!!",
+						cneIvssDataItem.GetCneIvssFull), 
+					"Accept");
 			}
 		}
 

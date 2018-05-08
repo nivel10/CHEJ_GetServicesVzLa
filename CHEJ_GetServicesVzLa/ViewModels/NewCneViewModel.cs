@@ -223,12 +223,12 @@
 			};
 
 			response = await this.apiService.Post<CneIvssDataItem>(
-				MethodsHelper.GetUrlAPI(), 
-				"/api", 
-				"/CneIvssDatas", 
-				mainViewModel.Token.TokenType, 
-				mainViewModel.Token.AccessToken, 
-				cneIvssData);         
+                MethodsHelper.GetUrlAPI(),
+                "/api",
+				"/CneIvssDatas/PostCneIvssDataInsertByOption/?_option=cne",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                cneIvssData);
 			if(!response.IsSuccess)
 			{
 				//  Define the status of the controls

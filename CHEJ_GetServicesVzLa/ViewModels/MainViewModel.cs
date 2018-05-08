@@ -116,13 +116,37 @@
 			set;
 		}
 
-        public NewCneViewModel NewCne
+        public GetCneViewModel GetCne
+		{
+			get;
+			set;
+		}
+
+		public NewCneViewModel NewCne
 		{
 			get;
 			set;
 		}
 
 		public EditCneViewModel EditCne
+		{
+			get;
+			set;
+		}
+
+		public NewIvssViewModel NewIvss
+		{
+			get;
+			set;
+		}
+
+		public EditIvssViewModel EditIvss
+		{
+			get;
+			set;
+		}
+
+		public GetIvssViewModel GetIvss
 		{
 			get;
 			set;
@@ -146,7 +170,10 @@
 			get { return new RelayCommand(GoNewCne); }
 		}
 
-		public GetCneViewModel GetCne { get; internal set; }
+		public ICommand GoNewIvssCommand
+        {
+            get { return new RelayCommand(GoNewIvss); }
+        }
 
         #endregion Command#endregion Commands
 
@@ -248,6 +275,15 @@
 
 			//  Navigate to page NewCnePage
 			await this.navigationSerive.NavigateOnMaster("NewCnePage");
+        }
+
+		private async void GoNewIvss()
+        {
+            //  Gets an instance of the NewIvssViewModel
+            this.NewIvss = new NewIvssViewModel();
+
+            //  Navigate to NewIvssPage
+			await this.navigationSerive.NavigateOnMaster("NewIvssPage");
         }
 
 		#endregion Methods

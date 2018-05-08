@@ -18,7 +18,8 @@
             <x:String x:Key="UrlCantv">https://api.willicab.com.ve</x:String>
             <!--<x:String x:Key="UrlCne">https://api.willicab.com.ve/infove/cne/elector</x:String>-->
             <x:String x:Key="UrlCne">https://api.willicab.com.ve/</x:String>
-            <x:String x:Key="UrlIvss">https://api.willicab.com.ve/infove/ivss/cuenta</x:String>
+            <!--<x:String x:Key="UrlIvss">https://api.willicab.com.ve/infove/ivss/cuenta</x:String>-->
+            <x:String x:Key="UrlIvss">https://api.willicab.com.ve/</x:String>
             <x:String x:Key="UrlZoom">https://api.willicab.com.ve/infove/zoom/seguimiento</x:String>
             <x:String x:Key="AppName">GetServicesVzLa</x:String>
             

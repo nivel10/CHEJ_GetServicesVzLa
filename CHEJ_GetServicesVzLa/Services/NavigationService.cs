@@ -46,6 +46,18 @@
 				case "EditCnePage":
 					await App.Navigator.PushAsync(new EditCnePage());
 					break;
+
+				case "NewIvssPage":
+					await App.Navigator.PushAsync(new NewIvssPage());
+					break;
+
+				case "EditIvssPage":
+					await App.Navigator.PushAsync(new EditIvssPage());
+					break;
+
+				case "GetIvssPage":
+					await App.Navigator.PushAsync(new GetIvssPage());
+					break;
 			}
 		}
 

@@ -1,5 +1,6 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.Linq;
@@ -18,6 +19,8 @@
 		private ObservableCollection<CantvItemViewModel> cantvs;
 		private List<CneItemViewModel> listCnes;
 		private ObservableCollection<CneItemViewModel> cnes;
+		private List<IvssItemViewModel> lisIvsses;
+		private ObservableCollection<IvssItemViewModel> ivsses;
 		private MainViewModel mainViewModel;
 		private static CantvViewModel instance;      
 
@@ -48,6 +51,12 @@
 		{
 			get { return this.cnes; }
 			set { SetValue(ref this.cnes, value); }
+		}
+        
+		public ObservableCollection<IvssItemViewModel> Ivsses
+		{
+			get { return this.ivsses; }
+			set { SetValue(ref this.ivsses, value); }
 		}
 
 		#region Commands
@@ -83,7 +92,7 @@
 
 		#region Methods
 
-		private async void LoadUserData()
+		public async void LoadUserData()
 		{
 			//  Establishes the status of controls
 			this.SetStatusControls(true);         
@@ -142,9 +151,43 @@
             //  Load valuen in the ObservableCollection
             this.Cnes = new ObservableCollection<CneItemViewModel>(
                 this.listCnes);
+
+			//  Select only data on ivss
+			this.lisIvsses = new List<IvssItemViewModel>(
+				ToListIvssItemViewModel(
+					this.mainViewModel.UserData.CneIvssDatas));
+
+			//  Load values in the ObservableCollection
+			this.Ivsses = new ObservableCollection<IvssItemViewModel>(
+				this.lisIvsses);
 			
 			//  Establishes the status of controls
 			this.SetStatusControls(false);         
+		}
+
+		private List<IvssItemViewModel> ToListIvssItemViewModel(
+			List<CneIvssData> _cneIvssDatas)
+		{
+			var listIvss = new List<IvssItemViewModel>();
+
+			foreach (var _cneIvssData in _cneIvssDatas
+			         .Where(cid => cid.IsIvss == true)
+			         .OrderBy(cid => cid.NationalityDatas.First().Abbreviation)
+			         .ThenBy(cid => cid.IdentificationCard))
+			{
+				listIvss.Add(new IvssItemViewModel
+				{
+					BirthDate = _cneIvssData.BirthDate,
+					CneIvssDataId = _cneIvssData.CneIvssDataId,
+					IdentificationCard = _cneIvssData.IdentificationCard,
+					IsCne = _cneIvssData.IsCne,
+					IsIvss = _cneIvssData.IsIvss,
+					NationalityDatas = _cneIvssData.NationalityDatas,
+					NationalityId = _cneIvssData.NationalityId,
+				});
+			}
+
+			return listIvss;
 		}
 
 		private void LoadOfValueUserData(UserDataResponse _userDataResponse)
