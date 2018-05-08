@@ -12,7 +12,7 @@
 		#region Attrbutes
 
 		private static MainViewModel instance;
-		private NavigationService navigationSerive;      
+		private NavigationService navigationService;      
 
 		#endregion Attributes
 
@@ -152,6 +152,12 @@
 			set;
 		}
 
+		public NewZoomViewModel NewZoom
+		{
+			get;
+			set;
+		}
+
 		//public List<NationalityData> ListNationalityDatas
 		//{
 		//	get;
@@ -160,22 +166,12 @@
 
 		#region Commands
 
-		public ICommand GoNewCantvCommand
-		{
-			get { return new RelayCommand(GoNewCantv); }
-		}
+		public ICommand GoNewCantvCommand => new RelayCommand(GoNewCantv);
+		public ICommand GoNewCneCommand => new RelayCommand(GoNewCne);      
+		public ICommand GoNewIvssCommand => new RelayCommand(GoNewIvss);
+		public ICommand GoNewZoomCommand => new RelayCommand(GoNewZoom);
 
-		public ICommand GoNewCneCommand
-		{
-			get { return new RelayCommand(GoNewCne); }
-		}
-
-		public ICommand GoNewIvssCommand
-        {
-            get { return new RelayCommand(GoNewIvss); }
-        }
-
-        #endregion Command#endregion Commands
+		#endregion Commands
 
 		#endregion Properties
 
@@ -187,7 +183,7 @@
 			instance = this;
 
 			//  Gets an instance og the services class
-			this.navigationSerive = new NavigationService();
+			this.navigationService = new NavigationService();
 
 			//  Se instancia la clase del LoginViewModel
 			this.Login = new LoginViewModel();
@@ -265,7 +261,7 @@
 			this.NewCantv = new NewCantvViewModel();
 
 			//  Navigate to teh pag NewPhonePage
-			await navigationSerive.NavigateOnMaster("NewCantvPage");
+			await navigationService.NavigateOnMaster("NewCantvPage");
         }
 
 		private async void GoNewCne()
@@ -274,7 +270,7 @@
 			this.NewCne = new NewCneViewModel();
 
 			//  Navigate to page NewCnePage
-			await this.navigationSerive.NavigateOnMaster("NewCnePage");
+			await this.navigationService.NavigateOnMaster("NewCnePage");
         }
 
 		private async void GoNewIvss()
@@ -283,7 +279,16 @@
             this.NewIvss = new NewIvssViewModel();
 
             //  Navigate to NewIvssPage
-			await this.navigationSerive.NavigateOnMaster("NewIvssPage");
+			await this.navigationService.NavigateOnMaster("NewIvssPage");
+        }
+
+		private async void GoNewZoom()
+        {
+            //  Gets an instance of tne NewZommViewModel
+            this.NewZoom = new NewZoomViewModel();
+
+            //  Navigate to the NewZoomPage
+            await this.navigationService.NavigateOnMaster("NewZoomPage");         
         }
 
 		#endregion Methods

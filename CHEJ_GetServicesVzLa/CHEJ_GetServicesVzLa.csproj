@@ -24,5 +24,6 @@
     <Compile Remove="ViewModels\Deleteme.cs" />
     <Compile Remove="ViewModels\CneViewModel.cs" />
     <Compile Remove="Views\GetCnePage.cs" />
+    <Compile Remove="Views\NewZoomPage.cs" />
   </ItemGroup>
 </Project>

@@ -2,19 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New Phone"
-             x:Class="CHEJ_GetServicesVzLa.Views.NewCantvPage">
+             Title="New Zoom"
+             x:Class="CHEJ_GetServicesVzLa.Views.NewZoomPage">
     
     <ContentPage.Content>
-        
-        <ScrollView BindingContext="{Binding NewCantv}"
+
+        <ScrollView BindingContext="{Binding NewZoom}"
                     Padding="20">
             
             <StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image Source="PhoneLogo"
+                    <Image Source="TrackerLogo"
                            VerticalOptions="Center"
                            WidthRequest="100"/>
                 
@@ -35,26 +35,14 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="0"
-                           Text="Code Phone:"
+                           Text="Tracking:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                            Keyboard="Numeric"
-                           Text="{Binding CodePhone, Mode=TwoWay}"
-                           Placeholder="Enter code phone"
-                           VerticalOptions="Center"/>
-                    
-                    <Label Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Number Phone:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Numeric"
-                           Text="{Binding NuberPhone, Mode=TwoWay}"
-                           Placeholder="Enter number phone"
+                           Text="{Binding Tracking, Mode=TwoWay}"
+                           Placeholder="Enter code tracking"
                            VerticalOptions="Center"/>
 
                 </Grid>
@@ -89,7 +77,7 @@
             </StackLayout>
             
         </ScrollView>
-       
+    
     </ContentPage.Content>
     
 </ContentPage>

@@ -21,6 +21,8 @@
 		private ObservableCollection<CneItemViewModel> cnes;
 		private List<IvssItemViewModel> lisIvsses;
 		private ObservableCollection<IvssItemViewModel> ivsses;
+		private List<ZoomItemViewModel> listZooms;
+		private ObservableCollection<ZoomItemViewModel> zooms;
 		private MainViewModel mainViewModel;
 		private static CantvViewModel instance;      
 
@@ -57,6 +59,12 @@
 		{
 			get { return this.ivsses; }
 			set { SetValue(ref this.ivsses, value); }
+		}
+
+		public ObservableCollection<ZoomItemViewModel> Zooms
+		{
+			get { return this.zooms; }
+			set { SetValue(ref this.zooms, value); }
 		}
 
 		#region Commands
@@ -160,9 +168,34 @@
 			//  Load values in the ObservableCollection
 			this.Ivsses = new ObservableCollection<IvssItemViewModel>(
 				this.lisIvsses);
+                         
+			//  Select data of teh zoom
+			this.listZooms = new List<ZoomItemViewModel>(
+				ToZoomItemViewModel(this.mainViewModel.UserData.ZoomDatas));
+
+			//  Load value in the ObservabeCollection
+			this.Zooms = new ObservableCollection<ZoomItemViewModel>(
+				this.listZooms.OrderBy(lz => lz.Tracking));
 			
 			//  Establishes the status of controls
 			this.SetStatusControls(false);         
+		}
+
+		private List<ZoomItemViewModel> 
+		ToZoomItemViewModel(List<ZoomData> _zoomDatas)
+		{
+			var listZoomItemViewModel = new List<ZoomItemViewModel>();
+
+			foreach (var _zoomData in _zoomDatas)
+			{
+				listZoomItemViewModel.Add(new ZoomItemViewModel 
+				{ 
+					Tracking = _zoomData.Tracking,
+					ZoomDataId = _zoomData.ZoomDataId,
+				});
+			}
+
+			return listZoomItemViewModel;
 		}
 
 		private List<IvssItemViewModel> ToListIvssItemViewModel(

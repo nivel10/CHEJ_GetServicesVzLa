@@ -110,6 +110,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_playlist_add.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_playlist_add.png" />
     <AndroidResource Include="Resources\drawable\CneLogo.png" />
+    <AndroidResource Include="Resources\drawable\TrackerLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

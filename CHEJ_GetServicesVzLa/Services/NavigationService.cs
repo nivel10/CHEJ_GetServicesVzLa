@@ -58,6 +58,10 @@
 				case "GetIvssPage":
 					await App.Navigator.PushAsync(new GetIvssPage());
 					break;
+
+				case "NewZoomPage":
+					await App.Navigator.PushAsync(new NewZoomPage());
+					break;
 			}
 		}
 

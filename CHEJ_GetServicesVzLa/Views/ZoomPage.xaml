@@ -21,7 +21,7 @@
             <ListView HasUnevenRows="true"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                      ItemsSource="{Binding Zoomes}"
+                      ItemsSource="{Binding Zooms}"
                       RefreshCommand="{Binding RefreshCommand}">
                 
                 <ListView.ItemTemplate>
@@ -52,7 +52,7 @@
                                        Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalOptions="FillAndExpand"
-                                       Text="{Binding GetCneIvssFull}"
+                                       Text="{Binding Tracking}"
                                        VerticalOptions="Center"/>
 
                                 <Image Grid.Column="1" 
@@ -63,7 +63,7 @@
                                     
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                        Command="{Binding GetCneCommand}"/>
+                                        Command="{Binding GetZoomCommand}"/>
                                     </Image.GestureRecognizers>
                                     
                                 </Image>
