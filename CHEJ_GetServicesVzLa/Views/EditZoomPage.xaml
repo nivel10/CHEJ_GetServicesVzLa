@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New Zoom"
-             x:Class="CHEJ_GetServicesVzLa.Views.NewZoomPage">
+             Title="Edit Zoom"
+             x:Class="CHEJ_GetServicesVzLa.Views.EditZoomPage">
     
     <ContentPage.Content>
 
-        <ScrollView BindingContext="{Binding NewZoom}"
+        <ScrollView BindingContext="{Binding EditZoom}"
                     Padding="20">
             
             <StackLayout>
@@ -77,7 +77,7 @@
             </StackLayout>
             
         </ScrollView>
-    
+        
     </ContentPage.Content>
     
 </ContentPage>

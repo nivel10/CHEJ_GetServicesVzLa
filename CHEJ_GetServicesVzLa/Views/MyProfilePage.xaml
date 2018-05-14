@@ -6,6 +6,152 @@
              Title="My Profile">
     
     <ContentPage.Content>
+
+        <ScrollView BindingContext="{Binding MyProfile}">
+            
+            <StackLayout VerticalOptions="CenterAndExpand">
+
+                <Image Source="ic_settings"
+                       HeightRequest="70"
+                       VerticalOptions="CenterAndExpand"/>
+                
+                <Label FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       Text="Data"
+                       VerticalOptions="CenterAndExpand"/>
+
+                <Grid Margin="5" VerticalOptions="CenterAndExpand">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Column="0" 
+                           Grid.Row="0" 
+                           Text="Firts Name:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="0"
+                           IsEnabled="{Binding IsEnabled}"
+                           Placeholder="Shows firts name"
+                           Text="{Binding FirstName, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="1" 
+                           Text="Last Name:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="1"
+                           IsEnabled="{Binding IsEnabled}"
+                           Placeholder="Shows last name"
+                           Text="{Binding LastName, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="2" 
+                           Text="Email:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="2"
+                           IsEnabled="false"
+                           Placeholder="Shows email"
+                           Text="{Binding Email, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="3" 
+                           Text="Telephone:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="3"
+                           IsEnabled="{Binding IsEnabled}"
+                           Placeholder="Shows telephone"
+                           Text="{Binding Telephone, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                     <Label Grid.Column="0" 
+                           Grid.Row="4" 
+                           Text="Edit Email:"
+                           VerticalOptions="Center"/>
+                    <Image Grid.Column="1"
+                           Grid.Row="4"
+                           HeightRequest="50"
+                           HorizontalOptions="EndAndExpand"
+                           Source="ic_chevron_right"
+                           VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditEmailCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="5" 
+                           Text="Edit Password:"
+                           VerticalOptions="Center"/>
+                    <Image Grid.Column="1"
+                           Grid.Row="5"
+                           HeightRequest="50"
+                           HorizontalOptions="EndAndExpand"
+                           Source="ic_chevron_right"
+                           VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditPasswordCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                </Grid>
+
+                <Image HeightRequest="70"
+                       Source="{Binding ImagePath, Mode=TwoWay}"
+                       WidthRequest="100"
+                       VerticalOptions="CenterAndExpand">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EditImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                    
+                 <Label FontSize="Small" 
+                        HorizontalOptions="Center"
+                        Text="Clic on the image to change the photo"
+                        VerticalOptions="CenterAndExpand"/>
+
+                <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                                   VerticalOptions="CenterAndExpand"/>
+                
+                <Label FontSize="Small"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding MessageLabel}"
+                       TextColor="Green"
+                       VerticalOptions="CenterAndExpand"/>
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="CenterAndExpand">
+                    
+                    <Button BackgroundColor="Gray"
+                            Command="{Binding SaveCommand}"
+                            HorizontalOptions="FillAndExpand"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                            Text="Save"
+                            TextColor="White"
+                            WidthRequest="90"/>
+
+                    <Button BackgroundColor="Gray"
+                            Command="{Binding GoBackCommand}"
+                            HorizontalOptions="FillAndExpand"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                            Text="Back"
+                            TextColor="White"
+                            WidthRequest="90"/>
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </ScrollView>
+        
     </ContentPage.Content>
     
 </ContentPage>

@@ -62,6 +62,14 @@
 				case "NewZoomPage":
 					await App.Navigator.PushAsync(new NewZoomPage());
 					break;
+
+				case "GetZoomPage":
+					await App.Navigator.PushAsync(new GetZoomPage());
+					break;
+
+				case "EditZoomPage":
+					await App.Navigator.PushAsync(new EditZoomPage());
+					break;
 			}
 		}
 

@@ -1,38 +1,31 @@
-﻿
-
-using System.Windows.Input;
-using CHEJ_GetServicesVzLa.Models;
-using CHEJ_GetServicesVzLa.Services;
-using GalaSoft.MvvmLight.Command;
-
-namespace CHEJ_GetServicesVzLa.ViewModels
+﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-
+	using System.Windows.Input;
+    using CHEJ_GetServicesVzLa.Models;
+    using CHEJ_GetServicesVzLa.Services;
+    using GalaSoft.MvvmLight.Command;
+      
     public class MenuViewModel : Menu
     {
-		//#region Constructor
-
-		//public MenuViewModel()
-		//{
-		//}
-
-		//#endregion Constructor
 
         #region Attrbutes
 
-        private NavigationService navigationService;
+        #region Services
 
-        #endregion Attributes
+		private NavigationService navigationService;
 
-        #region Properties
+		#endregion Services
 
-        #region Commands
+		private MainViewModel mainViewModel;
 
-        public ICommand NavigateCommand
-        {
-            get { return new RelayCommand(Navigate); }
-        }
+		#endregion Attributes
 
+		#region Properties
+
+		#region Commands
+
+		public ICommand NavigateCommand => new RelayCommand(Navigate);
+              
         #endregion Commands
 
         #endregion Properties
@@ -41,6 +34,8 @@ namespace CHEJ_GetServicesVzLa.ViewModels
 
         public MenuViewModel()
         {
+			//  Gets an instance of the ViewModels
+			this.mainViewModel = MainViewModel.GetInstance();
             //  Intance the class of services
             navigationService = new NavigationService();
         }
@@ -54,14 +49,13 @@ namespace CHEJ_GetServicesVzLa.ViewModels
             switch (PageName)
             {
                 case "LoginPage":
-                    MainViewModel.GetInstance().Login = new LoginViewModel();
-                    navigationService.SetMainPage(PageName);
+					this.mainViewModel.Login = new LoginViewModel();
+                    this.navigationService.SetMainPage(PageName);
                     break;
 
                 case "MyProfilePage":
-                    MainViewModel.GetInstance().MyProfile =
-                        new MyProfileViewModel();
-                    await navigationService.NavigateOnMaster(PageName);
+					this.mainViewModel.MyProfile = new MyProfileViewModel();
+                    await this.navigationService.NavigateOnMaster(PageName);
                     break;
             }
         }

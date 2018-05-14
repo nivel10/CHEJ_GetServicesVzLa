@@ -158,6 +158,18 @@
 			set;
 		}
 
+        public GetZoomViewModel GetZoom
+		{
+			get;
+			set;
+		}
+
+		public EditZoomViewModel EditZoom
+		{
+			get;
+			set;
+		}
+
 		//public List<NationalityData> ListNationalityDatas
 		//{
 		//	get;

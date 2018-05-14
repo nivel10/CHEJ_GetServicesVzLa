@@ -2,14 +2,27 @@
 {
 	using System;
 	using System.Windows.Input;
+	using CHEJ_GetServicesVzLa.Helpers;
 	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
 	public class ZoomItemViewModel : ZoomData
     {
+		#region Attributes
+
+		#region Services
+
+		private ApiService apiService;
+		private DialogService dialogService;
 		private NavigationService navigationService;
+
+		#endregion Services
+
 		private MainViewModel mainViewModel;
+		private CantvViewModel cantvViewModel;
+
+		#endregion Attributes
 
 		#region Properties
 
@@ -26,25 +39,87 @@
 		public ZoomItemViewModel()
         {
 			//  Gets an intance of the service class
+			apiService = new ApiService();
+			dialogService = new DialogService();
 			navigationService = new NavigationService();
-
+            
 			//  Gets an instance of the sigleton
 			this.mainViewModel = MainViewModel.GetInstance();
+			this.cantvViewModel = CantvViewModel.GetInstance();
         }
 
-		private void GetZoom()
+		private async void GetZoom()
         {
-            throw new NotImplementedException();
+			//  Gets an instance of the GetZoom
+			this.mainViewModel.GetZoom = new GetZoomViewModel(this);
+
+			//  Navigate to the page GetZoomPage
+			await navigationService.NavigateOnMaster("GetZoomPage");
         }
 
-        private void Delete()
+		private async void Delete()
         {
-            throw new NotImplementedException();
+            if (await this.dialogService.ShowMessageConfirm(
+                "Infomation",
+                "Are you sure delete this record...?",
+                "Yes",
+                "No"))
+            {
+                //  Check the connections to internet
+                var response = await this.apiService.CheckConnection();
+                if (!response.IsSuccess)
+                {
+                    await this.dialogService.ShowMessage(
+                        "Error",
+                        response.Message,
+                        "Accept");
+                    return;
+                }
+
+                //  Generate an object
+				var zoomDataItem = new ZoomDataItem
+                {
+					Tracking = this.Tracking,
+					UserId = this.mainViewModel.UserData.UserId,
+					ZoomDataId = this.ZoomDataId,
+                };
+
+                //  Delete the record            
+				response = await this.apiService.Delete<ZoomDataItem>(
+                    MethodsHelper.GetUrlAPI(),
+                    "/api",
+                    "/ZoomDatas",
+                    this.mainViewModel.Token.TokenType,
+                    this.mainViewModel.Token.AccessToken,
+                    zoomDataItem);
+                if (!response.IsSuccess)
+                {
+                    await this.dialogService.ShowMessage(
+                        "Error",
+                        response.Message,
+                        "Accept");
+                    return;
+                }
+
+                //  Delete record
+                this.cantvViewModel.LoadUserData();
+
+                await dialogService.ShowMessage(
+                    "Infromation",
+                    string.Format(
+                        "Record: {0} remove successfully...!!!",
+                        zoomDataItem.Tracking),
+                    "Accept");
+            }
         }
 
-        private void Edit()
+        private async void Edit()
         {
-            throw new NotImplementedException();
+			//  Gets an instance of the EditZoomViewModel
+			this.mainViewModel.EditZoom = new EditZoomViewModel(this);
+
+			//  Navigate to the page EditZoomPage
+			await navigationService.NavigateOnMaster("EditZoomPage");
         }
     }
 }

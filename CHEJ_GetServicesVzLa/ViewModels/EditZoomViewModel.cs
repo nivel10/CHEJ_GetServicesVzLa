@@ -6,17 +6,17 @@
     using CHEJ_GetServicesVzLa.Services;
     using GalaSoft.MvvmLight.Command;
 
-	public class NewZoomViewModel : BaseViewModel
+	public class EditZoomViewModel : BaseViewModel
     {
-
-        #region Attributes
+		#region Attributes
 
         private bool isEnabled;
-		private string tracking;
+        private string tracking;
         private bool isRunning;
         private string messageLabel;
-        private static MainViewModel mainViewModel;
-        private static CantvViewModel cantvViewModel;
+        private MainViewModel mainViewModel;
+        private CantvViewModel cantvViewModel;
+		private ZoomItemViewModel zoomItemViewModel;
 
         #region Services
 
@@ -29,8 +29,8 @@
         #endregion Attributes
 
         #region Properties
-        
-		public string Tracking
+
+        public string Tracking
         {
             get { return this.tracking; }
             set { SetValue(ref this.tracking, value); }
@@ -56,8 +56,8 @@
 
         #region Commands
 
-        public ICommand SaveCommand => new RelayCommand(Save);      
-		public ICommand GoBackCommand => new RelayCommand(GoBack);
+        public ICommand SaveCommand => new RelayCommand(Save);
+        public ICommand GoBackCommand => new RelayCommand(GoBack);
 
         #endregion Commands
 
@@ -65,8 +65,11 @@
 
         #region Constructor
 
-		public NewZoomViewModel()
+		public EditZoomViewModel(ZoomItemViewModel _zoomItemViewModel)
         {
+			//  Get an instance of the ZoomItemViewModel
+			this.zoomItemViewModel = _zoomItemViewModel;
+
             //  Define control format
             this.SetInitialize();
             this.SetStatusControl(true, false, 0);
@@ -77,10 +80,13 @@
             this.navigationService = new NavigationService();
 
             //  Gets an instance of the MainViewModel
-            mainViewModel = MainViewModel.GetInstance();
+            this.mainViewModel = MainViewModel.GetInstance();
 
             //  Gets an instance of the CantvViewModel
-            cantvViewModel = CantvViewModel.GetInstance();
+            this.cantvViewModel = CantvViewModel.GetInstance();
+
+			//  Load value in the controls
+			this.Tracking = this.zoomItemViewModel.Tracking;
         }
 
         #endregion Constructor
@@ -146,18 +152,18 @@
                 return;
             }
 
-			var zoomDataItem = new ZoomDataItem
+            var zoomDataItem = new ZoomDataItem
             {
-				Tracking = this.Tracking, 
+                Tracking = this.Tracking,
                 UserId = mainViewModel.UserData.UserId,
-				ZoomDataId = 0,
+				ZoomDataId = this.zoomItemViewModel.ZoomDataId,
             };
 
             //  Save the data CatvData         
-            response = await apiservices.Post<ZoomDataItem>(
+            response = await apiservices.Put<ZoomDataItem>(
                 MethodsHelper.GetUrlAPI(),
                 "/api",
-				"/ZoomDatas",
+                "/ZoomDatas",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
                 zoomDataItem);
@@ -174,7 +180,8 @@
             }
 
             //  Add new record         
-			cantvViewModel.LoadUserData();
+            //  zoomDataItem.ZoomDataId = ((ZoomDataItem)response.Result).ZoomDataId;
+            cantvViewModel.LoadUserData();
 
             //  Define control format
             this.SetStatusControl(true, false, 0);

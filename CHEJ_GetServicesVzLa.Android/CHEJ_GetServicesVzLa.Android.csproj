@@ -111,6 +111,8 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_playlist_add.png" />
     <AndroidResource Include="Resources\drawable\CneLogo.png" />
     <AndroidResource Include="Resources\drawable\TrackerLogo.png" />
+    <AndroidResource Include="Resources\drawable\ZoomLogo.png" />
+    <AndroidResource Include="Resources\drawable\NoImageLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

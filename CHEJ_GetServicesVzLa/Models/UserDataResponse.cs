@@ -12,15 +12,15 @@
 
         public string Email { get; set; }
 
-        public object Telephone { get; set; }
+		public string Telephone { get; set; }
 
-        public object ImagePath { get; set; }
+		public string ImagePath { get; set; }
 
         public int UserTypeId { get; set; }
 
         public object ImageArray { get; set; }
 
-        public object Password { get; set; }
+		public string Password { get; set; }
 
         public string ImageFullPath { get; set; }
 
