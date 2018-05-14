@@ -170,6 +170,18 @@
 			set;
 		}
 
+		public GetZoomDetailsViewModel GetZoomDetails
+		{
+			get;
+			set;
+		}
+
+		public EditEmailViewModel EditEmail
+		{
+			get;
+			set;
+		}
+
 		//public List<NationalityData> ListNationalityDatas
 		//{
 		//	get;

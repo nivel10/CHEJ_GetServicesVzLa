@@ -70,6 +70,14 @@
 				case "EditZoomPage":
 					await App.Navigator.PushAsync(new EditZoomPage());
 					break;
+
+				case "GetZoomDetailsPage":
+					await App.Navigator.PushAsync(new GetZoomDetailsPage());
+					break;
+
+				case "EditEmailPage":
+					await App.Navigator.PushAsync(new EditEmailPage());
+					return;
 			}
 		}
 

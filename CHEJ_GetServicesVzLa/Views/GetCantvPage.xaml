@@ -77,7 +77,7 @@
                            Placeholder="Shows cut date"
                            VerticalOptions="Center"/>
                     
-                     <Label Grid.Column="0"
+                    <Label Grid.Column="0"
                            Grid.Row="4"
                            Text="Expirate Date:"
                            VerticalOptions="Center"/>
@@ -99,7 +99,7 @@
                            Placeholder="Shows expirate balance"
                            VerticalOptions="Center"/>
 
-                     <Label Grid.Column="0"
+                    <Label Grid.Column="0"
                            Grid.Row="6"
                            Text="Last Payment:"
                            VerticalOptions="Center"/>
@@ -109,6 +109,7 @@
                            Text="{Binding LastPayment, Mode=TwoWay}"
                            Placeholder="Shows last payment"
                            VerticalOptions="Center"/>
+                    
                 </Grid>
 
                 <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}" 

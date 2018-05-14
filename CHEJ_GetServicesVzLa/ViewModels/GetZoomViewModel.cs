@@ -15,7 +15,7 @@
 
 		private ApiService apiService;
 		private DialogService dialogService;
-		//  private NavigationService navigationService;
+		private NavigationService navigationService;
 
 		#endregion Services
 
@@ -30,9 +30,11 @@
 		private string messageLabel;
 		private string messageLabelTextColor;
 		private bool isEnabled;
-		private bool isRunning;      
+		private bool isRunning;
+		private MainViewModel mainViewModel;
 		private ZoomItemViewModel zoomItemViewModel;
-		private ObservableCollection<Seguimiento> tracking;
+		public Zoom zoom;
+		//  private ObservableCollection<Seguimiento> tracking;
 
 		#endregion Attributes
 
@@ -104,16 +106,17 @@
 			set { SetValue(ref this.messageLabelTextColor, value); }
 		}
 
-		public ObservableCollection<Seguimiento> Tracking
-		{
-			get { return this.tracking; }
-			set { SetValue(ref this.tracking, value); }
-		}
+		//public ObservableCollection<Seguimiento> Tracking
+		//{
+		//	get { return this.tracking; }
+		//	set { SetValue(ref this.tracking, value); }
+		//}
 
 		#region Commands
 
-		//  public ICommand GoBackCommand => new RelayCommand(GoBack);
-
+		public ICommand GoBackCommand => new RelayCommand(GoBack);
+		public ICommand GetZoomDetailsCommand => new RelayCommand(GetZoomDetails);
+              
 		#endregion Commands 
 
 		#endregion Properties
@@ -122,12 +125,14 @@
 
 		public GetZoomViewModel(ZoomItemViewModel _zoomItemViewModel)
 		{
-			//  Gets an instance of the ZoomItemViewModel
+			//  Gets an instance of the ViewModels
 			this.zoomItemViewModel = _zoomItemViewModel;
-
+			this.mainViewModel = MainViewModel.GetInstance();
+				
 			//  Gets an instance of the services class
-			apiService = new ApiService();
-			dialogService = new DialogService();
+			this.apiService = new ApiService();
+			this.dialogService = new DialogService();
+			this.navigationService = new NavigationService();
 
 			//  Load values in the control
             this.LoadValuesControls(0, null);
@@ -182,8 +187,12 @@
                 return;
             }
 
-            //  Load values in the control
-			this.LoadValuesControls(1, (Zoom)response.Result);
+			//  Convert result response
+			this.zoom = (Zoom)response.Result;
+
+			//  Load values in the control
+			//  this.LoadValuesControls(1, (Zoom)response.Result);
+			this.LoadValuesControls(1, this.zoom);
 
             //  Sets status of controls
             if (isValid)
@@ -223,15 +232,15 @@
                             MethodsHelper.TitleText(_zoom.Origen.Trim());
                         this.Destination = _zoom.Destino.Trim();
 
-                        if (_zoom.Seguimiento.Count > 0)
-                        {
-                            Tracking =
-                                new ObservableCollection<Seguimiento>(_zoom.Seguimiento);
-                        }
-                        else
-                        {
-                            Tracking = new ObservableCollection<Seguimiento>();
-                        }
+                        //if (_zoom.Seguimiento.Count > 0)
+                        //{
+                        //    Tracking =
+                        //        new ObservableCollection<Seguimiento>(_zoom.Seguimiento);
+                        //}
+                        //else
+                        //{
+                        //    Tracking = new ObservableCollection<Seguimiento>();
+                        //}
                         this.isValid = true;
                     }
                     else
@@ -254,16 +263,40 @@
 						              "favor verifique...!!!");
                     //  Sets status of controls
                     this.isValid = false;
-                    this.SetStatusControl(true, false, "Red", -1);
+					this.SetStatusControl(true, false, "Red", -1);
 				}
             }
         }
 
-        //private async void GoBack()
-        //{
-        //    this.LoadValuesControls(0, null);
-        //    await navigationService.GoBackOnMaster();
-        //}
+		private async void GetZoomDetails()
+        {
+			if(this.isValid)
+			{
+				if (this.zoom.Seguimiento.Count > 0)
+                {
+                    //  Gets an instance of the GetZoomDetails
+                    this.mainViewModel.GetZoomDetails =
+                        new GetZoomDetailsViewModel(this);
+
+                    //  Navegate to page GetZoomDetailsPage
+                    await this.navigationService.NavigateOnMaster("GetZoomDetailsPage");
+                }
+                else
+                {
+                    await dialogService.ShowMessage(
+                        "Information",
+                        "No records have been added yet...!!!",
+                        "Accept");
+                    return;
+                }
+			}
+        }
+
+        private async void GoBack()
+        {
+            this.LoadValuesControls(0, null);
+            await navigationService.GoBackOnMaster();
+        }
 
         private void SetStatusControl(
             bool _isEnabled,

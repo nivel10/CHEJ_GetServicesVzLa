@@ -113,6 +113,8 @@
     <AndroidResource Include="Resources\drawable\TrackerLogo.png" />
     <AndroidResource Include="Resources\drawable\ZoomLogo.png" />
     <AndroidResource Include="Resources\drawable\NoImageLogo.png" />
+    <AndroidResource Include="Resources\drawable\UserSettingsLogo.png" />
+    <AndroidResource Include="Resources\drawable\EmailSettingsLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

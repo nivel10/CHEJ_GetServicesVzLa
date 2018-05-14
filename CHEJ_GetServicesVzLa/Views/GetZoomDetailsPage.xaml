@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Zoom Details"
+             x:Class="CHEJ_GetServicesVzLa.Views.GetZoomDetailsPage">
+    
+    <ContentPage.Content>
+
+        <StackLayout BindingContext="{Binding GetZoomDetails}"
+                     Padding="10">
+            
+            <ListView HasUnevenRows="true"
+                      IsPullToRefreshEnabled="false"
+                      ItemsSource="{Binding Tracking, Mode=TwoWay}">
+                
+                <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+
+                        <ViewCell>
+                            
+                            <Frame CornerRadius="10"
+                                   HasShadow="true"
+                                   Margin="3">
+
+                                <Grid>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label FontSize="Small" 
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           Text="Date:"
+                                           VerticalOptions="Center"/>
+                                    <Label FontAttributes="Bold"
+                                           FontSize="Small"
+                                           Grid.Column="1"
+                                           Grid.Row="0"
+                                           Text="{Binding Fecha, Mode=TwoWay}"
+                                           VerticalOptions="Center"/>
+                                    
+                                    <Label FontSize="Small" 
+                                           Grid.Column="0"
+                                           Grid.Row="1"
+                                           Text="Office:"
+                                           VerticalOptions="Center"/>
+                                    <Label FontSize="Small"
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="{Binding Oficina, Mode=TwoWay}"
+                                           VerticalOptions="Center"/>
+                                    
+                                    <Label FontSize="Small"
+                                           Grid.Column="0"
+                                           Grid.Row="2"
+                                           Text="Status:"
+                                           VerticalOptions="Center"/>
+                                    <Label FontSize="Small"
+                                           Grid.Column="1"
+                                           Grid.Row="2"
+                                           Text="{Binding Estatus, Mode=TwoWay}"
+                                           VerticalOptions="Center"/>
+                                    
+                                    <Label FontSize="Small"
+                                           Grid.Column="0"
+                                           Grid.Row="3"
+                                           Text="Reason:"
+                                           VerticalOptions="Center"/>
+                                    <Label FontSize="Small"
+                                           Grid.Column="1"
+                                           Grid.Row="3"
+                                           Text="{Binding Motivo, Mode=TwoWay}"
+                                           VerticalOptions="Center"/>
+                                    
+                                </Grid>
+                                
+                            </Frame>
+
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            
+        </StackLayout>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

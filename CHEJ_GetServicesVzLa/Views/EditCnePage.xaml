@@ -19,11 +19,11 @@
                            VerticalOptions="Center"
                            WidthRequest="100"/>
                 
-                <Label FontAttributes="Bold"
-                       FontSize="Large"
-                       HorizontalOptions="Center"
-                       Text="Data"
-                       VerticalOptions="Center"/>
+                    <!--<Label FontAttributes="Bold"
+                           FontSize="Large"
+                           HorizontalOptions="Center"
+                           Text="Data"
+                           VerticalOptions="Center"/>-->
                     
                 </StackLayout>
                 

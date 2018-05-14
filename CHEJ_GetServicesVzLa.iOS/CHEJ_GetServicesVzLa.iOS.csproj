@@ -169,5 +169,7 @@
     <BundleResource Include="Resources\TrackerLogo.png" />
     <BundleResource Include="Resources\ZoomLogo.png" />
     <BundleResource Include="Resources\NoImageLogo.png" />
+    <BundleResource Include="Resources\UserSettingsLogo.png" />
+    <BundleResource Include="Resources\EmailSettingsLogo.png" />
   </ItemGroup>
 </Project>

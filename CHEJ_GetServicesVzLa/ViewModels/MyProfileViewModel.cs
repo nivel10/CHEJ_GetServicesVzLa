@@ -129,9 +129,13 @@
             throw new NotImplementedException();
         }
 
-        private void EditEmail()
+        private async void EditEmail()
         {
-            throw new NotImplementedException();
+			//  Gets an instance of the EditMailViewModel
+			this.mainViewModel.EditEmail = new EditEmailViewModel();
+
+			//  Vanigate to the page EditEmailPage
+			await this.navigationService.NavigateOnMaster("EditEmailPage");
         }
 
         private void LoadValue()
