@@ -8,23 +8,19 @@
     <ContentPage.Content>
 
         <ScrollView BindingContext="{Binding MyProfile}"
-                    Padding="10">
+                    Padding="10,20">
             
-            <StackLayout VerticalOptions="CenterAndExpand">
+            <StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand">
 
                     <Image Source="UserSettingsLogo"
-                           HeightRequest="50"
+                           HeightRequest="100"
                            VerticalOptions="CenterAndExpand"/>
 
-                   <!-- <Label FontAttributes="Bold"
-                           HorizontalOptions="Center"
-                           Text="Data"
-                           VerticalOptions="CenterAndExpand"/>-->
                 </StackLayout>
                
-                <Grid VerticalOptions="CenterAndExpand">
+                <Grid>
                     
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -52,17 +48,6 @@
                            Placeholder="Shows last name"
                            Text="{Binding LastName, Mode=TwoWay}"
                            VerticalOptions="Center"/>
-
-                   <!-- <Label Grid.Column="0" 
-                           Grid.Row="2" 
-                           Text="Email:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="2"
-                           IsEnabled="false"
-                           Placeholder="Shows email"
-                           Text="{Binding Email, Mode=TwoWay}"
-                           VerticalOptions="Center"/>-->
 
                     <Label Grid.Column="0" 
                            Grid.Row="2" 

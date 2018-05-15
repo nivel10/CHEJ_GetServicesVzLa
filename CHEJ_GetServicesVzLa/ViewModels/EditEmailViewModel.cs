@@ -1,7 +1,9 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
+	using System;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
+	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
@@ -107,8 +109,7 @@
 
 		private async void Save()
         {
-            //  Validate the field of form
-
+            //  Validate the field of form         
             #region Current Email
 
 			var response = MethodsHelper.IsValidField(
@@ -139,8 +140,18 @@
 				return;
 			}
 
-			#endregion Current Email
+			#endregion Current Email         
 
+			// Verify if it is valid the email current
+			if(!this.CurrentEmail.Equals(this.mainViewModel.UserData.Email))         
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "This email not are registered in the sistem...!!!",
+                    "Accept");
+                return;
+            }
+			   
 			#region New Email
 
 			response = MethodsHelper.IsValidField(
@@ -227,6 +238,16 @@
 
 			#endregion Email Confirm and new Email
 
+            //  Validate that the emails are different
+			if(this.CurrentEmail.Equals(this.NewEmail))
+			{
+				await dialogService.ShowMessage(
+					"Error", 
+					"The new email can not be the same as the current email .. !!!", 
+					"Accept");
+				return;
+			}
+
 			//  Set status controls
 			SetStatusControl(false, true, "Green", 1);
 
@@ -234,7 +255,7 @@
             if (!response.IsSuccess)
             {
                 //  Set status controls
-                SetStatusControl(true, true, "Green", 0);
+				SetStatusControl(true, false, "Green", 0);
 
                 await dialogService.ShowMessage(
                     "Error",
@@ -243,43 +264,48 @@
                 return;
             }
 
-            ////  Use the user registration API         
-            //var user = new User
-            //{
-            //    AppName = MethodsHelper.GetAppName(),
-            //    Email = this.Email,
-            //    FirstName = this.FirtsName,
-            //    LastName = this.LastName,
-            //    Password = this.Password,
-            //    UserTypeId = Convert.ToInt32("5"),
-            //};
+            //  Use the user registration API         
+            var userEdit = new UserEdit
+            {
+                AppName = MethodsHelper.GetAppName(),
+				Email = this.mainViewModel.UserData.Email,
+				FirstName = this.mainViewModel.UserData.FirstName,
+				LastName = this.mainViewModel.UserData.LastName,
+				NewEmail = this.newEmail,
+				Password = this.mainViewModel.UserData.Password,
+				UserId = this.mainViewModel.UserData.UserId,
+                UserTypeId = 5,
+            };
 
-            //response = await apiService.Post(
-            //    MethodsHelper.GetUrlAPI(),
-            //    "/api",
-            //    "/Users",
-            //    user);
-            //if (!response.IsSuccess)
-            //{
-            //    //  Set status controls
-            //    SetStatusControl(true, true, false, 0);
+			response = await apiService.Put<UserEdit>(
+				MethodsHelper.GetUrlAPI(),
+                "/api",
+				"/Users/PutUserEdit",
+                "id",
+				this.mainViewModel.Token.TokenType,
+				this.mainViewModel.Token.AccessToken,
+			    userEdit);
+            if (!response.IsSuccess)
+            {
+                //  Set status controls
+				SetStatusControl(true, false, "Green", 0);
 
-            //    await dialogService.ShowMessage(
-            //        "Error",
-            //        response.Message,
-            //        "Accept");
-            //    return;
-            //}
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
 
             //  Set status controls
-            SetStatusControl(true, true, "Grenn", 0);
+			SetStatusControl(true, false, "Green", 0);
 
             //  Set Initialize the fields
 			LoadValuesControls(0);
 
             //  Go back login
             await dialogService.ShowMessage(
-                "Information",
+				"Information",
 				"Successfully modified email, you must log in again...!!! ",
                 "Accept");
             

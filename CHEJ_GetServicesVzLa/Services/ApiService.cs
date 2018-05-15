@@ -495,6 +495,109 @@
             }
         }
     
+		public async Task<Response> Put<T>(
+            string _urlPI,
+            string _urlPrefix,
+            string _urlController,
+			string _urlParameter,
+            string _tokenType,
+            string _accessToken,
+            T model)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(_urlPI);
+                client.DefaultRequestHeaders.Authorization =
+                          new AuthenticationHeaderValue(
+                              _tokenType,
+                              _accessToken);
+
+                var urlAPI = string.Format(
+					"{0}{1}/?{2}={3}",
+                    _urlPrefix,
+                    _urlController,
+					_urlParameter,
+                    model.GetHashCode());
+
+                var request = JsonConvert.SerializeObject(model);
+
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+
+                var response = await client.PutAsync(urlAPI, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    if (result.Contains("No se encuentra el recurso"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "Sorry, the system is currently ",
+                                "down. Try later...!!!"),
+                        };
+                    }
+                    else if (result.Contains("The email you are using"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "The email you are using is already ",
+                                "registered...!!!"),
+                        };
+                    }
+                    else if (result.Contains("There is already a record with the same name...!!!"))
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = string.Format(
+                                "{0}{1}",
+                                "here is already a record with the ",
+                                "same name...!!!"),
+                        };
+                    }
+
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
+                }
+
+                //var editRecord = JsonConvert.DeserializeObject<T>(result);
+
+                //return new Response
+                //{
+                //    IsSuccess = true,
+                //    Message = "Edit record add is ok...!!!",
+                //    Result = editRecord,
+                //};
+
+				return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Edit record add is ok...!!!",
+                    Result = null,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+		
         public async Task<Response> Delete<T>(
             string urlBase,
             string servicePrefix,
