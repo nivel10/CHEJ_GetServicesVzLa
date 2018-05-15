@@ -21,7 +21,13 @@
 			set;
 		}
 
-        public string Password
+		public string Telephone
+		{
+			get;
+			set;
+		}
+
+		public string Password
 		{
 			get;
 			set;

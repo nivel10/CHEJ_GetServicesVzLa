@@ -249,7 +249,7 @@
 			if (!response.IsSuccess)
 			{
 				//  Set status controls
-                SetStatusControl(true, true, false, 0);
+				SetStatusControl(true, true, false, 0);
 
 				await dialogService.ShowMessage(
 					"Error",

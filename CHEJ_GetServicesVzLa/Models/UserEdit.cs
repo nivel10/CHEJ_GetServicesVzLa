@@ -2,7 +2,6 @@
 {
 	public class UserEdit : User
     {
-		
 		#region Properties
 
 		public int UserId
@@ -17,6 +16,12 @@
 			set;
 		}
 
+		public byte[] ImageArray
+		{
+			get;
+			set;
+		}
+
 		#endregion Properties
 
 		#region Methods
@@ -25,7 +30,7 @@
 		{
 			return this.UserId;
 		}
-
+        
 		#endregion Methods
 	}
 }

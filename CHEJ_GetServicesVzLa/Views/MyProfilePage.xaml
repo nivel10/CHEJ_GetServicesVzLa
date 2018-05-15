@@ -92,9 +92,9 @@
 
                 </Grid>
 
-                <Image HeightRequest="70"
-                       Source="{Binding ImagePath, Mode=TwoWay}"
-                       WidthRequest="100"
+                <Image HeightRequest="80"
+                       Source="{Binding ImageSource, Mode=TwoWay}"
+                       WidthRequest="140"
                        VerticalOptions="CenterAndExpand">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding EditImageCommand}"/>

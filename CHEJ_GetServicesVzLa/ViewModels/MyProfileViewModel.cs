@@ -2,8 +2,13 @@
 {
 	using System;
 	using System.Windows.Input;
+	using CHEJ_GetServicesVzLa.Helpers;
+	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
+	using Plugin.Media;
+	using Plugin.Media.Abstractions;
+	using Xamarin.Forms;
 
 	public class MyProfileViewModel : BaseViewModel
     {
@@ -22,10 +27,12 @@
 		private string lastName;
 		private string email;
 		private string telephone;
-		private string imagePath;
+		//private string imagePath;
 		private bool isEnabled;
         private bool isRunning;
 		private string messageLabel;
+		private ImageSource imageSource;
+		private MediaFile file;
 
 		#endregion Attributes
 
@@ -55,11 +62,11 @@
 			set { SetValue(ref this.telephone, value); }
 		}
 
-		public string ImagePath
-		{
-			get { return this.imagePath; }
-			set { SetValue(ref this.imagePath, value); }
-		}
+		//public string ImagePath
+		//{
+		//	get { return this.imagePath; }
+		//	set { SetValue(ref this.imagePath, value); }
+		//}
               
         public bool IsEnabled
         {
@@ -78,6 +85,12 @@
             get { return this.messageLabel; }
             set { SetValue(ref this.messageLabel, value); }
         }
+
+		public ImageSource ImageSource
+		{
+			get { return this.imageSource; }
+			set { SetValue(ref this.imageSource, value); }
+		}
 
 		#region Commands
 
@@ -114,14 +127,114 @@
 
 		#region Methods
         
-        private void Save()
+        private async void Save()
         {
-            throw new NotImplementedException();
-        }
+			//  Validate the field of form
+            var response = MethodsHelper.IsValidField(
+                "S",
+                3,
+                20,
+                "firts name",
+                this.FirstName,
+                true,
+                false,
+                string.Empty);
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
 
-        private void EditImage()
-        {
-            throw new NotImplementedException();
+            response = MethodsHelper.IsValidField(
+                "S",
+                3,
+                20,
+                "last name",
+                this.LastName,
+                true,
+                false,
+                string.Empty);
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            //  Get image
+			byte[] imageArray = null;
+			if(file != null)
+			{
+				imageArray = FilesHelper.ReadFully(file.GetStream());
+				file.Dispose();
+			}
+
+			//  Set status controls
+            SetStatusControl(false, true, 1);
+
+            response = await apiService.CheckConnection();
+            if (!response.IsSuccess)
+            {
+                //  Set status controls
+				SetStatusControl(true, false, 0);
+
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+                     
+			//  Use the user registration API         
+            var userEdit = new UserEdit
+            {
+                AppName = MethodsHelper.GetAppName(),
+                Email = this.Email,
+                FirstName = this.FirstName,
+				ImageArray = imageArray,
+                LastName = this.LastName,
+				Password = this.mainViewModel.UserData.Password,            
+				Telephone = this.Telephone,
+				UserId = this.mainViewModel.UserData.UserId,
+                UserTypeId = 5,
+            };
+
+			response = await apiService.Put<UserEdit>(
+                MethodsHelper.GetUrlAPI(),
+                "/api",
+                "/Users",
+				this.mainViewModel.Token.TokenType,
+				this.mainViewModel.Token.AccessToken,
+				userEdit);
+            if (!response.IsSuccess)
+            {
+                //  Set status controls
+				this.SetStatusControl(true, false, 0);
+                
+                await dialogService.ShowMessage(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+			//  Update data Image
+			this.mainViewModel.UserData.ImageFullPath = "";
+			this.mainViewModel.UserData.ImagePath = "";
+
+            //  Set status controls
+            this.SetStatusControl(true, false, 0);
+
+            //  Go back login
+            await dialogService.ShowMessage(
+				"Information",
+				"Infromation updated successfully...!!!",
+                "Accept");         
         }
 
         private void EditPassword()
@@ -144,11 +257,57 @@
             this.LastName = this.mainViewModel.UserData.LastName;
             this.Email = this.mainViewModel.UserData.Email;
             this.Telephone = this.mainViewModel.UserData.Telephone;
-            this.ImagePath =
+			this.ImageSource =
                 string.IsNullOrEmpty(this.mainViewModel.UserData.ImagePath) ?
-                    "NoImageLogo" :
+				    "NoImageLogo.png" :
                         this.mainViewModel.UserData.ImagePath;
 
+        }
+
+		async void EditImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var source = await dialogService.ShowImageOptions();
+
+                if (source == "Cancel")
+                {
+                    file = null;
+                    return;
+                }
+
+                if (source == "From Camera")
+                {
+                    file = await CrossMedia.Current.TakePhotoAsync(
+                        new StoreCameraMediaOptions
+                        {
+                            Directory = "Sample",
+                            Name = "test.jpg",
+                            PhotoSize = PhotoSize.Small,
+                        }
+                    );
+                }
+                else
+                {
+                    file = await CrossMedia.Current.PickPhotoAsync();
+                }
+            }
+            else
+            {
+                file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
         }
 
 		private async void GoBack()
