@@ -1,6 +1,7 @@
 ﻿namespace CHEJ_GetServicesVzLa.Models
 {
 	using System.Collections.Generic;
+	using CHEJ_GetServicesVzLa.Helpers;
 
 	public class UserDataResponse
     {
@@ -22,7 +23,20 @@
 
 		public string Password { get; set; }
 
-        public string ImageFullPath { get; set; }
+        public string ImageFullPath 
+		{ 
+			get
+			{
+				var ulrImageFullPath = string.Empty;
+
+				if(!string.IsNullOrEmpty(this.ImagePath))
+				{
+					ulrImageFullPath = MethodsHelper.GetUrlAPI();
+					ulrImageFullPath = ulrImageFullPath + ImagePath.Substring(1);
+				}
+				return ulrImageFullPath;            
+			} 
+		}
 
         public string FullName { get; set; }
 

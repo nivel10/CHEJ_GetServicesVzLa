@@ -17,12 +17,6 @@
                     <Image Source="ZoomLogo"
                            VerticalOptions="Center"
                            WidthRequest="100"/>
-                
-                <Label FontAttributes="Bold"
-                       FontSize="Large"
-                       HorizontalOptions="Center"
-                       Text="Data"
-                       VerticalOptions="Center"/>
                     
                 </StackLayout>
                 

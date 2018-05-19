@@ -182,6 +182,12 @@
 			set;
 		}
 
+		public EditPasswordViewModel EditPassword
+		{
+			get;
+			set;
+		}
+
 		//public List<NationalityData> ListNationalityDatas
 		//{
 		//	get;

@@ -19,12 +19,6 @@
                            VerticalOptions="Center"
                            WidthRequest="100"/>
                 
-                <Label FontAttributes="Bold"
-                       FontSize="Large"
-                       HorizontalOptions="Center"
-                       Text="Data"
-                       VerticalOptions="Center"/>
-                    
                 </StackLayout>
                 
                 <Grid RowSpacing="5">
@@ -34,20 +28,6 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-<!--                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Nationality:"
-                           VerticalOptions="Center"/>
-                   <control:BindablePicker DisplayMemberPath="Name"
-                                            Grid.Column="1" 
-                                            Grid.Row="0"
-                                            HorizontalOptions="FillAndExpand"
-                                            Title="Select a nationality"
-                                            SelectedValuePath="NationalityId"
-                                            ItemsSource="{Binding Nationalities}"
-                                            SelectedValue="{Binding Path=NationalityId, Mode=TwoWay}"
-                                            VerticalOptions="Center"/>-->
-                    
                     <Label Grid.Column="0"
                            Grid.Row="0"
                            Text="Identification Card:"

@@ -140,7 +140,62 @@
 			}
         }
 
-		public async Task<Response> Get<T>(
+		public async Task<Response> PasswordRecovery(
+			string _urlBase, 
+			string _servicePrefix, 
+			string _urlController, 
+			string _emailRecovery)
+        {
+			
+            try
+            {
+				var passwordRecoveryRequest = 
+					new PasswordRecoveryRequest { Email = _emailRecovery, };
+				var request = 
+					JsonConvert.SerializeObject(passwordRecoveryRequest);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(_urlBase);
+                var url = string.Format(
+					"{0}{1}", 
+					_servicePrefix,
+					_urlController);
+                var response = await client.PostAsync(url, content);
+				var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var responseResult = 
+						JsonConvert.DeserializeObject<Response>(result);
+
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        //  Message = response.StatusCode.ToString(),
+						Message = responseResult.Message,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+            
+        }
+
+        public async Task<Response> Get<T>(
             string _urlBase,
             string _servicePrefix,
             string _controller,
@@ -240,6 +295,63 @@
             }
         }
 
+		public async Task<Response> EditPassword(
+			string _urlBase,
+			string _urlPrefix,
+			string _urlController,
+			string _tokenType,
+			string _accessToken,
+			UserEdit _userEdit)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(_userEdit);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(_tokenType, _accessToken);
+                client.BaseAddress = new Uri(_urlBase);
+                var url = string.Format("{0}{1}", _urlPrefix, _urlController);
+                var response = await client.PostAsync(url, content);
+
+				var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+					if(result.Contains("Incorrect password"))
+					{
+						return new Response
+                        {
+                            IsSuccess = false,
+							Message = "Incorrect password...!!!",
+                        };
+					}
+
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = response.StatusCode.ToString(),
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+        
         public async Task<Response> Post<T>(
             string _urlPI,
             string _urlPrefix,

@@ -171,5 +171,7 @@
     <BundleResource Include="Resources\NoImageLogo.png" />
     <BundleResource Include="Resources\UserSettingsLogo.png" />
     <BundleResource Include="Resources\EmailSettingsLogo.png" />
+    <BundleResource Include="Resources\PasswordLogo.png" />
+    <BundleResource Include="Resources\AboutLogo.png" />
   </ItemGroup>
 </Project>

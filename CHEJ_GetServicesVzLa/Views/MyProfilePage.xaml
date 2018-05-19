@@ -94,7 +94,7 @@
 
                 <Image HeightRequest="80"
                        Source="{Binding ImageSource, Mode=TwoWay}"
-                       WidthRequest="140"
+                       WidthRequest="150"
                        VerticalOptions="CenterAndExpand">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding EditImageCommand}"/>
@@ -103,7 +103,7 @@
                     
                 <Label FontSize="Small" 
                         HorizontalOptions="Center"
-                        Text="Clic on the image to change the photo"
+                        Text="Tap on image to change it...!!!"
                         VerticalOptions="CenterAndExpand"/>
 
                 <ActivityIndicator IsRunning="{Binding IsRunning}" 

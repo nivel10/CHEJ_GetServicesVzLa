@@ -26,8 +26,7 @@
 		private string firstName;
 		private string lastName;
 		private string email;
-		private string telephone;
-		//private string imagePath;
+		private string telephone;      
 		private bool isEnabled;
         private bool isRunning;
 		private string messageLabel;
@@ -61,12 +60,6 @@
 			get { return this.telephone; }
 			set { SetValue(ref this.telephone, value); }
 		}
-
-		//public string ImagePath
-		//{
-		//	get { return this.imagePath; }
-		//	set { SetValue(ref this.imagePath, value); }
-		//}
               
         public bool IsEnabled
         {
@@ -171,7 +164,7 @@
 			if(file != null)
 			{
 				imageArray = FilesHelper.ReadFully(file.GetStream());
-				file.Dispose();
+				//  file.Dispose();
 			}
 
 			//  Set status controls
@@ -197,7 +190,8 @@
                 Email = this.Email,
                 FirstName = this.FirstName,
 				ImageArray = imageArray,
-                LastName = this.LastName,
+				ImagePath = this.mainViewModel.UserData.ImagePath,
+                LastName = this.LastName,            
 				Password = this.mainViewModel.UserData.Password,            
 				Telephone = this.Telephone,
 				UserId = this.mainViewModel.UserData.UserId,
@@ -223,9 +217,8 @@
                 return;
             }
 
-			//  Update data Image
-			this.mainViewModel.UserData.ImageFullPath = "";
-			this.mainViewModel.UserData.ImagePath = "";
+			//  Update data Image         
+			this.mainViewModel.UserData.ImagePath = userEdit.ImagePath;
 
             //  Set status controls
             this.SetStatusControl(true, false, 0);
@@ -237,9 +230,13 @@
                 "Accept");         
         }
 
-        private void EditPassword()
+        private async void EditPassword()
         {
-            throw new NotImplementedException();
+			//  Gets an instance of the EditPasswordViewModel
+			this.mainViewModel.EditPassword = new EditPasswordViewModel();
+
+            //  Vanigate to the page EditPassword
+            await this.navigationService.NavigateOnMaster("EditPasswordPage");
         }
 
         private async void EditEmail()
@@ -260,7 +257,7 @@
 			this.ImageSource =
                 string.IsNullOrEmpty(this.mainViewModel.UserData.ImagePath) ?
 				    "NoImageLogo.png" :
-                        this.mainViewModel.UserData.ImagePath;
+                        this.mainViewModel.UserData.ImageFullPath;
 
         }
 
@@ -312,6 +309,12 @@
 
 		private async void GoBack()
         {
+			//  Dispose the object file
+			if(file != null) 
+			{
+				file.Dispose();
+			}
+
             //  Navigate on back
             await this.navigationService.GoBackOnMaster();
         }

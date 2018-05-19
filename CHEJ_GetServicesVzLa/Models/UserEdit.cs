@@ -16,6 +16,12 @@
 			set;
 		}
 
+		public string NewPassword
+		{
+			get;
+			set;
+		}
+
 		public byte[] ImageArray
 		{
 			get;

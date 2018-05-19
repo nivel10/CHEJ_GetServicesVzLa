@@ -78,6 +78,10 @@
 				case "EditEmailPage":
 					await App.Navigator.PushAsync(new EditEmailPage());
 					return;
+
+				case "EditPasswordPage":
+					await App.Navigator.PushAsync(new EditPasswordPage());
+					return;
 			}
 		}
 

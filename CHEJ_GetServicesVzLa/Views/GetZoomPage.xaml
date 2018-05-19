@@ -14,16 +14,11 @@
 
                  <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image HeightRequest="50"
+                    <Image HeightRequest="100"
                            HorizontalOptions="Center"
                            Source="ZoomLogo"
                            VerticalOptions="CenterAndExpand"/>
 
-                    <!--<Label FontAttributes="Bold" 
-                           HorizontalOptions="Center" 
-                           Text="Data"
-                           VerticalOptions="CenterAndExpand"/>
--->
             </StackLayout>
                 
                 <Grid>

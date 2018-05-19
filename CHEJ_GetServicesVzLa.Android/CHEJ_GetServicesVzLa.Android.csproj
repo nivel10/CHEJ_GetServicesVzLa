@@ -115,6 +115,8 @@
     <AndroidResource Include="Resources\drawable\NoImageLogo.png" />
     <AndroidResource Include="Resources\drawable\UserSettingsLogo.png" />
     <AndroidResource Include="Resources\drawable\EmailSettingsLogo.png" />
+    <AndroidResource Include="Resources\drawable\PasswordLogo.png" />
+    <AndroidResource Include="Resources\drawable\AboutLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

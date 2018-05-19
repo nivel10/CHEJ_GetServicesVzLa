@@ -8,11 +8,13 @@
     
     <ContentPage.Content>
 
-        <StackLayout Padding="10,20">
+        <StackLayout Padding="15,50">
 
+            
+            
             <Label FontAttributes="Bold" 
                    FontSize="Large"
-                   Text="Prueba"
+                   Text="Menu"
                    TextColor="{StaticResource FontMenuColor}"/>
             
             <ListView BackgroundColor="{StaticResource MenuColor}" 
