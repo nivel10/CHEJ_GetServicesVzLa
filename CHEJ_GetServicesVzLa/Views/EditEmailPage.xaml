@@ -78,14 +78,14 @@
                              Orientation="Horizontal" 
                              VerticalOptions="EndAndExpand">
 
-                    <Button BackgroundColor="Silver"
+                    <Button BackgroundColor="Gray"
                             Command="{Binding SaveCommand}"
                             IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                             Text="Save"
                             TextColor="White"
                             WidthRequest="90"/>
 
-                    <Button BackgroundColor="Silver"
+                    <Button BackgroundColor="Gray"
                             Command="{Binding GoBackCommand}"
                             IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                             Text="Back"

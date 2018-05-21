@@ -1,18 +1,24 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Models;
 	using CHEJ_GetServicesVzLa.Services;
 	using GalaSoft.MvvmLight.Command;
 
-	public class MainViewModel
+	public class MainViewModel : BaseViewModel
     {
 		#region Attrbutes
+              
+		#region Services
+
+		private NavigationService navigationService;
+
+		#endregion Services
 
 		private static MainViewModel instance;
-		private NavigationService navigationService;      
+		private UserDataResponse userData;
+		private TokenResponse tokenResponse;
 
 		#endregion Attributes
 
@@ -26,8 +32,8 @@
 
         public TokenResponse Token
 		{
-			get;
-			set;
+			get { return this.tokenResponse; }
+			set { SetValue(ref this.tokenResponse, value); }
 		}
 
 		public MenuViewModel Menu
@@ -94,8 +100,8 @@
 
 		public UserDataResponse UserData
 		{
-			get;
-			set;
+			get { return this.userData; }
+			set { SetValue(ref this.userData, value); }
 		}
 
 		public GetCantvViewModel GetCantv

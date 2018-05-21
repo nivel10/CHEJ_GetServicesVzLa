@@ -1,6 +1,5 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
 	using System.Windows.Input;
 	using CHEJ_GetServicesVzLa.Helpers;
 	using CHEJ_GetServicesVzLa.Models;
@@ -217,7 +216,10 @@
                 return;
             }
 
-			//  Update data Image         
+			//  Update data Image
+			this.mainViewModel.UserData.FirstName = this.FirstName;
+			this.mainViewModel.UserData.LastName = this.LastName;
+			this.mainViewModel.UserData.Telephone = this.Telephone;
 			this.mainViewModel.UserData.ImagePath = userEdit.ImagePath;
 
             //  Set status controls
@@ -257,11 +259,10 @@
 			this.ImageSource =
                 string.IsNullOrEmpty(this.mainViewModel.UserData.ImagePath) ?
 				    "NoImageLogo.png" :
-                        this.mainViewModel.UserData.ImageFullPath;
-
+                        this.mainViewModel.UserData.ImageFullPath;         
         }
 
-		async void EditImage()
+		private async void EditImage()
         {
             await CrossMedia.Current.Initialize();
 
@@ -278,14 +279,14 @@
 
                 if (source == "From Camera")
                 {
-                    file = await CrossMedia.Current.TakePhotoAsync(
-                        new StoreCameraMediaOptions
-                        {
-                            Directory = "Sample",
-                            Name = "test.jpg",
-                            PhotoSize = PhotoSize.Small,
-                        }
-                    );
+					file = await CrossMedia.Current.TakePhotoAsync(
+					    new StoreCameraMediaOptions
+					    { 
+					        Directory = "Sample",
+					        Name = "test.jpg",
+					        PhotoSize = PhotoSize.Small,
+					    }
+					);
                 }
                 else
                 {
@@ -306,6 +307,7 @@
                 });
             }
         }
+
 
 		private async void GoBack()
         {

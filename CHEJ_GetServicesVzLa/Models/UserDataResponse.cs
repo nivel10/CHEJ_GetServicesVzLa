@@ -22,22 +22,41 @@
         public object ImageArray { get; set; }
 
 		public string Password { get; set; }
+        
+		//public string ImageFullPath 
+		//{ 
+		//	get
+		//	{
+		//		var ulrImageFullPath = string.Empty;
 
-        public string ImageFullPath 
-		{ 
+		//		if(!string.IsNullOrEmpty(this.ImagePath))
+		//		{
+		//			ulrImageFullPath = MethodsHelper.GetUrlAPI();
+		//			ulrImageFullPath = ulrImageFullPath + ImagePath.Substring(1);
+		//		}
+		//		return ulrImageFullPath;            
+		//	} 
+		//}
+
+		public string ImageFullPath
+        { 
 			get
 			{
-				var ulrImageFullPath = string.Empty;
+				var ulrImageFullPath = this.ImagePath;
 
-				if(!string.IsNullOrEmpty(this.ImagePath))
-				{
-					ulrImageFullPath = MethodsHelper.GetUrlAPI();
-					ulrImageFullPath = ulrImageFullPath + ImagePath.Substring(1);
-				}
-				return ulrImageFullPath;            
-			} 
-		}
-
+                if(this.UserTypeId == 1)
+                {
+					if (!string.IsNullOrEmpty(this.ImagePath))
+                    {
+                        ulrImageFullPath = MethodsHelper.GetUrlAPI();
+                        ulrImageFullPath = ulrImageFullPath + ImagePath.Substring(1);
+                    }
+                }
+                
+                return ulrImageFullPath;            
+            } 
+        }
+        
         public string FullName { get; set; }
 
         public string AppName { get; set; }

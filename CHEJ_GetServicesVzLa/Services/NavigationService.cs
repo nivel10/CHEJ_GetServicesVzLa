@@ -103,6 +103,11 @@
                     await Application.Current.MainPage.Navigation.PushAsync(
                         new RecoveryPage());
                     break;
+
+				case "LoginFacebookPage":
+					await Application.Current.MainPage.Navigation.PushAsync(
+						new LoginFacebookPage());
+					break;
             }
         }
 

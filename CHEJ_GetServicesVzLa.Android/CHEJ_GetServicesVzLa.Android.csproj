@@ -16,7 +16,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -53,14 +53,21 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2-preview1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2-preview1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2-preview1" />
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>3.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
+      <Version>2.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.446417</Version>
+      <Version>3.0.0.482510</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Implementations\LoginPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -117,6 +124,7 @@
     <AndroidResource Include="Resources\drawable\EmailSettingsLogo.png" />
     <AndroidResource Include="Resources\drawable\PasswordLogo.png" />
     <AndroidResource Include="Resources\drawable\AboutLogo.png" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -124,6 +132,8 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\xml\" />
+    <Folder Include="Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CHEJ_GetServicesVzLa\CHEJ_GetServicesVzLa.csproj">

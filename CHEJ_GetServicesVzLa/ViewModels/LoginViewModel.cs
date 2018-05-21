@@ -67,40 +67,11 @@
 
 		#region Commands
 
-		public ICommand LoginCommand
-		{
-			get
-			{
-				return new RelayCommand(Login);
-			}
-
-		}
-
-		public ICommand RegisterCommand
-		{
-			get
-			{
-				return new RelayCommand(Register);
-			}
-
-		}
-
-		public ICommand AboutCommand
-		{
-			get
-			{
-				return new RelayCommand(About);
-			}
-		}
-
-		public ICommand ForgotPasswordCommand
-		{
-			get
-			{
-				return new RelayCommand(ForgotPassword);
-			}
-
-		}
+		public ICommand LoginCommand => new RelayCommand(Login);      
+		public ICommand RegisterCommand =>new RelayCommand(Register);
+		public ICommand AboutCommand => new RelayCommand(About);      
+		public ICommand ForgotPasswordCommand => new RelayCommand(ForgotPassword);
+		public ICommand LoginFacebookCommand => new RelayCommand(LoginFacebook);
         
 		#endregion Commands
 
@@ -128,8 +99,14 @@
 		}
         
 		#endregion Constructor
-
+        
 		#region Methods
+
+        private async void LoginFacebook()
+		{
+			await this.navigationService.NavigateOnLogin("LoginFacebookPage");
+		}
+
 
 		private async void Login()
         {

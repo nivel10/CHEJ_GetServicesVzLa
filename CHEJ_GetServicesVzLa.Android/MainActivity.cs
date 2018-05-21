@@ -2,6 +2,9 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Runtime;
+using Plugin.Permissions;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace CHEJ_GetServicesVzLa.Droid
 {
@@ -16,8 +19,18 @@ namespace CHEJ_GetServicesVzLa.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+			//  Initialization ImageCircleRender
+			ImageCircleRenderer.Init();
+
             LoadApplication(new App());
         }
+
+        //  Can take photo with Xam.Pluging.Media
+		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+		{
+			PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		}
     }
 }
-
