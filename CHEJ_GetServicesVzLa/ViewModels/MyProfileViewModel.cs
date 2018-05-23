@@ -27,6 +27,7 @@
 		private string email;
 		private string telephone;      
 		private bool isEnabled;
+		private bool isEnabledCommand;
         private bool isRunning;
 		private string messageLabel;
 		private ImageSource imageSource;
@@ -66,7 +67,13 @@
             set { SetValue(ref this.isEnabled, value); }
         }
 
-        public bool IsRunning
+		public bool IsEnabledCommand
+		{
+			get { return this.isEnabledCommand; }
+			set { SetValue(ref this.isEnabledCommand, value); }
+		}
+
+		public bool IsRunning
         {
             get { return this.isRunning; }
             set { SetValue(ref this.isRunning, value); }
@@ -109,7 +116,7 @@
 			this.mainViewModel = MainViewModel.GetInstance();
 
 			//  Define the status of the controls
-            this.SetStatusControl(true, false, 0);
+            this.SetStatusControl(true, true, false, 0);
 
 			//  Load values in the controls
 			this.LoadValue();
@@ -121,115 +128,118 @@
         
         private async void Save()
         {
-			//  Validate the field of form
-            var response = MethodsHelper.IsValidField(
-                "S",
-                3,
-                20,
-                "firts name",
-                this.FirstName,
-                true,
-                false,
-                string.Empty);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
-
-            response = MethodsHelper.IsValidField(
-                "S",
-                3,
-                20,
-                "last name",
-                this.LastName,
-                true,
-                false,
-                string.Empty);
-            if (!response.IsSuccess)
-            {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
-
-            //  Get image
-			byte[] imageArray = null;
-			if(file != null)
+			if (this.mainViewModel.UserData.UserTypeId != 2)
 			{
-				imageArray = FilesHelper.ReadFully(file.GetStream());
-				//  file.Dispose();
+				//  Validate the field of form
+				var response = MethodsHelper.IsValidField(
+					"S",
+					3,
+					20,
+					"firts name",
+					this.FirstName,
+					true,
+					false,
+					string.Empty);
+				if (!response.IsSuccess)
+				{
+					await dialogService.ShowMessage(
+						"Error",
+						response.Message,
+						"Accept");
+					return;
+				}
+
+				response = MethodsHelper.IsValidField(
+					"S",
+					3,
+					20,
+					"last name",
+					this.LastName,
+					true,
+					false,
+					string.Empty);
+				if (!response.IsSuccess)
+				{
+					await dialogService.ShowMessage(
+						"Error",
+						response.Message,
+						"Accept");
+					return;
+				}
+
+				//  Get image
+				byte[] imageArray = null;
+				if (file != null)
+				{
+					imageArray = FilesHelper.ReadFully(file.GetStream());
+					//  file.Dispose();
+				}
+
+				//  Set status controls
+				SetStatusControl(false, false, true, 1);
+
+				response = await apiService.CheckConnection();
+				if (!response.IsSuccess)
+				{
+					//  Set status controls
+					SetStatusControl(true, true, false, 0);
+
+					await dialogService.ShowMessage(
+						"Error",
+						response.Message,
+						"Accept");
+					return;
+				}
+
+				//  Use the user registration API         
+				var userEdit = new UserEdit
+				{
+					AppName = MethodsHelper.GetAppName(),
+					Email = this.Email,
+					FirstName = this.FirstName,
+					ImageArray = imageArray,
+					ImagePath = this.mainViewModel.UserData.ImagePath,
+					LastName = this.LastName,
+					Password = this.mainViewModel.UserData.Password,
+					Telephone = this.Telephone,
+					UserId = this.mainViewModel.UserData.UserId,
+					UserTypeId = 5,
+				};
+
+				response = await apiService.Put<UserEdit>(
+					MethodsHelper.GetUrlAPI(),
+					"/api",
+					"/Users",
+					this.mainViewModel.Token.TokenType,
+					this.mainViewModel.Token.AccessToken,
+					userEdit);
+				if (!response.IsSuccess)
+				{
+					//  Set status controls
+					this.SetStatusControl(true, true, false, 0);
+
+					await dialogService.ShowMessage(
+						"Error",
+						response.Message,
+						"Accept");
+					return;
+				}
+
+				//  Update data Image
+				this.mainViewModel.UserData.FirstName = this.FirstName;
+				this.mainViewModel.UserData.LastName = this.LastName;
+				this.mainViewModel.UserData.Telephone = this.Telephone;
+				this.mainViewModel.UserData.ImagePath = userEdit.ImagePath;
+
+				//  Set status controls
+				this.SetStatusControl(true, true, false, 0);
+
+				//  Go back login
+				await dialogService.ShowMessage(
+					"Information",
+					"Infromation updated successfully...!!!",
+					"Accept");
 			}
-
-			//  Set status controls
-            SetStatusControl(false, true, 1);
-
-            response = await apiService.CheckConnection();
-            if (!response.IsSuccess)
-            {
-                //  Set status controls
-				SetStatusControl(true, false, 0);
-
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
-                     
-			//  Use the user registration API         
-            var userEdit = new UserEdit
-            {
-                AppName = MethodsHelper.GetAppName(),
-                Email = this.Email,
-                FirstName = this.FirstName,
-				ImageArray = imageArray,
-				ImagePath = this.mainViewModel.UserData.ImagePath,
-                LastName = this.LastName,            
-				Password = this.mainViewModel.UserData.Password,            
-				Telephone = this.Telephone,
-				UserId = this.mainViewModel.UserData.UserId,
-                UserTypeId = 5,
-            };
-
-			response = await apiService.Put<UserEdit>(
-                MethodsHelper.GetUrlAPI(),
-                "/api",
-                "/Users",
-				this.mainViewModel.Token.TokenType,
-				this.mainViewModel.Token.AccessToken,
-				userEdit);
-            if (!response.IsSuccess)
-            {
-                //  Set status controls
-				this.SetStatusControl(true, false, 0);
-                
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
-
-			//  Update data Image
-			this.mainViewModel.UserData.FirstName = this.FirstName;
-			this.mainViewModel.UserData.LastName = this.LastName;
-			this.mainViewModel.UserData.Telephone = this.Telephone;
-			this.mainViewModel.UserData.ImagePath = userEdit.ImagePath;
-
-            //  Set status controls
-            this.SetStatusControl(true, false, 0);
-
-            //  Go back login
-            await dialogService.ShowMessage(
-				"Information",
-				"Infromation updated successfully...!!!",
-                "Accept");         
         }
 
         private async void EditPassword()
@@ -252,6 +262,11 @@
 
         private void LoadValue()
         {
+			if(this.mainViewModel.UserData.UserTypeId == 2)
+			{
+				SetStatusControl(false, true, false, 0);
+			}
+
             this.FirstName = this.mainViewModel.UserData.FirstName;
             this.LastName = this.mainViewModel.UserData.LastName;
             this.Email = this.mainViewModel.UserData.Email;
@@ -264,50 +279,52 @@
 
 		private async void EditImage()
         {
-            await CrossMedia.Current.Initialize();
+			if (this.mainViewModel.UserData.UserTypeId != 2)
+			{
+				await CrossMedia.Current.Initialize();
 
-            if (CrossMedia.Current.IsCameraAvailable &&
-                CrossMedia.Current.IsTakePhotoSupported)
-            {
-                var source = await dialogService.ShowImageOptions();
+				if (CrossMedia.Current.IsCameraAvailable &&
+					CrossMedia.Current.IsTakePhotoSupported)
+				{
+					var source = await dialogService.ShowImageOptions();
 
-                if (source == "Cancel")
-                {
-                    file = null;
-                    return;
-                }
+					if (source == "Cancel")
+					{
+						file = null;
+						return;
+					}
 
-                if (source == "From Camera")
-                {
-					file = await CrossMedia.Current.TakePhotoAsync(
-					    new StoreCameraMediaOptions
-					    { 
-					        Directory = "Sample",
-					        Name = "test.jpg",
-					        PhotoSize = PhotoSize.Small,
-					    }
-					);
-                }
-                else
-                {
-                    file = await CrossMedia.Current.PickPhotoAsync();
-                }
-            }
-            else
-            {
-                file = await CrossMedia.Current.PickPhotoAsync();
-            }
+					if (source == "From Camera")
+					{
+						file = await CrossMedia.Current.TakePhotoAsync(
+							new StoreCameraMediaOptions
+							{
+								Directory = "Sample",
+								Name = "test.jpg",
+								PhotoSize = PhotoSize.Small,
+							}
+						);
+					}
+					else
+					{
+						file = await CrossMedia.Current.PickPhotoAsync();
+					}
+				}
+				else
+				{
+					file = await CrossMedia.Current.PickPhotoAsync();
+				}
 
-            if (file != null)
-            {
-                ImageSource = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    return stream;
-                });
-            }
+				if (file != null)
+				{
+					ImageSource = ImageSource.FromStream(() =>
+					{
+						var stream = file.GetStream();
+						return stream;
+					});
+				}
+			}
         }
-
 
 		private async void GoBack()
         {
@@ -323,10 +340,12 @@
 
         private void SetStatusControl(
             bool _isEnabled,
+            bool _isEnabledCommand,
             bool _isRunning,
             int _messageLabe)
         {
             this.IsEnabled = _isEnabled;
+			this.IsEnabledCommand = _isEnabledCommand;
             this.IsRunning = _isRunning;
             switch (_messageLabe)
             {

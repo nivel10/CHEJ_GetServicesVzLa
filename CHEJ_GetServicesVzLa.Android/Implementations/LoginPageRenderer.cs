@@ -55,7 +55,7 @@ namespace CHEJ_GetServicesVzLa.Droid.Implementations
             requestUrl += "hometown&access_token=" + accessToken;
 
 			var apiService = new ApiService();
-			return await apiService.GetFacebookProfile(requestUrl);
+			return await apiService.GetFacebook(accessToken);
 		}
 	}
 }

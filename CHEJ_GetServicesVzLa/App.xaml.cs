@@ -11,6 +11,11 @@
 
 	public partial class App : Application
     {
+		private static ApiService apiService;
+		private static DialogService dialogService;
+		private static NavigationService navigationService;
+		private static MainViewModel mainViewModel;
+
         #region Properties
 
 		public static NavigationPage Navigator
@@ -33,6 +38,12 @@
 		{
 			InitializeComponent();
 
+			//  Gets an instance of the services
+			apiService = new ApiService();
+			dialogService = new DialogService();
+			navigationService = new NavigationService();
+			mainViewModel = MainViewModel.GetInstance();
+
 			//  MainPage = new MainPage();
 			//  MainPage = new LoginPage();
 			this.MainPage = new NavigationPage(new LoginPage());
@@ -51,26 +62,20 @@
 								  new NavigationPage(new LoginPage()));
 			}
 		}
-
-        //  Quede aqui
-        //  Mejorar este metodo
-		//  Cuando el usuario se autentica con Facebook no puede cambiar:
-        //  - La imagen
-        //  - La contraseña
-        //  - Nombre
+        
 		public static async Task NavigateToProfile(FacebookResponse profile)
 		{
 			if (profile == null)
 			{
-				Application.Current.MainPage = new NavigationPage(new LoginPage());
+				await dialogService.ShowMessage(
+					"Error", 
+					"the facebook response is not available, try later...!!!", 
+					"Accept");
+				navigationService.SetMainPage("LoginPage");
+				//  Application.Current.MainPage = new NavigationPage(new LoginPage());            
 				return;
 			}
-
-			var apiService = new ApiService();
-			var dialogServices = new DialogService();
-			//  var dataService = new DataService();
-
-			//  var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
+            
 			var token = await apiService.LoginFacebook(
 				MethodsHelper.GetUrlAPI(),
 				"/api",
@@ -79,7 +84,12 @@
 
 			if (token == null)
 			{
-				Application.Current.MainPage = new NavigationPage(new LoginPage());
+				await dialogService.ShowMessage(
+					"Error", 
+					"Login with facebook is not available, try later...!!!", 
+					"Accept");
+				//  Application.Current.MainPage = new NavigationPage(new LoginPage());
+				navigationService.SetMainPage("LoginPage");
 				return;
 			}
 
@@ -89,44 +99,33 @@
                 "/api/Users",
                 "/GetServicesVzLaUSerByEmail",
                 string.Format(
-                    "/?email={0}",
+					"/?email={0}",
                     token.UserName),
                     token.TokenType,
                     token.AccessToken);
             if (!response.IsSuccess)
             {
+				await dialogService.ShowMessage(
+					"Error", 
+					response.Message, 
+					"Accept");
+				navigationService.SetMainPage("LoginPage");
+				return;
             }
-
-			var mainViewModel = MainViewModel.GetInstance();
-
+            
+            //  Load values of the UserData
 			LoadOfValueUserData(
 				(UserDataResponse)response.Result, 
 				mainViewModel);
 			
-			//var user = await apiService.GetUserByEmail(
-			//	apiSecurity,
-			//	"/api",
-			//	"/Users/GetUserByEmail",
-			//	token.TokenType,
-			//	token.AccessToken,
-			//	token.UserName);
-
-			//UserLocal userLocal = null;
-			//if (user != null)
-			//{
-			//	userLocal = Converter.ToUserLocal(user);
-			//	dataService.DeleteAllAndInsert(userLocal);
-			//}
-                     
+			//  Load value to token   
 			mainViewModel.Token = token;
-			//  mainViewModel.User = userLocal;
-			//  mainViewModel.UserData = 
-			//  mainViewModel.Lands = new LandsViewModel();
-			Application.Current.MainPage = new MasterPage();
-			//  Settings.IsRemembered = "true";
 
-			//  mainViewModel.Lands = new LandsViewModel();
-			Application.Current.MainPage = new MasterPage();
+            //  Gets an instance of the CantvViewModel
+			mainViewModel.Cantv = new CantvViewModel();
+
+			//  Set the MainPage to MasterPage
+			navigationService.SetMainPage("MasterPage");
 		}
 
 		private static void LoadOfValueUserData(

@@ -14,9 +14,9 @@
 
                 <StackLayout VerticalOptions="CenterAndExpand">
                     
-                    <Image Source="CneLogo"
+                    <Image Source="LogoBuscarUsuario"
                            VerticalOptions="Center"
-                           WidthRequest="100"/>
+                           WidthRequest="70"/>
                     
                 </StackLayout>
                 

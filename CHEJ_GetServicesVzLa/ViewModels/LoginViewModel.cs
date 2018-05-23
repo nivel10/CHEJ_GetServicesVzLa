@@ -106,8 +106,7 @@
 		{
 			await this.navigationService.NavigateOnLogin("LoginFacebookPage");
 		}
-
-
+              
 		private async void Login()
         {
 			//  Validate the fields of form

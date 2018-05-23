@@ -42,18 +42,21 @@
         { 
 			get
 			{
-				var ulrImageFullPath = this.ImagePath;
-
-                if(this.UserTypeId == 1)
+				var urlImageFullPath = this.ImagePath;
+                            
+                if(this.UserTypeId == 2)
+                {
+					urlImageFullPath = this.ImagePath;
+                }
+				else
                 {
 					if (!string.IsNullOrEmpty(this.ImagePath))
                     {
-                        ulrImageFullPath = MethodsHelper.GetUrlAPI();
-                        ulrImageFullPath = ulrImageFullPath + ImagePath.Substring(1);
+                        urlImageFullPath = MethodsHelper.GetUrlAPI();
+                        urlImageFullPath = urlImageFullPath + ImagePath.Substring(1);
                     }
-                }
-                
-                return ulrImageFullPath;            
+				}
+                return urlImageFullPath;            
             } 
         }
         

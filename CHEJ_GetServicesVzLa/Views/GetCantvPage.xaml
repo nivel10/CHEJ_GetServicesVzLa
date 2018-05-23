@@ -9,125 +9,132 @@
         
         <ScrollView BindingContext="{Binding GetCantv}"
                     Padding="20">
-            
-            <StackLayout>
 
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    
-                    <Image Source="PhoneLogo"
-                           VerticalOptions="Center"
-                           WidthRequest="100"/>
-                    
-                </StackLayout>
-                
-                <Grid RowSpacing="5">
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
+            <AbsoluteLayout>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Phone Number:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="0"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding PhoneNumber, Mode=TwoWay}"
-                           Placeholder="Shows phone number"
-                           VerticalOptions="Center"/>
+                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                              AbsoluteLayout.LayoutFlags="All">
+
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        
+                        <Image Source="LogoBuscarPhone"
+                               VerticalOptions="Center"
+                               WidthRequest="70"/>
+                        
+                    </StackLayout>
                     
-                    <Label Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Current Balance:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding CurrentBalance, Mode=TwoWay}"
-                           Placeholder="Shows current balance"
-                           VerticalOptions="Center"/>
+                    <Grid RowSpacing="5">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="2"
-                           Text="Last Billing:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="2"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding LastBilling, Mode=TwoWay}"
-                           Placeholder="Shows last billing"
-                           VerticalOptions="Center"/>
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Phone Number:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="0"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding PhoneNumber, Mode=TwoWay}"
+                               Placeholder="Shows phone number"
+                               VerticalOptions="Center"/>
+                        
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Current Balance:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="1"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding CurrentBalance, Mode=TwoWay}"
+                               Placeholder="Shows current balance"
+                               VerticalOptions="Center"/>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="3"
-                           Text="Cut Date:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="3"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding CutDate, Mode=TwoWay}"
-                           Placeholder="Shows cut date"
-                           VerticalOptions="Center"/>
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Text="Last Billing:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="2"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding LastBilling, Mode=TwoWay}"
+                               Placeholder="Shows last billing"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Text="Cut Date:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="3"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding CutDate, Mode=TwoWay}"
+                               Placeholder="Shows cut date"
+                               VerticalOptions="Center"/>
+                        
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Text="Expirate Date:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="4"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding ExpirateDate, Mode=TwoWay}"
+                               Placeholder="Shows expirate date"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Text="Expirate Balance:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="5"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding ExpirateBalance, Mode=TwoWay}"
+                               Placeholder="Shows expirate balance"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="6"
+                               Text="Last Payment:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="6"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Text="{Binding LastPayment, Mode=TwoWay}"
+                               Placeholder="Shows last payment"
+                               VerticalOptions="Center"/>
+                        
+                    </Grid>
+
+                    <Label FontSize="Small"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding MessageLabel}"
+                           TextColor="Green"
+                           VerticalOptions="CenterAndExpand"/>
                     
-                    <Label Grid.Column="0"
-                           Grid.Row="4"
-                           Text="Expirate Date:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="4"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding ExpirateDate, Mode=TwoWay}"
-                           Placeholder="Shows expirate date"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="5"
-                           Text="Expirate Balance:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="5"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding ExpirateBalance, Mode=TwoWay}"
-                           Placeholder="Shows expirate balance"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="6"
-                           Text="Last Payment:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="6"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Text="{Binding LastPayment, Mode=TwoWay}"
-                           Placeholder="Shows last payment"
-                           VerticalOptions="Center"/>
-                    
-                </Grid>
-
-                <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}" 
-                                   VerticalOptions="CenterAndExpand"/>
-
-                <Label FontSize="Small"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding MessageLabel}"
-                       TextColor="Green"
-                       VerticalOptions="CenterAndExpand"/>
-                
-                <StackLayout HorizontalOptions="Center" 
-                             Orientation="Horizontal"
-                             VerticalOptions="EndAndExpand">
-                    
-                    <Button BackgroundColor="Gray"
-                            Command="{Binding GoBackCommand}"
-                            Text="Back"
-                            TextColor="White"
-                            WidthRequest="90"/>
-                    
-                </StackLayout>
+                    <StackLayout HorizontalOptions="Center" 
+                                 Orientation="Horizontal"
+                                 VerticalOptions="EndAndExpand">
+                        
+                        <Button BackgroundColor="Gray"
+                                Command="{Binding GoBackCommand}"
+                                Text="Back"
+                                TextColor="White"
+                                WidthRequest="90"/>
+                        
+                    </StackLayout>
                                 
-            </StackLayout>
+                </StackLayout>
+
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   IsRunning="{Binding IsRunning, Mode=TwoWay}" 
+                                       VerticalOptions="CenterAndExpand"/>
+                
+            </AbsoluteLayout>
             
         </ScrollView>
 

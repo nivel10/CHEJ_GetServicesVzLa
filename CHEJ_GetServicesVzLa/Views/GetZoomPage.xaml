@@ -14,9 +14,9 @@
 
                  <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image HeightRequest="100"
+                    <Image HeightRequest="70"
                            HorizontalOptions="Center"
-                           Source="ZoomLogo"
+                           Source="LogoBuscarZoom"
                            VerticalOptions="CenterAndExpand"/>
 
             </StackLayout>

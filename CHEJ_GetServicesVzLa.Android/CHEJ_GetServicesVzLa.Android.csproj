@@ -16,7 +16,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -125,6 +125,12 @@
     <AndroidResource Include="Resources\drawable\PasswordLogo.png" />
     <AndroidResource Include="Resources\drawable\AboutLogo.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarMail.png" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarPassword.png" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarPhone.png" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarTracker.png" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarUsuario.png" />
+    <AndroidResource Include="Resources\drawable\LogoBuscarZoom.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
