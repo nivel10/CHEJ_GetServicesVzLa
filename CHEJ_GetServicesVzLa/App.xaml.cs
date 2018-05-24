@@ -67,6 +67,7 @@
 		{
 			if (profile == null)
 			{
+				mainViewModel.Login.SetStatusControl(true, true, false, 0);
 				await dialogService.ShowMessage(
 					"Error", 
 					"the facebook response is not available, try later...!!!", 
@@ -84,6 +85,7 @@
 
 			if (token == null)
 			{
+				mainViewModel.Login.SetStatusControl(true, true, false, 0);
 				await dialogService.ShowMessage(
 					"Error", 
 					"Login with facebook is not available, try later...!!!", 
@@ -105,6 +107,7 @@
                     token.AccessToken);
             if (!response.IsSuccess)
             {
+				mainViewModel.Login.SetStatusControl(true, true, false, 0);
 				await dialogService.ShowMessage(
 					"Error", 
 					response.Message, 

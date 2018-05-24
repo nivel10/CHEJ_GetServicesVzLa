@@ -9,143 +9,148 @@
 
         <ScrollView BindingContext="{Binding GetZoom}"
                     Padding="10">
+            
+            <AbsoluteLayout>
 
-            <StackLayout>
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All">
 
-                 <StackLayout VerticalOptions="CenterAndExpand">
+                     <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image HeightRequest="70"
-                           HorizontalOptions="Center"
-                           Source="LogoBuscarZoom"
+                        <Image HeightRequest="70"
+                               HorizontalOptions="Center"
+                               Source="LogoBuscarZoom"
+                               VerticalOptions="CenterAndExpand"/>
+
+                </StackLayout>
+                    
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Track Id:"
+                               VerticalOptions="Center"/>
+                        <Entry FontAttributes="Bold" 
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows track id"
+                               Text="{Binding TrackId, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+                        
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Reference:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="1"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows reference"
+                               Text="{Binding Reference, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Text="Status:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="2"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Show status"
+                               Text="{Binding Status, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+                        
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Text="Shippinig type:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="3"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows shippinig type"
+                               Text="{Binding ShippinigType, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Text="Date:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="4"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows date"
+                               Text="{Binding Date, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Text="Origin:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="5"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows origin"
+                               Text="{Binding Origin, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="6"
+                               Text="Destination:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="6"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Placeholder="Shows destination"
+                               Text="{Binding Destination, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0" 
+                               Grid.Row="7" Text="View details:"
+                               VerticalOptions="Center"/>
+                        <Image Grid.Column="1" 
+                               Grid.Row="7"
+                               HeightRequest="50"
+                               HorizontalOptions="EndAndExpand"
+                               Source="ic_chevron_right"
+                               VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GetZoomDetailsCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        
+                    </Grid>
+
+                    <Label FontSize="Small"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding MessageLabel}"
+                           TextColor="{Binding MessageLabelTextColor, Mode=TwoWay}"
                            VerticalOptions="CenterAndExpand"/>
 
-            </StackLayout>
-                
-                <Grid>
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
+                    <StackLayout HorizontalOptions="Center" 
+                                 Orientation="Horizontal"
+                                 VerticalOptions="EndAndExpand">
 
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Track Id:"
-                           VerticalOptions="Center"/>
-                    <Entry FontAttributes="Bold" 
-                           Grid.Column="1"
-                           Grid.Row="0"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows track id"
-                           Text="{Binding TrackId, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-                    
-                    <Label Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Reference:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows reference"
-                           Text="{Binding Reference, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="2"
-                           Text="Status:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="2"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Show status"
-                           Text="{Binding Status, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-                    
-                    <Label Grid.Column="0"
-                           Grid.Row="3"
-                           Text="Shippinig type:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="3"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows shippinig type"
-                           Text="{Binding ShippinigType, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="4"
-                           Text="Date:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="4"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows date"
-                           Text="{Binding Date, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="5"
-                           Text="Origin:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="5"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows origin"
-                           Text="{Binding Origin, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="6"
-                           Text="Destination:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="6"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Placeholder="Shows destination"
-                           Text="{Binding Destination, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0" 
-                           Grid.Row="7" Text="View details:"
-                           VerticalOptions="Center"/>
-                    <Image Grid.Column="1" 
-                           Grid.Row="7"
-                           HeightRequest="50"
-                           HorizontalOptions="EndAndExpand"
-                           Source="ic_chevron_right"
-                           VerticalOptions="Center">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GetZoomDetailsCommand}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                    
-                </Grid>
-
-                <ActivityIndicator HorizontalOptions="Center" 
-                                   IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                                   IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                                   VerticalOptions="CenterAndExpand"/>
-
-                <Label FontSize="Small"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding MessageLabel}"
-                       TextColor="{Binding MessageLabelTextColor, Mode=TwoWay}"
-                       VerticalOptions="CenterAndExpand"/>
-
-                <StackLayout HorizontalOptions="Center" 
-                             Orientation="Horizontal"
-                             VerticalOptions="EndAndExpand">
-
-                    <Button BackgroundColor="Silver"
-                            Command="{Binding GoBackCommand}"
-                            TextColor="White"
-                            Text="Back"
-                            WidthRequest="90"/>
+                        <Button BackgroundColor="Silver"
+                                Command="{Binding GoBackCommand}"
+                                TextColor="White"
+                                Text="Back"
+                                WidthRequest="90"/>
+                        
+                    </StackLayout>
                     
                 </StackLayout>
+
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                   IsRunning="{Binding IsRunning, Mode=TwoWay}"/>
                 
-            </StackLayout>
+            </AbsoluteLayout>
             
         </ScrollView>
 

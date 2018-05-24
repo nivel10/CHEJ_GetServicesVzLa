@@ -11,87 +11,93 @@
         <ScrollView BindingContext="{Binding EditIvss}"
                     Padding="20">
             
-            <StackLayout>
+            <AbsoluteLayout>
 
-                <StackLayout VerticalOptions="CenterAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All">
 
-                    <Image Source="CneLogo"
-                           VerticalOptions="Center"
-                           WidthRequest="100"/>
+                    <StackLayout VerticalOptions="CenterAndExpand">
+
+                        <Image Source="CneLogo"
+                               VerticalOptions="Center"
+                               WidthRequest="100"/>
+                        
+                    </StackLayout>
                     
+                    <Grid RowSpacing="5">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Nationality:"
+                               VerticalOptions="Center"/>
+                       <control:BindablePicker DisplayMemberPath="Name"
+                                                Grid.Column="1" 
+                                                Grid.Row="0"
+                                                HorizontalOptions="FillAndExpand"
+                                                Title="Select a nationality"
+                                                SelectedValuePath="NationalityId"
+                                                ItemsSource="{Binding Nationalities}"
+                                                SelectedValue="{Binding Path=NationalityId, Mode=TwoWay}"
+                                                VerticalOptions="Center"/>
+                        
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Identification Card:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="1"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Keyboard="Numeric"
+                               Text="{Binding IdentificationCard, Mode=TwoWay}"
+                               Placeholder="Enter identification card"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Text="Birth Date:"
+                               VerticalOptions="Center"/>
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="2"
+                                    Format="dd/MM/yyyy"
+                                    Date="{Binding BirthDate, Mode=TwoWay}"/>
+                    </Grid>
+
+                    <Label FontSize="Small"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding MessageLabel}"
+                           TextColor="Green"
+                           VerticalOptions="CenterAndExpand"/>
+                                    
+                    <StackLayout HorizontalOptions="Center" 
+                                 Orientation="Horizontal"
+                                 VerticalOptions="EndAndExpand">
+                        
+                        <Button BackgroundColor="Gray"
+                                Command="{Binding SaveCommand}"
+                                Text="Save"
+                                TextColor="White"
+                                WidthRequest="90"/>
+
+                         <Button BackgroundColor="Gray"
+                                Command="{Binding GoBackCommand}"
+                                Text="Back"
+                                TextColor="White"
+                                WidthRequest="90"/>
+                        
+                    </StackLayout>
+
                 </StackLayout>
-                
-                <Grid RowSpacing="5">
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Nationality:"
-                           VerticalOptions="Center"/>
-                   <control:BindablePicker DisplayMemberPath="Name"
-                                            Grid.Column="1" 
-                                            Grid.Row="0"
-                                            HorizontalOptions="FillAndExpand"
-                                            Title="Select a nationality"
-                                            SelectedValuePath="NationalityId"
-                                            ItemsSource="{Binding Nationalities}"
-                                            SelectedValue="{Binding Path=NationalityId, Mode=TwoWay}"
-                                            VerticalOptions="Center"/>
-                    
-                    <Label Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Identification Card:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Numeric"
-                           Text="{Binding IdentificationCard, Mode=TwoWay}"
-                           Placeholder="Enter identification card"
-                           VerticalOptions="Center"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="2"
-                           Text="Birth Date:"
-                           VerticalOptions="Center"/>
-                    <DatePicker Grid.Column="1"
-                                Grid.Row="2"
-                                Format="dd/MM/yyyy"
-                                Date="{Binding BirthDate, Mode=TwoWay}"/>
-                </Grid>
-
-                <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   IsRunning="{Binding IsRunning}"
                                    VerticalOptions="CenterAndExpand"/>
-                
-                <Label FontSize="Small"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding MessageLabel}"
-                       TextColor="Green"
-                       VerticalOptions="CenterAndExpand"/>
-                                
-                <StackLayout HorizontalOptions="Center" 
-                             Orientation="Horizontal"
-                             VerticalOptions="EndAndExpand">
-                    
-                    <Button BackgroundColor="Gray"
-                            Command="{Binding SaveCommand}"
-                            Text="Save"
-                            TextColor="White"
-                            WidthRequest="90"/>
-
-                     <Button BackgroundColor="Gray"
-                            Command="{Binding GoBackCommand}"
-                            Text="Back"
-                            TextColor="White"
-                            WidthRequest="90"/>
-                    
-                </StackLayout>
-
-            </StackLayout>
+            </AbsoluteLayout>
             
         </ScrollView>
         

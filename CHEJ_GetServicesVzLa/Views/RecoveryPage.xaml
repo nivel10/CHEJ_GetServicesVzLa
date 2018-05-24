@@ -9,86 +9,91 @@
         
         <ScrollView BindingContext="{Binding Recovery}"
                     Padding="10,20">
+            
+            <AbsoluteLayout>
 
-            <StackLayout>
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All">
 
-                <StackLayout VerticalOptions="CenterAndExpand">
+                    <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image Source="PasswordLogo"
-                           VerticalOptions="Center"
-                           WidthRequest="100"/>
+                        <Image Source="PasswordLogo"
+                               VerticalOptions="Center"
+                               WidthRequest="100"/>
+                        
+                    </StackLayout>
                     
-                </StackLayout>
-                
-                <Grid>
+                    <Grid>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Email:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="0"
-                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Email"
-                           Placeholder="Enter email recovery"
-                           Text="{Binding Email, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Email:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="0"
+                               IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                               Keyboard="Email"
+                               Placeholder="Enter email recovery"
+                               Text="{Binding Email, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
 
-                </Grid>
+                    </Grid>
 
-                <StackLayout VerticalOptions="CenterAndExpand">
+                    <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Label HorizontalOptions = "Center"
-                           FontSize="Small"
-                           Text="{Binding LabelMessage001}" 
+                        <Label HorizontalOptions = "Center"
+                               FontSize="Small"
+                               Text="{Binding LabelMessage001}" 
+                               HorizontalTextAlignment="Center"
+                               VerticalOptions="Center"/>
+
+                        <Label HorizontalOptions = "Center"
+                               FontSize="Small"
+                               Text="{Binding LabelMessage002}" 
+                               HorizontalTextAlignment="Center"
+                               VerticalOptions="Center"/>
+                        
+                    </StackLayout>
+                    
+                    <Label FontSize="Small"
                            HorizontalTextAlignment="Center"
-                           VerticalOptions="Center"/>
+                           Text="{Binding MessageLabel}"
+                           TextColor="{Binding MessageLabelTextColor, Mode=TwoWay}"
+                           VerticalOptions="CenterAndExpand"/>
+                    
+                    <StackLayout HorizontalOptions="Center" 
+                                 Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
 
-                    <Label HorizontalOptions = "Center"
-                           FontSize="Small"
-                           Text="{Binding LabelMessage002}" 
-                           HorizontalTextAlignment="Center"
-                           VerticalOptions="Center"/>
+                        <Button BackgroundColor="Silver"
+                                Command="{Binding RecoveryCommand}"
+                                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                Text="Recovery"
+                                TextColor="White"
+                                WidthRequest="90"/>
+
+                        <Button BackgroundColor="Silver"
+                                Command="{Binding GoBackCommand}"
+                                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                Text="Back"
+                                TextColor="White"
+                                WidthRequest="90"/>
+                        
+                    </StackLayout>
                     
                 </StackLayout>
 
+                 <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                    IsRunning="{Binding IsRunning, Mode=TwoWay}"/>
                 
-                <ActivityIndicator IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                                   IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                                   VerticalOptions="CenterAndExpand"/>
-
-                <Label FontSize="Small"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding MessageLabel}"
-                       TextColor="{Binding MessageLabelTextColor, Mode=TwoWay}"
-                       VerticalOptions="CenterAndExpand"/>
-                
-                <StackLayout HorizontalOptions="Center" 
-                             Orientation="Horizontal" 
-                             VerticalOptions="EndAndExpand">
-
-                    <Button BackgroundColor="Silver"
-                            Command="{Binding RecoveryCommand}"
-                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                            Text="Recovery"
-                            TextColor="White"
-                            WidthRequest="90"/>
-
-                    <Button BackgroundColor="Silver"
-                            Command="{Binding GoBackCommand}"
-                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                            Text="Back"
-                            TextColor="White"
-                            WidthRequest="90"/>
-                    
-                </StackLayout>
-                
-            </StackLayout>
+            </AbsoluteLayout>
 
         </ScrollView>
         

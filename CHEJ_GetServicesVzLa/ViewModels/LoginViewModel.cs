@@ -93,7 +93,7 @@
             //  Delete this
 			this.Email = "nikole.a.herrera.v@gmail.com";
 			this.Password = "123456";
-
+            
             //  Gets an instance of MainViewModel
 			this.mainViewModel = MainViewModel.GetInstance();
 		}
@@ -105,6 +105,7 @@
         private async void LoginFacebook()
 		{
 			await this.navigationService.NavigateOnLogin("LoginFacebookPage");
+			SetStatusControl(false, true, true, 1);
 		}
               
 		private async void Login()
@@ -274,7 +275,7 @@
 			this.Password = "";
         }
 
-		private void SetStatusControl(
+		public void SetStatusControl(
 			bool _isEnabled,
 			bool _isRemembered,
 			bool _isRunning,

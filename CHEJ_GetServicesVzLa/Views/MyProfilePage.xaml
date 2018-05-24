@@ -11,135 +11,131 @@
         <ScrollView BindingContext="{Binding MyProfile}"
                     Padding="10,20">
             
-            <StackLayout>
+            <AbsoluteLayout>
 
-                <controls:CircleImage Aspect="AspectFill"
-                                      HeightRequest="200"
-                                      Source="{Binding ImageSource}">
-                    <controls:CircleImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding EditImageCommand}" />
-                    </controls:CircleImage.GestureRecognizers>
-                </controls:CircleImage>
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All">
 
-                <Label FontSize="Small" 
-                       HorizontalOptions="Center"
-                       Text="Tap on image to change it...!!!"
-                       VerticalOptions="CenterAndExpand"/>
-                <Grid>
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    
-                    <Label Grid.Column="0" 
-                           Grid.Row="0" 
-                           Text="Firts Name:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="0"
-                           IsEnabled="{Binding IsEnabled}"
-                           Placeholder="Shows firts name"
-                           Text="{Binding FirstName, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
+                    <controls:CircleImage Aspect="AspectFill"
+                                          HeightRequest="200"
+                                          Source="{Binding ImageSource}">
+                        <controls:CircleImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditImageCommand}" />
+                        </controls:CircleImage.GestureRecognizers>
+                    </controls:CircleImage>
 
-                    <Label Grid.Column="0" 
-                           Grid.Row="1" 
-                           Text="Last Name:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           IsEnabled="{Binding IsEnabled}"
-                           Placeholder="Shows last name"
-                           Text="{Binding LastName, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
+                    <Label FontSize="Small" 
+                           HorizontalOptions="Center"
+                           Text="Tap on image to change it...!!!"
+                           VerticalOptions="CenterAndExpand"/>
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Column="0" 
+                               Grid.Row="0" 
+                               Text="Firts Name:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="0"
+                               IsEnabled="{Binding IsEnabled}"
+                               Placeholder="Shows firts name"
+                               Text="{Binding FirstName, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
 
-                    <Label Grid.Column="0" 
-                           Grid.Row="2" 
-                           Text="Telephone:"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"
-                           Grid.Row="2"
-                           IsEnabled="{Binding IsEnabled}"
-                           Placeholder="Shows telephone"
-                           Text="{Binding Telephone, Mode=TwoWay}"
-                           VerticalOptions="Center"/>
+                        <Label Grid.Column="0" 
+                               Grid.Row="1" 
+                               Text="Last Name:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="1"
+                               IsEnabled="{Binding IsEnabled}"
+                               Placeholder="Shows last name"
+                               Text="{Binding LastName, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
 
-                    <Label Grid.Column="0" 
-                           Grid.Row="3" 
-                           Text="Edit Email:"
-                           VerticalOptions="Center"/>
-                    <Image Grid.Column="1"
-                           Grid.Row="3"
-                           HeightRequest="35"
-                           HorizontalOptions="EndAndExpand"
-                           IsEnabled="{Binding IsEnabled}"
-                           Source="ic_chevron_right"
-                           VerticalOptions="Center">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding EditEmailCommand}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
+                        <Label Grid.Column="0" 
+                               Grid.Row="2" 
+                               Text="Telephone:"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Grid.Row="2"
+                               IsEnabled="{Binding IsEnabled}"
+                               Placeholder="Shows telephone"
+                               Text="{Binding Telephone, Mode=TwoWay}"
+                               VerticalOptions="Center"/>
 
-                    <Label Grid.Column="0" 
-                           Grid.Row="4" 
-                           Text="Edit Password:"
-                           VerticalOptions="Center"/>
-                    <Image Grid.Column="1"
-                           Grid.Row="4"
-                           HeightRequest="35"
-                           HorizontalOptions="EndAndExpand"
-                           IsEnabled="{Binding IsEnabled}"
-                           Source="ic_chevron_right"
-                           VerticalOptions="Center">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding EditPasswordCommand}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
+                        <Label Grid.Column="0" 
+                               Grid.Row="3" 
+                               Text="Edit Email:"
+                               VerticalOptions="Center"/>
+                        <Image Grid.Column="1"
+                               Grid.Row="3"
+                               HeightRequest="35"
+                               HorizontalOptions="EndAndExpand"
+                               IsEnabled="{Binding IsEnabled}"
+                               Source="ic_chevron_right"
+                               VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EditEmailCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                </Grid>
+                        <Label Grid.Column="0" 
+                               Grid.Row="4" 
+                               Text="Edit Password:"
+                               VerticalOptions="Center"/>
+                        <Image Grid.Column="1"
+                               Grid.Row="4"
+                               HeightRequest="35"
+                               HorizontalOptions="EndAndExpand"
+                               IsEnabled="{Binding IsEnabled}"
+                               Source="ic_chevron_right"
+                               VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EditPasswordCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                <!--<Image HeightRequest="80"
-                       Source="{Binding ImageSource}"
-                       WidthRequest="150"
-                       VerticalOptions="CenterAndExpand">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding EditImageCommand}"/>
-                    </Image.GestureRecognizers>
-                </Image>-->
+                    </Grid>
 
-                <ActivityIndicator IsRunning="{Binding IsRunning}" 
-                                   VerticalOptions="CenterAndExpand"/>
-                
-                <Label FontSize="Small"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding MessageLabel}"
-                       TextColor="Green"
-                       VerticalOptions="CenterAndExpand"/>
+                    <Label FontSize="Small"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding MessageLabel}"
+                           TextColor="Green"
+                           VerticalOptions="CenterAndExpand"/>
 
-                <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="Center"
-                             VerticalOptions="EndAndExpand">
-                    
-                    <Button BackgroundColor="Gray"
-                            Command="{Binding SaveCommand}"
-                            HorizontalOptions="FillAndExpand"
-                            IsEnabled="{Binding IsEnabledCommand, Mode=TwoWay}"
-                            Text="Save"
-                            TextColor="White"
-                            WidthRequest="90"/>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="EndAndExpand">
+                        
+                        <Button BackgroundColor="Gray"
+                                Command="{Binding SaveCommand}"
+                                HorizontalOptions="FillAndExpand"
+                                IsEnabled="{Binding IsEnabledCommand, Mode=TwoWay}"
+                                Text="Save"
+                                TextColor="White"
+                                WidthRequest="90"/>
 
-                    <Button BackgroundColor="Gray"
-                            Command="{Binding GoBackCommand}"
-                            HorizontalOptions="FillAndExpand"
-                            IsEnabled="{Binding IsEnabledCommand, Mode=TwoWay}"
-                            Text="Back"
-                            TextColor="White"
-                            WidthRequest="90"/>
+                        <Button BackgroundColor="Gray"
+                                Command="{Binding GoBackCommand}"
+                                HorizontalOptions="FillAndExpand"
+                                IsEnabled="{Binding IsEnabledCommand, Mode=TwoWay}"
+                                Text="Back"
+                                TextColor="White"
+                                WidthRequest="90"/>
+
+                    </StackLayout>
 
                 </StackLayout>
 
-            </StackLayout>
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   IsRunning="{Binding IsRunning}"/>
+            </AbsoluteLayout>
 
         </ScrollView>
         
