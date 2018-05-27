@@ -132,7 +132,7 @@
                 <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
                                    AbsoluteLayout.LayoutFlags="All"
                                    IsRunning="{Binding IsRunning, Mode=TwoWay}" 
-                                       VerticalOptions="CenterAndExpand"/>
+                                   VerticalOptions="CenterAndExpand"/>
                 
             </AbsoluteLayout>
             
