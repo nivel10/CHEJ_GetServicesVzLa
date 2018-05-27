@@ -68,10 +68,10 @@
 			if (profile == null)
 			{
 				mainViewModel.Login.SetStatusControl(true, true, false, 0);
-				await dialogService.ShowMessage(
-					"Error", 
-					"the facebook response is not available, try later...!!!", 
-					"Accept");
+				//await dialogService.ShowMessage(
+					//"Error", 
+					//"the facebook response is not available, try later...!!!", 
+					//"Accept");
 				navigationService.SetMainPage("LoginPage");
 				//  Application.Current.MainPage = new NavigationPage(new LoginPage());            
 				return;

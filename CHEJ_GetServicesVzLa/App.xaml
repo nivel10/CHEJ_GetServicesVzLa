@@ -22,6 +22,11 @@
             <x:String x:Key="UrlIvss">https://api.willicab.com.ve/</x:String>
             <x:String x:Key="UrlZoom">https://api.willicab.com.ve/infove/zoom/seguimiento</x:String>
             <x:String x:Key="AppName">GetServicesVzLa</x:String>
+
+            <!-- Company Information -->
+            <x:String x:Key="CompanyName">CHEJ Consultor, C.A.</x:String>
+            <x:String x:Key="CompanyUrl">www.chejconsultor.com.ve</x:String>
+            <x:String x:Key="CompanyEmail">soporte@chejconsultor.com.ve</x:String>
             
             <!-- Colors -->
             <Color x:Key="BackGround">#485058</Color>

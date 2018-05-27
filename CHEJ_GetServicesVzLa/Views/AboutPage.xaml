@@ -8,15 +8,31 @@
     <ContentPage.Content>
         
         <ScrollView BindingContext="{Binding About}"
-                    Padding="10,20">
+                    Padding="10">
 
             <StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand">
 
-                    <Image Source="AboutLogo"
+                    <Image Source="ServiciosLogo"
                            VerticalOptions="Center"
-                           WidthRequest="100"/>
+                           WidthRequest="70"/>
+                    
+                    <Label FontAttributes="Bold"
+                           FontSize="Small"
+                           HorizontalOptions="Center"
+                           Text="Basic Consultation of Services - VzLa"
+                           VerticalOptions="Center"/>
+                    
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Center">
+
+                    <Image HeightRequest="120"
+                           Source="CHEJLogo"
+                           VerticalOptions="Center"/>
                     
                 </StackLayout>
                 
@@ -29,45 +45,73 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="0"
-                           Text="Current Email:"
+                           Text="App Name:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="0"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Email"
-                           Placeholder="Enter current email"
-                           Text="{Binding CurrentEmail, Mode=TwoWay}"
+                           Text="{Binding AppName, Mode=TwoWay}"
                            VerticalOptions="Center"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="1"
-                           Text="New Email:"
+                           Text="Version:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="1"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Email"
-                           Placeholder="Enter new email"
-                           Text="{Binding NewEmail, Mode=TwoWay}"
+                           Text="{Binding AppVersion, Mode=TwoWay}"
                            VerticalOptions="Center"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="2"
-                           Text="Confirm Email:"
+                           Text="License:"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Grid.Row="2"
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                           Keyboard="Email"
-                           Placeholder="Enter confirm email"
-                           Text="{Binding ConfirmEmail, Mode=TwoWay}"
+                           Text="{Binding AppLicense, Mode=TwoWay}"
                            VerticalOptions="Center"/>
+                    
+                    <Label Grid.Column="0"
+                           Grid.Row="3"
+                           Text="Dev. Company:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="3"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Text="{Binding AppDevCompany, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="4"
+                           Text="Web Page:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="4"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Text="{Binding AppWebPage, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="5"
+                           Text="Email:"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1"
+                           Grid.Row="5"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Text="{Binding AppEmailCompany, Mode=TwoWay}"
+                           VerticalOptions="Center"/>
+
                 </Grid>
 
                 <ActivityIndicator IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
                                    VerticalOptions="CenterAndExpand"/>
 
+
+
+                
                 <Label FontSize="Small"
                        HorizontalTextAlignment="Center"
                        Text="{Binding MessageLabel}"
@@ -78,7 +122,7 @@
                              Orientation="Horizontal" 
                              VerticalOptions="EndAndExpand">
 
-                    <Button BackgroundColor="Silver"
+                    <Button BackgroundColor="Gray"
                             Command="{Binding GoBackCommand}"
                             IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                             Text="Back"
@@ -90,8 +134,7 @@
             </StackLayout>
 
         </ScrollView>
-        
-        
+
     </ContentPage.Content>
     
 </ContentPage>

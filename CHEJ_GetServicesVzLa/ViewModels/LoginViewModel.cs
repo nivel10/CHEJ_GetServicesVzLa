@@ -249,11 +249,11 @@
 			this.SetInitialize();
 			this.SetStatusControl(true, true, false, 0);
 
+			//  Instance the class AboutViewModel
+            this.mainViewModel.About = new AboutViewModel();
+
 			//  Navigate to the page AboutPage
 			await this.navigationService.NavigateOnLogin("AboutPage");
-
-			//  Instance the class AboutViewModel
-			this.mainViewModel.About = new AboutViewModel();
         }
 
 		private async void ForgotPassword()

@@ -131,6 +131,7 @@
     <AndroidResource Include="Resources\drawable\LogoBuscarTracker.png" />
     <AndroidResource Include="Resources\drawable\LogoBuscarUsuario.png" />
     <AndroidResource Include="Resources\drawable\LogoBuscarZoom.png" />
+    <AndroidResource Include="Resources\drawable\CHEJLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
