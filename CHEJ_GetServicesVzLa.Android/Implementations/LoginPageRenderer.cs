@@ -1,17 +1,17 @@
-﻿[assembly: Xamarin.Forms.ExportRenderer(
+﻿using System;
+using System.Threading.Tasks;
+using Android.App;
+using CHEJ_GetServicesVzLa.Models;
+using CHEJ_GetServicesVzLa.Services;
+using Xamarin.Auth;
+using Xamarin.Forms.Platform.Android;
+
+[assembly: Xamarin.Forms.ExportRenderer(
 	typeof(CHEJ_GetServicesVzLa.Views.LoginFacebookPage),
 	typeof(CHEJ_GetServicesVzLa.Droid.Implementations.LoginPageRenderer))]
 
 namespace CHEJ_GetServicesVzLa.Droid.Implementations
 {
-	using System;
-	using System.Threading.Tasks;
-	using Android.App;
-	using CHEJ_GetServicesVzLa.Models;
-	using Services;
-	using Xamarin.Auth;
-	using Xamarin.Forms.Platform.Android;
-
 	public class LoginPageRenderer : PageRenderer
 	{
 		public LoginPageRenderer()

@@ -73,6 +73,11 @@
 			return facebookResponse;
 		}      
 
+		public async Task<InstagramResponse> GetInstagram(string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
 		public async Task<TokenResponse> LoginFacebook(
 			string urlBase,
             string servicePrefix,
@@ -107,7 +112,7 @@
                 return null;
             }
         }
-
+        
         public async Task<TokenResponse> GetToken(
             string _userName,
             string _userPasswor,
