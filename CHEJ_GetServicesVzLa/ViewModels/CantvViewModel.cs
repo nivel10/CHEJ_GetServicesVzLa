@@ -1,16 +1,15 @@
 ﻿namespace CHEJ_GetServicesVzLa.ViewModels
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
-	using System.Linq;
-	using System.Windows.Input;
-	using CHEJ_GetServicesVzLa.Helpers;
-	using CHEJ_GetServicesVzLa.Models;
-	using CHEJ_GetServicesVzLa.Services;
-	using GalaSoft.MvvmLight.Command;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows.Input;
+    using CHEJ_GetServicesVzLa.Helpers;
+    using CHEJ_GetServicesVzLa.Models;
+    using CHEJ_GetServicesVzLa.Services;
+    using GalaSoft.MvvmLight.Command;
 
-	public class CantvViewModel : BaseViewModel
+    public class CantvViewModel : BaseViewModel
 	{
 		#region Attributes
         
@@ -285,7 +284,7 @@
 		}
 
 		public void UpdateCneData(
-			int _option, 
+            int _option, 
 			CneItemViewModel _cneItemViewModel)
         {
 			this.SetStatusControls(true);
