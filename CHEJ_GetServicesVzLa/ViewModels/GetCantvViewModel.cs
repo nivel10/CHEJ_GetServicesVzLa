@@ -151,16 +151,25 @@
 				return;
 			}
 
-			//  Gets the data of Cantv
-			response = await apiService.Get<Cantv>(
-				MethodsHelper.GetUrlCantv(),
-				"/infove/cantv",
-				"/deuda",
-				string.Format(
-					"/{0}/{1}", 
-					this.cantvItemView.CodePhone, 
-					this.cantvItemView.NumberPhone));
-			if (!response.IsSuccess)
+            //  Gets the data of Cantv
+            //response = await apiService.Get<Cantv>(
+            //MethodsHelper.GetUrlCantv(),
+            //"/infove/cantv",
+            //"/deuda",
+            //string.Format(
+            //"/{0}/{1}", 
+            //this.cantvItemView.CodePhone, 
+            //this.cantvItemView.NumberPhone));
+
+            response = await apiService.Get<Cantv>(
+                MethodsHelper.GetUrlCantv(),
+                "/API",
+                "/WebServices/WebScraping",
+                string.Format(
+                    "?_numbreCode={0}&_numbrePhone={1}",
+                    this.cantvItemView.CodePhone,
+                    this.cantvItemView.NumberPhone));
+            if (!response.IsSuccess)
 			{
 				//  Asing status to the controls
                 this.SetStatusControl(false, false, 0);
@@ -176,15 +185,33 @@
 				else
 				{
 					await dialogService.ShowMessage(
-                    "Error",
-                    response.Message,
-                    "Accept");
+                        "Error",
+                        response.Message,
+                        "Accept");
 				}
                             
 				//  Navigate on Back
 				this.GoBack();
 				return;
 			}
+            else
+            {
+                var cantv = (Cantv)response.Result;
+                if(cantv.Error && !string.IsNullOrEmpty(cantv.Descripcion))
+                {
+                    //  Asing status to the controls
+                    this.SetStatusControl(false, false, 0);
+
+                    await dialogService.ShowMessage(
+                        "Error",
+                        cantv.Descripcion,
+                        "Accept");
+
+                    //  Navigate on Back
+                    this.GoBack();
+                    return;
+                }
+            }
             
 			//  Load values in the controsl
 			this.LoadValuesControls((Cantv)response.Result, 1);
