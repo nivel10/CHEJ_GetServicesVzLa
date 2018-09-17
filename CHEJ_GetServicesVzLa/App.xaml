@@ -16,7 +16,7 @@
             <x:String x:Key="UrlAPI">http://chejconsultor.ddns.net:9015</x:String>
             <!--<x:String x:Key="UrlCantv">https://api.willicab.com.ve/infove/cantv/deuda</x:String>-->
             <!--<x:String x:Key="UrlCantv">https://api.willicab.com.ve</x:String>-->
-             <x:String x:Key="UrlCantv">http://chejconsultor.ddns.net:9012</x:String>
+             <x:String x:Key="UrlCantv">http://chejconsultor.ddns.net:9015</x:String>
             <!--<x:String x:Key="UrlCne">https://api.willicab.com.ve/infove/cne/elector</x:String>-->
             <x:String x:Key="UrlCne">https://api.willicab.com.ve/</x:String>
             <!--<x:String x:Key="UrlIvss">https://api.willicab.com.ve/infove/ivss/cuenta</x:String>-->

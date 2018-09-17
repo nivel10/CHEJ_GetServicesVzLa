@@ -164,9 +164,9 @@
             response = await apiService.Get<Cantv>(
                 MethodsHelper.GetUrlCantv(),
                 "/API",
-                "/WebServices/WebScraping",
+                "/WebServices/GetCantvData",
                 string.Format(
-                    "?_numbreCode={0}&_numbrePhone={1}",
+                    "?_numberCode={0}&_numberPhone={1}",
                     this.cantvItemView.CodePhone,
                     this.cantvItemView.NumberPhone));
             if (!response.IsSuccess)
